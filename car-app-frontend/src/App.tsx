@@ -14,12 +14,20 @@ const ContentLayout = styled(Layout)`
   }
 `;
 
+const TestPage = styled.div`
+  width:100%;
+  background:blue;
+  height:200vh;
+`
+
 function App() {
   return (
     <ContentLayout>
       <BrowserRouter>
         <Route path="/" exact>
-          Home page
+          <TestPage>
+            <h1>Hello world</h1>
+          </TestPage>
         </Route>
         <Route path="/about">
           <About/>
