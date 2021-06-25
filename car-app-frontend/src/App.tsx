@@ -4,13 +4,7 @@ import { About } from "./components/about-page/About";
 import { Layout } from 'antd'
 import styled from '@emotion/styled';
 
-
-const ContentLayout = styled(Layout)`
-  width:100%;
-  background:none;
-`;
-
-const TestPage = styled.div`
+const ContentLayout = styled.div`
   margin-top: 1em;
   width:100%;
   background:blue;
@@ -28,9 +22,7 @@ function App() {
     <ContentLayout>
       <BrowserRouter>
         <Route path="/" exact>
-          <TestPage>
-            <h1>Hello world</h1>
-          </TestPage>
+          <h1>Hello world</h1>
         </Route>
         <Route path="/about">
           <About/>
