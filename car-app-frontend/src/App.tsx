@@ -3,11 +3,11 @@ import { BrowserRouter, Route } from 'react-router-dom';
 import { About } from "./components/about-page/About";
 import { Layout } from 'antd'
 import styled from '@emotion/styled';
+import { Navbar } from './components/navbar-component/Navbar';
 
 const ContentLayout = styled.div`
   margin-top: 1em;
   width:100%;
-  background:blue;
   height:200vh;
   @media only screen and (min-width:800px){
     width:95%;
@@ -20,6 +20,7 @@ const ContentLayout = styled.div`
 function App() {
   return (
     <ContentLayout>
+      <Navbar/>
       <BrowserRouter>
         <Route path="/" exact>
           <h1>Hello world</h1>
