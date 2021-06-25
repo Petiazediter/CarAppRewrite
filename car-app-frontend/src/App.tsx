@@ -8,16 +8,19 @@ import styled from '@emotion/styled';
 const ContentLayout = styled(Layout)`
   width:100%;
   background:none;
-  @media only screen and (min-width:800px){
-    width:750px;
-    margin:auto;
-  }
 `;
 
 const TestPage = styled.div`
+  margin-top: 1em;
   width:100%;
   background:blue;
   height:200vh;
+  @media only screen and (min-width:800px){
+    width:95%;
+    max-width:1500px;
+    margin:auto;
+    margin-top:2em;
+  }
 `
 
 function App() {
