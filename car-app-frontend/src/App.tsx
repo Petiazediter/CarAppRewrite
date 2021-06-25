@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Route } from 'react-router-dom'; 
+import { About } from "./components/about-page/About";
 
 function App() {
   return (
@@ -8,9 +9,7 @@ function App() {
         Home page
       </Route>
       <Route path="/about">
-        <div>
-            <h1>Hello world!</h1>
-        </div>
+        <About/>
       </Route>
     </BrowserRouter>
   );
