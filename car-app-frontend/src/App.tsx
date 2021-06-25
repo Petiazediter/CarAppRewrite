@@ -1,7 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Route } from 'react-router-dom'; 
 import { About } from "./components/about-page/About";
-import { Layout } from 'antd'
 import styled from '@emotion/styled';
 import { Navbar } from './components/navbar-component/Navbar';
 
