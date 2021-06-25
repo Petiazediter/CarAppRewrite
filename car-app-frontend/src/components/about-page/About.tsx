@@ -1,7 +1,11 @@
+import { thisExpression } from "@babel/types"
 import styled from "@emotion/styled"
 import { Layout } from 'antd'
+import { useState } from "react"
 
 const AboutHeader = styled('h1')({
+    padding:0,
+    margin:0,
     width: 'fit-content',
     fontFamily: 'sans-serif',
     borderBottom: '10px solid #676CE1',
@@ -10,15 +14,24 @@ const AboutHeader = styled('h1')({
 })
 
 const Content = styled(Layout)({
-    padding: '2em',
-    boxSizing: 'border-box',
-    display: 'inline-block',
-    position: 'relative',
-    width: '100%'
+    width:'100%',
+    display: 'flex',
+    justifyContent:'space-around',
+    padding: '0 2em 0 2em',
+    boxSizing: 'border-box'
 })
 
-const DescriptionWithIconStyled = styled('div')({
+const FixedContent = styled(Layout)({
+    left:0,
+    position:"fixed",
+    maxWidth: 'none',
+    background: '#FCFCFC',
+})
 
+const PageContent = styled(Layout)({
+    position:'relative',
+    alignSelf:'center',
+    width:'50%'
 })
 
 export function About() {
