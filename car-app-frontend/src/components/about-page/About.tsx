@@ -1,15 +1,17 @@
 import styled from "@emotion/styled"
 import { Layout } from 'antd'
 import 'antd/dist/antd.css';
+import '../../index.css'
 
 const AboutHeader = styled('h1')({
-    padding:0,
+    padding:'0 0 10px 0',
     margin:0,
     width: 'fit-content',
     fontFamily: 'sans-serif',
     borderBottom: '10px solid #676CE1',
     fontSize: 'xx-large',
-    color: '#353535'
+    color: 'black',
+    fontWeight: 'bolder'
 })
 
 const Content = styled(Layout)({
@@ -23,7 +25,7 @@ const Content = styled(Layout)({
 const FixedContent = styled(Layout)({
     left:0,
     display:'block',
-    top:'120px',
+    top:'0',
     position:"fixed",
     maxWidth: 'none',
     padding:0,
@@ -32,7 +34,7 @@ const FixedContent = styled(Layout)({
 
 const SideMenuLink = styled('a')({
     textAlign:'left',
-    color: '#353535',
+    color: 'black',
     fontFamily: 'sans-serif',
     fontWeight: 'bold',
     padding:'1em'
@@ -48,8 +50,8 @@ export function About() {
     
     return (
     <Content>
-        <FixedContent>
-            <ol style={ {listStyle: 'none', padding: '1em', margin: 0}}>
+        <FixedContent className="side-menu">
+            <ol>
                 <li><SideMenuLink href="#aboutus">About us</SideMenuLink></li>
                 <li><SideMenuLink href="#sell">Selling information</SideMenuLink></li>
                 <li><SideMenuLink href="#sell">Bidding information</SideMenuLink></li>
@@ -76,8 +78,8 @@ function TestData(){
 function DescriptionWithIcon({title, description} : { title: string, description: string}) {
     return ( 
         <div>
-            <h1>{title}</h1>
-            <p>{description}</p>
+            <h1 className="bold">{title}</h1>
+            <p className="bold">{description}</p>
         </div>
     )
 }
