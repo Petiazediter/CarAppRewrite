@@ -7,6 +7,7 @@ import styled from '@emotion/styled';
 
 const ContentLayout = styled(Layout)`
   width:100%;
+  background:none;
   @media only screen and (min-width:800px){
     width:750px;
     margin:auto;
