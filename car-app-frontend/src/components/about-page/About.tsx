@@ -1,7 +1,6 @@
-import { thisExpression } from "@babel/types"
 import styled from "@emotion/styled"
 import { Layout } from 'antd'
-import { useState } from "react"
+import 'antd/dist/antd.css';
 
 const AboutHeader = styled('h1')({
     padding:0,
@@ -23,15 +22,26 @@ const Content = styled(Layout)({
 
 const FixedContent = styled(Layout)({
     left:0,
+    display:'block',
+    top:'120px',
     position:"fixed",
     maxWidth: 'none',
-    background: '#FCFCFC',
+    padding:0,
+    margin:0
+})
+
+const SideMenuLink = styled('a')({
+    textAlign:'left',
+    color: '#353535',
+    fontFamily: 'sans-serif',
+    fontWeight: 'bold',
+    padding:'1em'
 })
 
 const PageContent = styled(Layout)({
     position:'relative',
     alignSelf:'center',
-    width:'50%'
+    maxWidth:'750px'
 })
 
 export function About() {
@@ -39,10 +49,15 @@ export function About() {
     return (
     <Content>
         <FixedContent>
-            <h1>Fixed</h1>
+            <ol style={ {listStyle: 'none', padding: '1em', margin: 0}}>
+                <li><SideMenuLink href="#aboutus">About us</SideMenuLink></li>
+                <li><SideMenuLink href="#sell">Selling information</SideMenuLink></li>
+                <li><SideMenuLink href="#sell">Bidding information</SideMenuLink></li>
+                <li><SideMenuLink href="#sell">Buying information</SideMenuLink></li>
+            </ol>
         </FixedContent>
         <PageContent>
-            <AboutHeader>Let us introduce ourself</AboutHeader>
+            <AboutHeader id="aboutus">Let us introduce ourself</AboutHeader>
             <TestData/>
         </PageContent>
    </Content>)
