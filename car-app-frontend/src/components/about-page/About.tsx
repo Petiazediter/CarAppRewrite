@@ -22,18 +22,34 @@ const DescriptionWithIconStyled = styled('div')({
 })
 
 export function About() {
+    
     return (
     <Content>
-        <AboutHeader>Let us introduce ourself</AboutHeader>
-        <DescriptionWithIcon title="Test" description="Ex adipisicing laborum est velit id do deserunt. Aute officia laboris qui mollit proident. Consectetur do excepteur ex ullamco et dolore dolore sit ullamco do. Qui officia excepteur aliquip reprehenderit officia excepteur. Est ipsum quis voluptate Lorem labore nostrud."/>
-    </Content>)
+        <FixedContent>
+            <h1>Fixed</h1>
+        </FixedContent>
+        <PageContent>
+            <AboutHeader>Let us introduce ourself</AboutHeader>
+            <TestData/>
+        </PageContent>
+   </Content>)
+}
+
+function TestData(){
+    let rows = []
+    for (var i = 0; i < 20; i++) {
+        rows.push(
+            <DescriptionWithIcon title="title" description="Ipsum duis nulla ut aliqua velit Lorem dolore amet eiusmod veniam elit. Duis irure cillum fugiat consectetur dolor sit irure eiusmod magna. Laboris aliqua nostrud voluptate elit pariatur deserunt in reprehenderit velit." />
+        )
+    } 
+    return <div>{rows}</div>
 }
 
 function DescriptionWithIcon({title, description} : { title: string, description: string}) {
     return ( 
-        <DescriptionWithIconStyled>
+        <div>
             <h1>{title}</h1>
             <p>{description}</p>
-        </DescriptionWithIconStyled>
+        </div>
     )
 }
