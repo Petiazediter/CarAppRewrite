@@ -7,7 +7,6 @@ import { Navbar } from './components/navbar-component/Navbar';
 const ContentLayout = styled.div`
   margin-top: 1em;
   width:100%;
-  height:200vh;
   @media only screen and (min-width:800px){
     width:95%;
     max-width:1500px;

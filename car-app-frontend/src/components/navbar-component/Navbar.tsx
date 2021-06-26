@@ -10,22 +10,29 @@ const NavbarMenuCols = styled(Col)<NavbarMenuColProps>`
     color: ${(p: NavbarMenuColProps) => p.isHighlighted ? 'white' : 'black'};
     font-weight:bolder;
     text-align:center;
-    padding:.5em;
     display:flex;
     align-items: center;
     justify-content: center;
     position:relative;
+    color:${(p: NavbarMenuColProps) => p.isHighlighted ? '#eee' : 'grey'};
+    &:hover{
+        background: ${(p:NavbarMenuColProps) => p.isHighlighted ? '#6065DB' : 'none'};
+        color:${(p: NavbarMenuColProps) => p.isHighlighted ? 'white' : 'black'};
+    }
 `
 
 const StyledNav = styled('nav')`
     margin-bottom: 1em;
+    box-shadow: 0px 1px 0px rgba(100,100,100,.2);
+    padding-bottom: 5px;
 `
 
 const LeftAlignedH1 = styled('h1')`
-width:100%;
-text-align:left;
-margin:0;
-padding:0;`
+    width:100%;
+    text-align:left;
+    margin:0;
+    padding:0;
+`
 
 const FilledRowInput = styled('input')`
     position:relative;
@@ -35,7 +42,9 @@ const FilledRowInput = styled('input')`
     border:none;
     font-weight:bold;
     background:#FCFCFC;
+    padding:1em 0 1em 0;
 `
+
 export function Navbar() {
     return (
     <StyledNav>
