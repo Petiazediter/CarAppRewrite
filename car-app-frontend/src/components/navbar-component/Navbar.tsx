@@ -1,6 +1,7 @@
 import styled from "@emotion/styled"
 import { Row, Col } from "antd"
-import { Link,BrowserRouter } from 'react-router-dom'
+import { Link } from 'react-router-dom'
+import useWindowDimensions from '../../hooks/WindowSize'
 
 interface NavbarMenuColProps{
     isHighlighted?: boolean;
@@ -53,6 +54,8 @@ const NavbarLink = styled(Link)<NavbarMenuColProps>`
 `
 
 export function Navbar() {
+    const { height, width } = useWindowDimensions();
+
     return (
     <StyledNav>
         <Row>
