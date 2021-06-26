@@ -18,8 +18,8 @@ const ContentLayout = styled.div`
 function App() {
   return (
     <ContentLayout>
-      <Navbar/>
       <BrowserRouter>
+      <Navbar/>
         <Route path="/" exact>
           <h1>Hello world</h1>
         </Route>
