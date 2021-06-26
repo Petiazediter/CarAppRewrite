@@ -41,7 +41,7 @@ const FilledRowInput = styled('input')`
     border:none;
     font-weight:bold;
     background:#FCFCFC;
-    padding:1em 0 1em 0;
+    padding:1em;
 `
 
 const NavbarLink = styled(Link)<NavbarMenuColProps>`
