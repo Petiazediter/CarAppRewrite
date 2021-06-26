@@ -1,5 +1,6 @@
 import styled from "@emotion/styled"
 import { Row, Col } from "antd"
+import { Link,BrowserRouter } from 'react-router-dom'
 
 interface NavbarMenuColProps{
     isHighlighted?: boolean;
@@ -14,10 +15,8 @@ const NavbarMenuCols = styled(Col)<NavbarMenuColProps>`
     align-items: center;
     justify-content: center;
     position:relative;
-    color:${(p: NavbarMenuColProps) => p.isHighlighted ? '#eee' : 'grey'};
     &:hover{
         background: ${(p:NavbarMenuColProps) => p.isHighlighted ? '#6065DB' : 'none'};
-        color:${(p: NavbarMenuColProps) => p.isHighlighted ? 'white' : 'black'};
     }
 `
 
@@ -45,27 +44,35 @@ const FilledRowInput = styled('input')`
     padding:1em 0 1em 0;
 `
 
+const NavbarLink = styled(Link)<NavbarMenuColProps>`
+    color:${(p: NavbarMenuColProps) => p.isHighlighted ? '#eee' : 'grey'};
+    &:hover{
+        background: ${(p:NavbarMenuColProps) => p.isHighlighted ? '#6065DB' : 'none'};
+        color:${(p: NavbarMenuColProps) => p.isHighlighted ? 'white' : 'black'};
+    }
+`
+
 export function Navbar() {
     return (
     <StyledNav>
         <Row>
             <NavbarMenuCols flex={1}>
-                <LeftAlignedH1>CarBidApp</LeftAlignedH1>
+                <Link to="/"><LeftAlignedH1>CarBidApp</LeftAlignedH1></Link>
             </NavbarMenuCols>
             <NavbarMenuCols flex={1}>
-                About us
+                <NavbarLink to="/about">About us</NavbarLink>
             </NavbarMenuCols>
             <NavbarMenuCols isHighlighted flex={1}>
-                Sell a car
+                <NavbarLink isHighlighted to="/sell">Sell a car</NavbarLink>
             </NavbarMenuCols>
             <NavbarMenuCols flex={1}>
-                Auctions
+                <NavbarLink to="/auctions">Auctions</NavbarLink>
             </NavbarMenuCols>
             <NavbarMenuCols flex={4}>
                 <FilledRowInput type="text" placeholder="search"/>
             </NavbarMenuCols>
             <NavbarMenuCols isHighlighted flex={1}>
-                Sign in
+                <NavbarLink isHighlighted to="/sign-in">Sign in</NavbarLink>
             </NavbarMenuCols>
         </Row>
     </StyledNav>)
