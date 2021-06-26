@@ -56,7 +56,7 @@ const NavbarLink = styled(Link)<NavbarMenuColProps>`
 export function Navbar() {
     const { height, width } = useWindowDimensions();
 
-    return (
+    return width >= 800 ? (
     <StyledNav>
         <Row>
             <NavbarMenuCols flex={1}>
@@ -78,5 +78,6 @@ export function Navbar() {
                 <NavbarLink isHighlighted to="/sign-in">Sign in</NavbarLink>
             </NavbarMenuCols>
         </Row>
-    </StyledNav>)
+    </StyledNav>) : 
+    (<h1>Mobile view to here :)</h1>)
 }
