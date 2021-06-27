@@ -1,5 +1,5 @@
 import styled from "@emotion/styled"
-import { Row, Col } from "antd"
+import { Row, Col, Menu, Dropdown } from "antd"
 import { Link } from 'react-router-dom'
 import useWindowDimensions from '../../hooks/WindowSize'
 import { MenuOutlined } from '@ant-design/icons'
@@ -63,6 +63,24 @@ const LeftAlignedH1 = styled('h1')`
     text-align:left;
 `
 
+const menu = (
+    <Menu>
+        <Menu.Item key="0">
+            <Link to="/about">About</Link>
+        </Menu.Item>
+        <Menu.Item key="1">
+            <Link to="/sell">Sell a car</Link>
+        </Menu.Item>
+        <Menu.Item key="2">
+            <Link to="/auctions">Auctions</Link>
+        </Menu.Item>
+        <Menu.Divider />
+        <Menu.Item key="3">
+            <Link to="/sign-in">Sign in</Link>
+        </Menu.Item>
+  </Menu>
+);
+
 export function Navbar() {
     const { width } = useWindowDimensions();
 
@@ -98,7 +116,9 @@ export function Navbar() {
                 <FilledRowInput type="text" placeholder="search"/>
             </NavbarMenuCol>
             <NavbarMenuCol flex={1}>
-                <MenuOutlined/>
+                <Dropdown overlay={menu} trigger={['click']}>
+                    <MenuOutlined onClick={e => e.preventDefault()}/>
+                </Dropdown>
             </NavbarMenuCol>
         </Row>
     </StyledNav>)
