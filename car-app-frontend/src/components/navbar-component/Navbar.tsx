@@ -2,6 +2,7 @@ import styled from "@emotion/styled"
 import { Row, Col } from "antd"
 import { Link } from 'react-router-dom'
 import useWindowDimensions from '../../hooks/WindowSize'
+import { MenuOutlined } from '@ant-design/icons'
 
 interface NavbarMenuColProps{
     isHighlighted?: boolean;
@@ -90,8 +91,14 @@ export function Navbar() {
     </StyledNav>) : 
     (<StyledNav>
         <Row>
-            <NavbarMenuCol>
-                
+            <NavbarMenuCol flex={1}>
+                <TitleLink to="/"><LeftAlignedH1>CarBidApp</LeftAlignedH1></TitleLink>
+            </NavbarMenuCol>
+            <NavbarMenuCol flex={3}>
+                <FilledRowInput type="text" placeholder="search"/>
+            </NavbarMenuCol>
+            <NavbarMenuCol flex={1}>
+                <MenuOutlined/>
             </NavbarMenuCol>
         </Row>
     </StyledNav>)
