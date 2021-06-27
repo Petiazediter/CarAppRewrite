@@ -7,7 +7,7 @@ interface NavbarMenuColProps{
     isHighlighted?: boolean;
 }
 
-const NavbarMenuCols = styled(Col)<NavbarMenuColProps>`
+const NavbarMenuCol = styled(Col)<NavbarMenuColProps>`
     background: ${(p: NavbarMenuColProps) => p.isHighlighted ? '#676CE1' : 'none'};
     color: ${(p: NavbarMenuColProps) => p.isHighlighted ? 'white' : 'black'};
     font-weight:bolder;
@@ -63,30 +63,36 @@ const LeftAlignedH1 = styled('h1')`
 `
 
 export function Navbar() {
-    const { height, width } = useWindowDimensions();
+    const { width } = useWindowDimensions();
 
     return width >= 800 ? (
     <StyledNav>
         <Row>
-            <NavbarMenuCols flex={1}>
+            <NavbarMenuCol flex={1}>
                 <TitleLink to="/"><LeftAlignedH1>CarBidApp</LeftAlignedH1></TitleLink>
-            </NavbarMenuCols>
-            <NavbarMenuCols flex={1}>
+            </NavbarMenuCol>
+            <NavbarMenuCol flex={1}>
                 <NavbarLink to="/about">About us</NavbarLink>
-            </NavbarMenuCols>
-            <NavbarMenuCols isHighlighted flex={1}>
+            </NavbarMenuCol>
+            <NavbarMenuCol isHighlighted flex={1}>
                 <NavbarLink isHighlighted to="/sell">Sell a car</NavbarLink>
-            </NavbarMenuCols>
-            <NavbarMenuCols flex={1}>
+            </NavbarMenuCol>
+            <NavbarMenuCol flex={1}>
                 <NavbarLink to="/auctions">Auctions</NavbarLink>
-            </NavbarMenuCols>
-            <NavbarMenuCols flex={4}>
+            </NavbarMenuCol>
+            <NavbarMenuCol flex={4}>
                 <FilledRowInput type="text" placeholder="search"/>
-            </NavbarMenuCols>
-            <NavbarMenuCols isHighlighted flex={1}>
+            </NavbarMenuCol>
+            <NavbarMenuCol isHighlighted flex={1}>
                 <NavbarLink isHighlighted to="/sign-in">Sign in</NavbarLink>
-            </NavbarMenuCols>
+            </NavbarMenuCol>
         </Row>
     </StyledNav>) : 
-    (<h1>Mobile view to here :)</h1>)
+    (<StyledNav>
+        <Row>
+            <NavbarMenuCol>
+                
+            </NavbarMenuCol>
+        </Row>
+    </StyledNav>)
 }
