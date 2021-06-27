@@ -27,13 +27,6 @@ const StyledNav = styled('nav')`
     padding-bottom: 5px;
 `
 
-const LeftAlignedH1 = styled('h1')`
-    width:100%;
-    text-align:left;
-    margin:0;
-    padding:0;
-`
-
 const FilledRowInput = styled('input')`
     position:relative;
     width:100%;
@@ -53,6 +46,22 @@ const NavbarLink = styled(Link)<NavbarMenuColProps>`
     }
 `
 
+const TitleLink = styled(Link)`
+    position:relative;
+    width:100%;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+`
+
+const LeftAlignedH1 = styled('h1')`
+    position:relative;
+    width:100%;
+    padding:0;
+    margin:0;
+    text-align:left;
+`
+
 export function Navbar() {
     const { height, width } = useWindowDimensions();
 
@@ -60,7 +69,7 @@ export function Navbar() {
     <StyledNav>
         <Row>
             <NavbarMenuCols flex={1}>
-                <Link to="/"><LeftAlignedH1>CarBidApp</LeftAlignedH1></Link>
+                <TitleLink to="/"><LeftAlignedH1>CarBidApp</LeftAlignedH1></TitleLink>
             </NavbarMenuCols>
             <NavbarMenuCols flex={1}>
                 <NavbarLink to="/about">About us</NavbarLink>
