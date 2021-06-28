@@ -3,5 +3,6 @@ export interface Car{
     tags: string[],
     bid: number,
     country: string,
-    city: string   
+    city: string,
+    imgLinks: string[]
 }
