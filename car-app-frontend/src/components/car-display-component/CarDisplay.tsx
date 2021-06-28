@@ -5,9 +5,7 @@ const { Countdown } = Statistic;
 
 const CarComponentWrapper = styled('div')`
     width:100%;
-    @media only screen and ( min-width: 800px) {
-        width:400px;
-    }
+    position:relative;
 `
 
 const BidSpan = styled('span')`
@@ -30,7 +28,7 @@ const LabelSpan = styled('span')`
 `
 
 
-export function CarDisplay( {carName, tags, highestBid} : {carName: string, tags: string[], highestBid: number}) {
+export function CarDisplay( {carName, tags, highestBid, country, city} : {carName: string, tags: string[], highestBid: number, country: string, city: string}) {
     return (
     <CarComponentWrapper>
         <ImageDiv>
@@ -56,5 +54,6 @@ export function CarDisplay( {carName, tags, highestBid} : {carName: string, tags
                 <Tag>{item}</Tag>
             )
         }
+        <p>{city},{country}</p>
     </CarComponentWrapper>)
 }
