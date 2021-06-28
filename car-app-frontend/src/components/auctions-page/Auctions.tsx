@@ -42,7 +42,7 @@ export function Auctions() {
     </Menu>)
 
     return (
-        <Row className="full-width" justify='center' style={{width:'100%',background:'red'}}>
+        <Row className="full-width" justify='center' style={{width:'100%'}}>
             <SortRow flex={1}>
                     <Col flex={1}>
                     <Dropdown className="full-width" overlay={transmissionMenu} placement="bottomLeft" arrow>
