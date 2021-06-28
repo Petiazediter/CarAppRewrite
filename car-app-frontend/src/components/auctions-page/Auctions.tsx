@@ -1,14 +1,22 @@
 import useWindowDimensions from '../../hooks/WindowSize'
-import { Row, Col, Slider, Divider, Space, Menu, Dropdown, Button } from 'antd';
+import { Row, Col, Slider, Menu, Dropdown, Button } from 'antd';
 import styled from '@emotion/styled';
 
 const SortRow = styled(Col)`
     display:flex;
-    align-items:center;
+    align-items:bottom;
 `
 
 const BoldH1 = styled('h1')`
-font-weight:700`
+    font-weight:700;
+    padding:0;
+    margin:0;
+    margin-right:20px;
+    font-size:1em;
+    box-sizing: border-box;
+    width:100%;
+    text-align:bottom;
+`
 
 export function Auctions() {
     const { width } = useWindowDimensions();
@@ -34,18 +42,29 @@ export function Auctions() {
         </Menu>
     )
 
+    const yearsMenu = (<Menu>
+        <Menu.Item>
+            <Slider style={{width:'100px'}} range={{ draggableTrack: true }} min={1980} max={2021} defaultValue={[1980, 2021]} />
+        </Menu.Item>
+    </Menu>)
+
     return (<Row>
         <SortRow flex={1}>
-            <BoldH1>Auctions</BoldH1>
-            <Space split={<Divider type="vertical" />}>
-                <Slider style={{width:'100px'}} range={{ draggableTrack: true }} min={1980} max={2021} defaultValue={[1980, 2021]} />
+            <Row>
+                <Col flex={1}><BoldH1>Auctions</BoldH1></Col>
+                <Col flex={1}>
                 <Dropdown overlay={transmissionMenu} placement="bottomCenter" arrow>
                     <Button>Transmission</Button>
-                </Dropdown>
+                </Dropdown></Col>
+                <Col flex={1}>
                 <Dropdown overlay={bodyStyleMenu} placement="bottomCenter" arrow>
                     <Button>BodyStyle</Button>
-                </Dropdown>
-            </Space>
+                </Dropdown></Col>
+                <Col flex={1}>
+                <Dropdown overlay={yearsMenu} placement="bottomCenter" arrow>
+                    <Button>Years</Button>
+                </Dropdown></Col>
+            </Row>
         </SortRow>
     </Row>)
 }

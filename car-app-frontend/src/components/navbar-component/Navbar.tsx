@@ -5,6 +5,7 @@ import useWindowDimensions from '../../hooks/WindowSize'
 import { MenuOutlined } from '@ant-design/icons'
 
 const { Search } = Input;
+export const navbarHeight: string = '60px';
 
 interface NavbarMenuColProps{
     isHighlighted?: boolean;
@@ -25,9 +26,13 @@ const NavbarMenuCol = styled(Col)<NavbarMenuColProps>`
 `
 
 const StyledNav = styled('nav')`
-    margin-bottom: 1em;
     box-shadow: 0px 1px 0px rgba(100,100,100,.2);
-    padding-bottom: 5px;
+    height: ${navbarHeight};
+    position:fixed;
+    background:white;
+    width:100vw;
+    top:0;
+    padding-top:.5em;
 `
 
 const NavbarLink = styled(Link)<NavbarMenuColProps>`
