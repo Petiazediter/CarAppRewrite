@@ -7,11 +7,10 @@ const CarComponentWrapper = styled('div')`
     width:100%;
     @media only screen and ( min-width: 800px){
         width:50%;
-        padding:2px;
+        padding:2em;
     }
     @media only screen and ( min-width: 1200px){
         width:33%;
-        padding:2px;
     }
 `
 
