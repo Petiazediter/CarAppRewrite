@@ -35,6 +35,12 @@ const StyledNav = styled('nav')`
     left:0;
     top:0;
     padding-top:.5em;
+    @media only screen and ( min-width: 800px) {
+        left:50%;
+        transform:translateX(-50%);
+        width:85.1%;
+        margin:auto;
+    }
 `
 
 const NavbarLink = styled(Link)<NavbarMenuColProps>`
