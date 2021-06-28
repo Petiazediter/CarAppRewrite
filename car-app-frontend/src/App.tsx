@@ -3,6 +3,7 @@ import { BrowserRouter, Route } from 'react-router-dom';
 import { About } from "./components/about-page/About";
 import styled from '@emotion/styled';
 import { Navbar } from './components/navbar-component/Navbar';
+import { Auctions } from './components/auctions-page/Auctions';
 
 const ContentLayout = styled.div`
   margin-top: 1em;
@@ -21,7 +22,7 @@ function App() {
       <BrowserRouter>
       <Navbar/>
         <Route path="/" exact>
-          <h1>Hello world</h1>
+          <Auctions/>
         </Route>
         <Route path="/about">
           <About/>
