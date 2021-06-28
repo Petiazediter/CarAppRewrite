@@ -8,18 +8,15 @@ import { CarDisplay } from '../car-display-component/CarDisplay';
 const SortRow = styled(Col)`
     display:flex;
     align-items:bottom;
-    width:100%;
-    max-width:100vw;
 `
 
 const CarDisplayContainer = styled('div')`
+    position:relative;
     display:flex;
     flex-wrap:wrap;
-
+    width:100%;
     @media only screen and (min-width:800px){
-        justify-content:left;
-        flex-wrap:wrap;
-        gap:.5em;
+        flex-basis:33%;
     }
 `
 
@@ -71,7 +68,7 @@ export function Auctions() {
                     </Dropdown></Col>
             </SortRow>
         </Row>
-        <CarDisplayContainer style={ {marginTop: '1em'}}>
+        <CarDisplayContainer>
             <CarDisplay car={{
                 name: "BMW",
                 city: "Budapest",
@@ -91,6 +88,24 @@ export function Auctions() {
             }} 
             />
             <CarDisplay car={{
+                name: "BMW2",
+                city: "Budapest",
+                country: "Hungary",
+                tags: ["Tag1","Tag2","Tag3","Tag4"],
+                bid: 12000,
+                imgLinks: ["https://media.carsandbids.com/cdn-cgi/image/width=712,height=468,quality=70/7a0a3c6148108c9c64425dd85e0181fa3cccb652/photos/3R06APaX.hGgqDLbGi-(edit).jpg?t=162370774158"]
+            }} 
+            />
+                                <CarDisplay car={{
+                name: "BMW2",
+                city: "Budapest",
+                country: "Hungary",
+                tags: ["Tag1","Tag2","Tag3","Tag4"],
+                bid: 12000,
+                imgLinks: ["https://media.carsandbids.com/cdn-cgi/image/width=712,height=468,quality=70/7a0a3c6148108c9c64425dd85e0181fa3cccb652/photos/3R06APaX.hGgqDLbGi-(edit).jpg?t=162370774158"]
+            }} 
+            />
+                                <CarDisplay car={{
                 name: "BMW2",
                 city: "Budapest",
                 country: "Hungary",
