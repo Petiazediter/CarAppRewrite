@@ -8,17 +8,6 @@ const SortRow = styled(Col)`
     align-items:bottom;
 `
 
-const BoldH1 = styled('h1')`
-    font-weight:700;
-    padding:0;
-    margin:0;
-    margin-right:20px;
-    font-size:1em;
-    box-sizing: border-box;
-    width:100%;
-    text-align:bottom;
-`
-
 export function Auctions() {
     const { width } = useWindowDimensions();
 
@@ -49,21 +38,20 @@ export function Auctions() {
         </Menu.Item>
     </Menu>)
 
-    return (<Row>
+    return (
         <SortRow flex={1}>
-                <Col flex={1}><BoldH1>Auctions</BoldH1></Col>
                 <Col flex={1}>
-                <Dropdown overlay={transmissionMenu} placement="bottomLeft" arrow>
+                <Dropdown className="full-width" overlay={transmissionMenu} placement="bottomLeft" arrow>
                     <Button icon={<DownOutlined />}>Transmission</Button>
                 </Dropdown></Col>
                 <Col flex={1}>
-                <Dropdown overlay={bodyStyleMenu} placement="bottomLeft" arrow>
+                <Dropdown className="full-width" overlay={bodyStyleMenu} placement="bottomLeft" arrow>
                     <Button icon={<DownOutlined />}>BodyStyle</Button>
                 </Dropdown></Col>
                 <Col flex={1}>
-                <Dropdown overlay={yearsMenu} placement="bottomLeft" arrow>
+                <Dropdown className="full-width" overlay={yearsMenu} placement="bottomLeft" arrow>
                     <Button icon={<DownOutlined />}>Years</Button>
                 </Dropdown></Col>
         </SortRow>
-    </Row>)
+    )
 }
