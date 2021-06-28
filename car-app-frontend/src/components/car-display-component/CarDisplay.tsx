@@ -1,11 +1,15 @@
 import styled from "@emotion/styled"
 import {Tag, Carousel, Statistic} from "antd"
+import { Car } from "../../models/Car";
 
 const { Countdown } = Statistic; 
 
 const CarComponentWrapper = styled('div')`
     width:100%;
     position:relative;
+    @media only screen and ( min-width: 800px){
+        width:33%;
+    }
 `
 
 const BidSpan = styled('span')`
@@ -28,7 +32,7 @@ const LabelSpan = styled('span')`
 `
 
 
-export function CarDisplay( {carName, tags, highestBid, country, city} : {carName: string, tags: string[], highestBid: number, country: string, city: string}) {
+export function CarDisplay( {car} : {car: Car}) {
     return (
     <CarComponentWrapper>
         <ImageDiv>
@@ -46,14 +50,14 @@ export function CarDisplay( {carName, tags, highestBid, country, city} : {carNam
                 src="https://media.carsandbids.com/cdn-cgi/image/width=712,height=468,quality=70/7a0a3c6148108c9c64425dd85e0181fa3cccb652/photos/3R06APaX.hGgqDLbGi-(edit).jpg?t=162370774158"
                 alt="Primary image of the car"/>
             </Carousel>
-            <BidSpan><LabelSpan>Bid:</LabelSpan> ${highestBid} | <LabelSpan>Time:</LabelSpan> <Countdown  style={ {display: 'inline-block'} } value={Date.now() + 1000 * 60 * 60 * 24 * 2 + 1000 * 30} /></BidSpan>
+            <BidSpan><LabelSpan>Bid:</LabelSpan> ${car.bid} | <LabelSpan>Time:</LabelSpan> </BidSpan>
         </ImageDiv>
-        <h2>{carName}</h2>
+        <h2>{car.name}</h2>
         {
-        tags.map((item) => 
+        car.tags.map((item) => 
                 <Tag>{item}</Tag>
             )
         }
-        <p>{city},{country}</p>
+        <p>{car.city},{car.country}</p>
     </CarComponentWrapper>)
 }
