@@ -66,13 +66,13 @@ const LeftAlignedH1 = styled('h1')`
 const menu = (
     <Menu>
         <Menu.Item key="0">
-            <Link to="/about">About</Link>
+            <Link to="/auctions">Auctions</Link>
         </Menu.Item>
         <Menu.Item key="1">
             <Link to="/sell">Sell a car</Link>
         </Menu.Item>
         <Menu.Item key="2">
-            <Link to="/auctions">Auctions</Link>
+            <Link to="/about">About</Link>
         </Menu.Item>
         <Menu.Divider />
         <Menu.Item key="3">
