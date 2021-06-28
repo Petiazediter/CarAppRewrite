@@ -12,7 +12,7 @@ interface NavbarMenuColProps{
 }
 
 const NavbarMenuCol = styled(Col)<NavbarMenuColProps>`
-    background: ${(p: NavbarMenuColProps) => p.isHighlighted ? '#676CE1' : 'none'};
+    background: ${(p: NavbarMenuColProps) => p.isHighlighted ? '#fc5c65' : 'none'};
     color: ${(p: NavbarMenuColProps) => p.isHighlighted ? 'white' : 'black'};
     border-radius: 15px;
     font-weight:bolder;
@@ -22,7 +22,7 @@ const NavbarMenuCol = styled(Col)<NavbarMenuColProps>`
     justify-content: center;
     position:relative;
     &:hover{
-        background: ${(p:NavbarMenuColProps) => p.isHighlighted ? '#6065DB' : 'none'};
+        background: ${(p:NavbarMenuColProps) => p.isHighlighted ? '#eb3b5a' : 'none'};
     }
 `
 
@@ -46,7 +46,6 @@ const StyledNav = styled('nav')`
 const NavbarLink = styled(Link)<NavbarMenuColProps>`
     color:${(p: NavbarMenuColProps) => p.isHighlighted ? '#eee' : 'grey'};
     &:hover{
-        background: ${(p:NavbarMenuColProps) => p.isHighlighted ? '#6065DB' : 'none'};
         color:${(p: NavbarMenuColProps) => p.isHighlighted ? 'white' : 'black'};
     }
 `

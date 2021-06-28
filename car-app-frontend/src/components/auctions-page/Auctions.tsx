@@ -116,7 +116,7 @@ export function Auctions() {
                 )}
             </FlexCol>
             <NewsCol flex={1}>
-                <h2>Hello world2</h2>
+                <h2>Advanced filters</h2>
             </NewsCol>
         </Row>
         </div>
