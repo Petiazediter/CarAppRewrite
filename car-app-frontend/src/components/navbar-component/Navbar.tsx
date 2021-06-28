@@ -33,12 +33,12 @@ const StyledNav = styled('nav')`
     width:100%;
     left:0;
     top:0;
+    margin:0;
     padding-top:.5em;
     @media only screen and ( min-width: 800px) {
         left:50%;
         transform:translateX(-50%);
         width:90.1%;
-        margin:auto;
     }
 
       @media only screen and (min-width:1500px){
