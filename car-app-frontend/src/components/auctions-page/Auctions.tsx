@@ -11,15 +11,6 @@ const SortRow = styled(Col)`
     align-items:bottom;
 `
 
-const CarDisplayContainer = styled('div')`
-    position:relative;
-    display:flex;
-    flex-wrap:wrap;
-    width:auto;
-    background:green;
-    margin-top:1em;
-`
-
 const cars: Car[] = [
     {
         name: "BMW2",
@@ -57,10 +48,18 @@ const cars: Car[] = [
 
 const FlexCol = styled(Col)`
     position:relative;
-    width:60%;
+    width:0;
     display:flex;
     flex-wrap:wrap;
     overflow:hidden;
+`
+
+const NewsCol = styled(Col)`
+    position:relative;
+    display:none;
+    @media only screen and (min-width:800px){
+        display:initial;
+    }
 `
 
 export function Auctions() {
@@ -116,9 +115,9 @@ export function Auctions() {
                 { cars.map((item: Car) => <CarDisplay car={item} />
                 )}
             </FlexCol>
-            <Col flex={1}>
+            <NewsCol flex={1}>
                 <h2>Hello world2</h2>
-            </Col>
+            </NewsCol>
         </Row>
         </div>
     )
