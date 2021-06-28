@@ -3,10 +3,14 @@ import {Tag, Carousel} from "antd"
 import { Car } from "../../models/Car";
 
 const CarComponentWrapper = styled('div')`
-    width:100%;
     position:relative;
+    width:100%;
     @media only screen and ( min-width: 800px){
-        width:calc(33.33333%);
+        width:50%;
+        padding:2px;
+    }
+    @media only screen and ( min-width: 1200px){
+        width:33%;
         padding:2px;
     }
 `
@@ -36,7 +40,7 @@ export function CarDisplay( {car} : {car: Car}) {
     <CarComponentWrapper>
         <ImageDiv>
             <Carousel autoplay>
-                {car.imgLinks.map((item) => <img src={item} alt="Image of the car"/>)}
+                {car.imgLinks.map((item) => <img style={{borderRadius: "10px", overflow: "hidden"}} src={item} alt="Image of the car"/>)}
             </Carousel>
             <BidSpan><LabelSpan>Bid:</LabelSpan> ${car.bid} | <LabelSpan>Time:</LabelSpan> </BidSpan>
         </ImageDiv>
