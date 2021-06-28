@@ -37,9 +37,13 @@ const StyledNav = styled('nav')`
     @media only screen and ( min-width: 800px) {
         left:50%;
         transform:translateX(-50%);
-        width:85.1%;
+        width:90.1%;
         margin:auto;
     }
+
+      @media only screen and (min-width:1500px){
+        width:70.1%;
+      }
 `
 
 const NavbarLink = styled(Link)<NavbarMenuColProps>`

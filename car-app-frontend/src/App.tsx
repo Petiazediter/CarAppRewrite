@@ -11,7 +11,10 @@ const ContentLayout = styled.div`
   margin-top: calc(${navbarHeight} + 1em);
   box-sizing:border-box;
   @media only screen and (min-width:800px){
-    width:85%;
+    width:90%;
+  }
+  @media only screen and (min-width:1500px){
+    width:70%;
   }
 `
 

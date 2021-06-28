@@ -125,7 +125,7 @@ export function Auctions() {
             </FlexCol>
             <NewsCol flex={1}>
                 <h2>Advanced filters</h2>
-                <label>Ends at<br></br>
+                <label>Ends until<br></br>
                     <DatePicker style={{marginBottom:"20px"}} className="full-width" defaultValue={moment('2015/01/01', dateFormat)} format={dateFormat} />
                 </label>
                 <label>Price range<br></br>
