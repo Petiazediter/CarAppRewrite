@@ -1,6 +1,7 @@
 import useWindowDimensions from '../../hooks/WindowSize'
 import { Row, Col, Slider, Menu, Dropdown, Button } from 'antd';
 import styled from '@emotion/styled';
+import { DownOutlined } from '@ant-design/icons'
 
 const SortRow = styled(Col)`
     display:flex;
@@ -50,21 +51,19 @@ export function Auctions() {
 
     return (<Row>
         <SortRow flex={1}>
-            <Row>
                 <Col flex={1}><BoldH1>Auctions</BoldH1></Col>
                 <Col flex={1}>
                 <Dropdown overlay={transmissionMenu} placement="bottomCenter" arrow>
-                    <Button>Transmission</Button>
+                    <Button icon={<DownOutlined />}>Transmission</Button>
                 </Dropdown></Col>
                 <Col flex={1}>
                 <Dropdown overlay={bodyStyleMenu} placement="bottomCenter" arrow>
-                    <Button>BodyStyle</Button>
+                    <Button icon={<DownOutlined />}>BodyStyle</Button>
                 </Dropdown></Col>
                 <Col flex={1}>
                 <Dropdown overlay={yearsMenu} placement="bottomCenter" arrow>
-                    <Button>Years</Button>
+                    <Button icon={<DownOutlined />}>Years</Button>
                 </Dropdown></Col>
-            </Row>
         </SortRow>
     </Row>)
 }
