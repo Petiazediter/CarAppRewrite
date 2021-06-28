@@ -30,7 +30,8 @@ const StyledNav = styled('nav')`
     height: ${navbarHeight};
     position:fixed;
     background:white;
-    width:100vw;
+    width:100%;
+    left:0;
     top:0;
     padding-top:.5em;
 `

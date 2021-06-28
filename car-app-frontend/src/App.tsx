@@ -6,10 +6,11 @@ import { Navbar, navbarHeight } from './components/navbar-component/Navbar';
 import { Auctions } from './components/auctions-page/Auctions';
 
 const ContentLayout = styled.div`
+  margin:auto;
   margin-top: calc(${navbarHeight} + 1em);
+  box-sizing:border-box;
   @media only screen and (min-width:800px){
-    max-width:1500px;
-    margin-top: calc(${navbarHeight} + 1em);
+    width:85%;
   }
 `
 

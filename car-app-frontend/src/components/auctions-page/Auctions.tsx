@@ -3,6 +3,7 @@ import {Row, Col, Slider, Menu, Dropdown, Button } from 'antd';
 import styled from '@emotion/styled';
 import { DownOutlined } from '@ant-design/icons'
 
+
 const SortRow = styled(Col)`
     display:flex;
     align-items:bottom;
@@ -36,12 +37,12 @@ export function Auctions() {
 
     const yearsMenu = (<Menu>
         <Menu.Item>
-            <Slider style={{width:'100px'}} range={{ draggableTrack: true }} min={1980} max={2021} defaultValue={[1980, 2021]} />
+            <Slider style={{width:'100%'}} range={{ draggableTrack: true }} min={1980} max={2021} defaultValue={[1980, 2021]} />
         </Menu.Item>
     </Menu>)
 
     return (
-        <Row>
+        <Row className="full-width" justify='center' style={{width:'100%',background:'red'}}>
             <SortRow flex={1}>
                     <Col flex={1}>
                     <Dropdown className="full-width" overlay={transmissionMenu} placement="bottomLeft" arrow>
