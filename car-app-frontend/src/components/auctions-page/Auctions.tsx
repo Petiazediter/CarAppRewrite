@@ -12,6 +12,20 @@ const SortRow = styled(Col)`
     max-width:100vw;
 `
 
+const CarDisplayContainer = styled('div')`
+    display:flex;
+    flex-basis: 1;
+    gap:.5em;
+    flex-wrap:wrap;
+
+    @media only screen and (min-width:800px){
+        flex-basis: 33.3333%;
+        flex-basis: 1;
+        gap:.5em;
+        flex-wrap:wrap;
+    }
+`
+
 export function Auctions() {
     const { width } = useWindowDimensions();
 
@@ -60,9 +74,11 @@ export function Auctions() {
                     </Dropdown></Col>
             </SortRow>
         </Row>
-        <div style={ {marginTop: '1em'}}>
-            <CarDisplay carName="Bmw" tags={["tag1","tag2","tag3"]} highestBid={12000}/>
-        </div>
+        <CarDisplayContainer style={ {marginTop: '1em'}}>
+            <CarDisplay city="Budapest" country="Hungary" carName="Bmw1" tags={["tag1","tag2","tag3"]} highestBid={12000}/>
+            <CarDisplay city="Budapest" country="Hungary" carName="Bmw2" tags={["tag1","tag2","tag3"]} highestBid={12000}/>
+            <CarDisplay city="Budapest" country="Hungary" carName="Bmw3" tags={["tag1","tag2","tag3"]} highestBid={12000}/>
+        </CarDisplayContainer>
         </div>
     )
 }
