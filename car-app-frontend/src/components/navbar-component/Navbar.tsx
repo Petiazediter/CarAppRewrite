@@ -1,8 +1,8 @@
 import styled from "@emotion/styled"
-import { Row, Col, Menu, Dropdown, Input } from "antd"
+import { Row, Col, Menu, AutoComplete, Dropdown, Input } from "antd"
 import { Link } from 'react-router-dom'
 import useWindowDimensions from '../../hooks/WindowSize'
-import { MenuOutlined } from '@ant-design/icons'
+import { MenuOutlined, CarFilled } from '@ant-design/icons'
 
 const { Search } = Input;
 export const navbarHeight: string = '60px';
@@ -89,11 +89,49 @@ const onSearch = (term: string) => {
     console.log(term)
 }
 
-const searchStyle ={
+const searchStyle = {
     width:'100%',
     height:'100%',
-    padding:'5px'
+    padding:'5px',
 }
+
+const renderTitle = (title:string) => (
+    <span>
+      {title}
+      <a
+        style={{
+          float: 'right',
+        }}
+        href="/brands"
+        rel="noopener noreferrer"
+      >
+        more
+      </a>
+    </span>
+  );
+  
+  const renderItem = (title:string) => ({
+    value: title,
+    label: (
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+        }}
+      >
+        {title}
+        <span>
+            <CarFilled /> {10}
+        </span>
+      </div>
+    ),
+  });
+const options = [
+    {
+      label: renderTitle('Brands'),
+      options: [renderItem('Audi'), renderItem('BMW')],
+    }
+];
 
 export function Navbar() {
     const { width } = useWindowDimensions();
@@ -115,7 +153,13 @@ export function Navbar() {
                 <NavbarLink to="/about">About us</NavbarLink>
             </NavbarMenuCol>
             <NavbarMenuCol flex={4}>
-            <Search placeholder="Search for cars" onSearch={onSearch} style={searchStyle} />
+            <AutoComplete
+                className="full-width"
+                dropdownClassName="certain-category-search-dropdown"
+                dropdownMatchSelectWidth={500}
+                options={ options }>
+                <Search placeholder="Search for cars" onSearch={onSearch} style={searchStyle} />
+            </AutoComplete>
             </NavbarMenuCol>
             <NavbarMenuCol isHighlighted flex={1}>
                 <NavbarLink isHighlighted to="/sign-in">Sign in</NavbarLink>

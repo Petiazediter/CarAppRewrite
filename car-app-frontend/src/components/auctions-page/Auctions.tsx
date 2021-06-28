@@ -15,6 +15,7 @@ const CarDisplayContainer = styled('div')`
     display:flex;
     flex-wrap:wrap;
     width:100%;
+    margin-top:1em;
     @media only screen and (min-width:800px){
         flex-basis:33%;
     }
