@@ -1,8 +1,6 @@
 import styled from "@emotion/styled"
-import {Tag, Carousel, Statistic} from "antd"
+import {Tag, Carousel} from "antd"
 import { Car } from "../../models/Car";
-
-const { Countdown } = Statistic; 
 
 const CarComponentWrapper = styled('div')`
     width:100%;
