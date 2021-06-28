@@ -3,6 +3,7 @@ import {Row, Col, Slider, Menu, Dropdown, Button } from 'antd';
 import styled from '@emotion/styled';
 import { DownOutlined } from '@ant-design/icons'
 import { CarDisplay } from '../car-display-component/CarDisplay';
+import { Car } from '../../models/Car';
 
 
 const SortRow = styled(Col)`
@@ -14,11 +15,52 @@ const CarDisplayContainer = styled('div')`
     position:relative;
     display:flex;
     flex-wrap:wrap;
-    width:100%;
+    width:auto;
+    background:green;
     margin-top:1em;
-    @media only screen and (min-width:800px){
-        flex-basis:33%;
-    }
+`
+
+const cars: Car[] = [
+    {
+        name: "BMW2",
+        city: "Budapest",
+        country: "Hungary",
+        tags: ["Tag1","Tag2","Tag3","Tag4"],
+        bid: 12000,
+        imgLinks: ["https://media.carsandbids.com/cdn-cgi/image/width=712,height=468,quality=70/7a0a3c6148108c9c64425dd85e0181fa3cccb652/photos/3R06APaX.hGgqDLbGi-(edit).jpg?t=162370774158"]
+    },
+    {
+        name: "BMW2",
+        city: "Budapest",
+        country: "Hungary",
+        tags: ["Tag1","Tag2","Tag3","Tag4"],
+        bid: 12000,
+        imgLinks: ["https://media.carsandbids.com/cdn-cgi/image/width=712,height=468,quality=70/7a0a3c6148108c9c64425dd85e0181fa3cccb652/photos/3R06APaX.hGgqDLbGi-(edit).jpg?t=162370774158"]
+    },
+    {
+        name: "BMW2",
+        city: "Budapest",
+        country: "Hungary",
+        tags: ["Tag1","Tag2","Tag3","Tag4"],
+        bid: 12000,
+        imgLinks: ["https://media.carsandbids.com/cdn-cgi/image/width=712,height=468,quality=70/7a0a3c6148108c9c64425dd85e0181fa3cccb652/photos/3R06APaX.hGgqDLbGi-(edit).jpg?t=162370774158"]
+    },
+    {
+        name: "BMW2",
+        city: "Budapest",
+        country: "Hungary",
+        tags: ["Tag1","Tag2","Tag3","Tag4"],
+        bid: 12000,
+        imgLinks: ["https://media.carsandbids.com/cdn-cgi/image/width=712,height=468,quality=70/7a0a3c6148108c9c64425dd85e0181fa3cccb652/photos/3R06APaX.hGgqDLbGi-(edit).jpg?t=162370774158"]
+    },
+]
+
+const FlexCol = styled(Col)`
+    position:relative;
+    width:60%;
+    display:flex;
+    flex-wrap:wrap;
+    overflow:hidden;
 `
 
 export function Auctions() {
@@ -69,53 +111,15 @@ export function Auctions() {
                     </Dropdown></Col>
             </SortRow>
         </Row>
-        <CarDisplayContainer>
-            <CarDisplay car={{
-                name: "BMW",
-                city: "Budapest",
-                country: "Hungary",
-                tags: ["Tag1","Tag2","Tag3","Tag4"],
-                bid: 12000,
-                imgLinks: ["https://media.carsandbids.com/cdn-cgi/image/width=712,height=468,quality=70/7a0a3c6148108c9c64425dd85e0181fa3cccb652/photos/3R06APaX.hGgqDLbGi-(edit).jpg?t=162370774158"]
-            }} 
-            />
-            <CarDisplay car={{
-                name: "BMW1",
-                city: "Budapest",
-                country: "Hungary",
-                tags: ["Tag1","Tag2","Tag3","Tag4"],
-                bid: 12000,
-                imgLinks: ["https://media.carsandbids.com/cdn-cgi/image/width=712,height=468,quality=70/7a0a3c6148108c9c64425dd85e0181fa3cccb652/photos/3R06APaX.hGgqDLbGi-(edit).jpg?t=162370774158"]
-            }} 
-            />
-            <CarDisplay car={{
-                name: "BMW2",
-                city: "Budapest",
-                country: "Hungary",
-                tags: ["Tag1","Tag2","Tag3","Tag4"],
-                bid: 12000,
-                imgLinks: ["https://media.carsandbids.com/cdn-cgi/image/width=712,height=468,quality=70/7a0a3c6148108c9c64425dd85e0181fa3cccb652/photos/3R06APaX.hGgqDLbGi-(edit).jpg?t=162370774158"]
-            }} 
-            />
-                                <CarDisplay car={{
-                name: "BMW2",
-                city: "Budapest",
-                country: "Hungary",
-                tags: ["Tag1","Tag2","Tag3","Tag4"],
-                bid: 12000,
-                imgLinks: ["https://media.carsandbids.com/cdn-cgi/image/width=712,height=468,quality=70/7a0a3c6148108c9c64425dd85e0181fa3cccb652/photos/3R06APaX.hGgqDLbGi-(edit).jpg?t=162370774158"]
-            }} 
-            />
-                                <CarDisplay car={{
-                name: "BMW2",
-                city: "Budapest",
-                country: "Hungary",
-                tags: ["Tag1","Tag2","Tag3","Tag4"],
-                bid: 12000,
-                imgLinks: ["https://media.carsandbids.com/cdn-cgi/image/width=712,height=468,quality=70/7a0a3c6148108c9c64425dd85e0181fa3cccb652/photos/3R06APaX.hGgqDLbGi-(edit).jpg?t=162370774158"]
-            }} 
-            />
-        </CarDisplayContainer>
+        <Row style={{marginTop:"1em"}}>
+            <FlexCol flex={9}>
+                { cars.map((item: Car) => <CarDisplay car={item} />
+                )}
+            </FlexCol>
+            <Col flex={1}>
+                <h2>Hello world2</h2>
+            </Col>
+        </Row>
         </div>
     )
 }
