@@ -91,13 +91,14 @@ export function Navbar() {
                 <TitleLink to="/"><LeftAlignedH1>CarBidApp</LeftAlignedH1></TitleLink>
             </NavbarMenuCol>
             <NavbarMenuCol flex={1}>
-                <NavbarLink to="/about">About us</NavbarLink>
+                <NavbarLink to="/auctions">Auctions</NavbarLink>
             </NavbarMenuCol>
             <NavbarMenuCol isHighlighted flex={1}>
                 <NavbarLink isHighlighted to="/sell">Sell a car</NavbarLink>
             </NavbarMenuCol>
+
             <NavbarMenuCol flex={1}>
-                <NavbarLink to="/auctions">Auctions</NavbarLink>
+                <NavbarLink to="/about">About us</NavbarLink>
             </NavbarMenuCol>
             <NavbarMenuCol flex={4}>
                 <FilledRowInput type="text" placeholder="search"/>
