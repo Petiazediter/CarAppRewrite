@@ -8,7 +8,7 @@ const CarComponentWrapper = styled('div')`
     width:100%;
     position:relative;
     @media only screen and ( min-width: 800px){
-        width:33%;
+        width:calc(33% - .2em);
     }
 `
 
@@ -37,18 +37,7 @@ export function CarDisplay( {car} : {car: Car}) {
     <CarComponentWrapper>
         <ImageDiv>
             <Carousel autoplay>
-                <img
-                src="https://media.carsandbids.com/cdn-cgi/image/width=712,height=468,quality=70/7a0a3c6148108c9c64425dd85e0181fa3cccb652/photos/3R06APaX.hGgqDLbGi-(edit).jpg?t=162370774158"
-                alt="Primary image of the car"/>
-                        <img
-                src="https://media.carsandbids.com/cdn-cgi/image/width=712,height=468,quality=70/7a0a3c6148108c9c64425dd85e0181fa3cccb652/photos/3R06APaX.hGgqDLbGi-(edit).jpg?t=162370774158"
-                alt="Primary image of the car"/>
-                            <img
-                src="https://media.carsandbids.com/cdn-cgi/image/width=712,height=468,quality=70/7a0a3c6148108c9c64425dd85e0181fa3cccb652/photos/3R06APaX.hGgqDLbGi-(edit).jpg?t=162370774158"
-                alt="Primary image of the car"/>
-                            <img
-                src="https://media.carsandbids.com/cdn-cgi/image/width=712,height=468,quality=70/7a0a3c6148108c9c64425dd85e0181fa3cccb652/photos/3R06APaX.hGgqDLbGi-(edit).jpg?t=162370774158"
-                alt="Primary image of the car"/>
+                {car.imgLinks.map((item) => <img src={item} alt="Image of the car"/>)}
             </Carousel>
             <BidSpan><LabelSpan>Bid:</LabelSpan> ${car.bid} | <LabelSpan>Time:</LabelSpan> </BidSpan>
         </ImageDiv>
