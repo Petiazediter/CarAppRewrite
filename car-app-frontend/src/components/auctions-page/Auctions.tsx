@@ -1,11 +1,13 @@
 import useWindowDimensions from '../../hooks/WindowSize'
-import { Row, Col, Slider, Menu, Dropdown, Button } from 'antd';
+import {Row, Col, Slider, Menu, Dropdown, Button } from 'antd';
 import styled from '@emotion/styled';
 import { DownOutlined } from '@ant-design/icons'
 
 const SortRow = styled(Col)`
     display:flex;
     align-items:bottom;
+    width:100%;
+    max-width:100vw;
 `
 
 export function Auctions() {
@@ -39,19 +41,21 @@ export function Auctions() {
     </Menu>)
 
     return (
-        <SortRow flex={1}>
-                <Col flex={1}>
-                <Dropdown className="full-width" overlay={transmissionMenu} placement="bottomLeft" arrow>
-                    <Button icon={<DownOutlined />}>Transmission</Button>
-                </Dropdown></Col>
-                <Col flex={1}>
-                <Dropdown className="full-width" overlay={bodyStyleMenu} placement="bottomLeft" arrow>
-                    <Button icon={<DownOutlined />}>BodyStyle</Button>
-                </Dropdown></Col>
-                <Col flex={1}>
-                <Dropdown className="full-width" overlay={yearsMenu} placement="bottomLeft" arrow>
-                    <Button icon={<DownOutlined />}>Years</Button>
-                </Dropdown></Col>
-        </SortRow>
+        <Row>
+            <SortRow flex={1}>
+                    <Col flex={1}>
+                    <Dropdown className="full-width" overlay={transmissionMenu} placement="bottomLeft" arrow>
+                        <Button icon={<DownOutlined />}>Transmission</Button>
+                    </Dropdown></Col>
+                    <Col flex={1}>
+                    <Dropdown className="full-width" overlay={bodyStyleMenu} placement="bottomLeft" arrow>
+                        <Button icon={<DownOutlined />}>BodyStyle</Button>
+                    </Dropdown></Col>
+                    <Col flex={1}>
+                    <Dropdown className="full-width" overlay={yearsMenu} placement="bottomLeft" arrow>
+                        <Button icon={<DownOutlined />}>Years</Button>
+                    </Dropdown></Col>
+            </SortRow>
+        </Row>
     )
 }
