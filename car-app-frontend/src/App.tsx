@@ -6,6 +6,7 @@ import { Navbar, navbarHeight } from './components/navbar-component/Navbar';
 import { Auctions } from './components/auctions-page/Auctions';
 
 const ContentLayout = styled.div`
+  width:90%;
   margin:auto;
   margin-top: calc(${navbarHeight} + 1em);
   box-sizing:border-box;
