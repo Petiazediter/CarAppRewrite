@@ -2,6 +2,7 @@ import useWindowDimensions from '../../hooks/WindowSize'
 import {Row, Col, Slider, Menu, Dropdown, Button } from 'antd';
 import styled from '@emotion/styled';
 import { DownOutlined } from '@ant-design/icons'
+import { CarDisplay } from '../car-display-component/CarDisplay';
 
 
 const SortRow = styled(Col)`
@@ -42,6 +43,7 @@ export function Auctions() {
     </Menu>)
 
     return (
+        <div>
         <Row className="full-width" justify='center' style={{width:'100%'}}>
             <SortRow flex={1}>
                     <Col flex={1}>
@@ -58,5 +60,9 @@ export function Auctions() {
                     </Dropdown></Col>
             </SortRow>
         </Row>
+        <div style={ {marginTop: '1em'}}>
+            <CarDisplay carName="Bmw" tags={["tag1","tag2","tag3"]} highestBid={12000}/>
+        </div>
+        </div>
     )
 }
