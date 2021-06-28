@@ -1,5 +1,6 @@
 import styled from "@emotion/styled"
 import {Tag, Carousel} from "antd"
+import { Link } from "react-router-dom";
 import { Car } from "../../models/Car";
 
 const CarComponentWrapper = styled('div')`
@@ -36,19 +37,22 @@ const LabelSpan = styled('span')`
 
 export function CarDisplay( {car} : {car: Car}) {
     return (
-    <CarComponentWrapper>
-        <ImageDiv>
-            <Carousel autoplay>
-                {car.imgLinks.map((item) => <img style={{borderRadius: "10px", overflow: "hidden"}} src={item} alt="Image of the car"/>)}
-            </Carousel>
-            <BidSpan><LabelSpan>Bid:</LabelSpan> ${car.bid} | <LabelSpan>Time:</LabelSpan> </BidSpan>
-        </ImageDiv>
-        <h2>{car.name}</h2>
-        {
-        car.tags.map((item) => 
-                <Tag>{item}</Tag>
-            )
-        }
-        <p>{car.city},{car.country}</p>
-    </CarComponentWrapper>)
+        <CarComponentWrapper>
+            <Link to={`/car/${car.id}`}>
+                <ImageDiv>
+                    <Carousel autoplay>
+                        {car.imgLinks.map((item) => <img style={{borderRadius: "10px", overflow: "hidden"}} src={item} alt="Image of the car"/>)}
+                    </Carousel>
+                    <BidSpan><LabelSpan>Bid:</LabelSpan> ${car.bid} | <LabelSpan>Time:</LabelSpan> </BidSpan>
+                </ImageDiv>
+                <h2>{car.name}</h2>
+                {
+                car.tags.map((item) => 
+                        <Tag>{item}</Tag>
+                    )
+                }
+                <p>{car.city},{car.country}</p>
+            </Link>
+    </CarComponentWrapper>
+    )
 }
