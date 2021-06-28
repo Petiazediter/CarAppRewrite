@@ -1,9 +1,10 @@
 import React from 'react';
-import { BrowserRouter, Route } from 'react-router-dom'; 
+import { BrowserRouter, Link, Route } from 'react-router-dom'; 
 import { About } from "./components/about-page/About";
 import styled from '@emotion/styled';
 import { Navbar, navbarHeight } from './components/navbar-component/Navbar';
 import { Auctions } from './components/auctions-page/Auctions';
+import { Row, Col } from 'antd';
 
 const ContentLayout = styled.div`
   width:90%;
@@ -18,6 +19,14 @@ const ContentLayout = styled.div`
   }
 `
 
+const StyledUl = styled('ul')`
+  list-style: none;
+`
+
+const TitleLi = styled('li')`
+  color:grey;
+`
+
 function App() {
   return (
     <ContentLayout>
@@ -30,6 +39,37 @@ function App() {
         </Route>
         <Navbar/>
       </BrowserRouter>
+      <div style={{background: "#EEEEF0", width: '100vw', left:0,bottom:0, position:'absolute'}}>
+          <Row>
+            <Col flex={1}>
+              <h1>CarsBidApp</h1>
+            </Col>
+            <Col flex={1}>
+              <StyledUl>
+                <TitleLi>About us</TitleLi>
+                <li>Sell a car</li>
+                <li>Buy a car</li>
+                <li>Place a bid</li>
+              </StyledUl>
+            </Col>
+            <Col flex={1}>
+              <StyledUl>
+                  <TitleLi>Guarantee</TitleLi>
+                  <li>Terms and agreements</li>
+                  <li>Report a scam</li>
+                  <li>Contact us</li>
+                </StyledUl>
+            </Col>
+            <Col flex={1}>
+              <StyledUl>
+                  <TitleLi>Social Media</TitleLi>
+                  <li>Facebook</li>
+                  <li>Instagram</li>
+                  <li>Twitter</li>
+                </StyledUl>
+            </Col>
+          </Row>
+        </div>
     </ContentLayout>
   );
 }
