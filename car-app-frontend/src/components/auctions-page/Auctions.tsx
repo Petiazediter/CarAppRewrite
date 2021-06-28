@@ -19,9 +19,8 @@ const CarDisplayContainer = styled('div')`
     flex-wrap:wrap;
 
     @media only screen and (min-width:800px){
-        flex-basis: 33.3333%;
-        flex-basis: 1;
-        gap:.5em;
+        flex-basis: 33%;
+        justify-content:left;
         flex-wrap:wrap;
     }
 `
@@ -75,9 +74,30 @@ export function Auctions() {
             </SortRow>
         </Row>
         <CarDisplayContainer style={ {marginTop: '1em'}}>
-            <CarDisplay city="Budapest" country="Hungary" carName="Bmw1" tags={["tag1","tag2","tag3"]} highestBid={12000}/>
-            <CarDisplay city="Budapest" country="Hungary" carName="Bmw2" tags={["tag1","tag2","tag3"]} highestBid={12000}/>
-            <CarDisplay city="Budapest" country="Hungary" carName="Bmw3" tags={["tag1","tag2","tag3"]} highestBid={12000}/>
+            <CarDisplay car={{
+                name: "BMW",
+                city: "Budapest",
+                country: "Hungary",
+                tags: ["Tag1","Tag2","Tag3","Tag4"],
+                bid: 12000
+            }} 
+            />
+            <CarDisplay car={{
+                name: "BMW1",
+                city: "Budapest",
+                country: "Hungary",
+                tags: ["Tag1","Tag2","Tag3","Tag4"],
+                bid: 12000
+            }} 
+            />
+            <CarDisplay car={{
+                name: "BMW2",
+                city: "Budapest",
+                country: "Hungary",
+                tags: ["Tag1","Tag2","Tag3","Tag4"],
+                bid: 12000
+            }} 
+            />
         </CarDisplayContainer>
         </div>
     )
