@@ -14,6 +14,7 @@ interface NavbarMenuColProps{
 const NavbarMenuCol = styled(Col)<NavbarMenuColProps>`
     background: ${(p: NavbarMenuColProps) => p.isHighlighted ? '#676CE1' : 'none'};
     color: ${(p: NavbarMenuColProps) => p.isHighlighted ? 'white' : 'black'};
+    border-radius: 15px;
     font-weight:bolder;
     text-align:center;
     display:flex;
