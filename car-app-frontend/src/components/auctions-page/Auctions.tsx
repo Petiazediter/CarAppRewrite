@@ -1,10 +1,14 @@
 import useWindowDimensions from '../../hooks/WindowSize'
-import {Row, Col, Slider, Menu, Dropdown, Button } from 'antd';
+import {Row, Col, Slider, Menu, Dropdown, Button, DatePicker,Select } from 'antd';
 import styled from '@emotion/styled';
 import { DownOutlined } from '@ant-design/icons'
 import { CarDisplay } from '../car-display-component/CarDisplay';
 import { Car } from '../../models/Car';
+import moment from 'moment';
 
+const { Option } = Select;
+
+const dateFormat = 'YYYY/MM/DD';
 
 const SortRow = styled(Col)`
     display:flex;
@@ -13,6 +17,7 @@ const SortRow = styled(Col)`
 
 const cars: Car[] = [
     {
+        id: 0,
         name: "BMW2",
         city: "Budapest",
         country: "Hungary",
@@ -21,6 +26,7 @@ const cars: Car[] = [
         imgLinks: ["https://media.carsandbids.com/cdn-cgi/image/width=712,height=468,quality=70/7a0a3c6148108c9c64425dd85e0181fa3cccb652/photos/3R06APaX.hGgqDLbGi-(edit).jpg?t=162370774158"]
     },
     {
+        id: 1,
         name: "BMW2",
         city: "Budapest",
         country: "Hungary",
@@ -29,6 +35,7 @@ const cars: Car[] = [
         imgLinks: ["https://media.carsandbids.com/cdn-cgi/image/width=712,height=468,quality=70/7a0a3c6148108c9c64425dd85e0181fa3cccb652/photos/3R06APaX.hGgqDLbGi-(edit).jpg?t=162370774158"]
     },
     {
+        id: 2,
         name: "BMW2",
         city: "Budapest",
         country: "Hungary",
@@ -37,6 +44,7 @@ const cars: Car[] = [
         imgLinks: ["https://media.carsandbids.com/cdn-cgi/image/width=712,height=468,quality=70/7a0a3c6148108c9c64425dd85e0181fa3cccb652/photos/3R06APaX.hGgqDLbGi-(edit).jpg?t=162370774158"]
     },
     {
+        id: 3,
         name: "BMW2",
         city: "Budapest",
         country: "Hungary",
@@ -117,6 +125,18 @@ export function Auctions() {
             </FlexCol>
             <NewsCol flex={1}>
                 <h2>Advanced filters</h2>
+                <label>Ends at<br></br>
+                    <DatePicker style={{marginBottom:"20px"}} className="full-width" defaultValue={moment('2015/01/01', dateFormat)} format={dateFormat} />
+                </label>
+                <label>Price range<br></br>
+                    <Slider style={{marginBottom:"20px"}} step={500} range defaultValue={[0,100000]} min={0} max={100000} />
+                </label>
+                <label>Country<br></br>
+                <Select style={{marginBottom:"20px"}} defaultValue="lucy" className="full-width">
+                    <Option value="hu">Hungary</Option>
+                    <Option value="de">Germany</Option>
+                </Select>
+                </label>
             </NewsCol>
         </Row>
         </div>
