@@ -1,5 +1,7 @@
 import styled from "@emotion/styled"
-import {Tag, Carousel} from "antd"
+import {Tag, Carousel, Statistic} from "antd"
+
+const { Countdown } = Statistic; 
 
 const CarComponentWrapper = styled('div')`
     width:100%;
@@ -46,7 +48,7 @@ export function CarDisplay( {carName, tags, highestBid} : {carName: string, tags
                 src="https://media.carsandbids.com/cdn-cgi/image/width=712,height=468,quality=70/7a0a3c6148108c9c64425dd85e0181fa3cccb652/photos/3R06APaX.hGgqDLbGi-(edit).jpg?t=162370774158"
                 alt="Primary image of the car"/>
             </Carousel>
-            <BidSpan><LabelSpan>Bid:</LabelSpan> ${highestBid} | <LabelSpan>Time:</LabelSpan> 8:00:00</BidSpan>
+            <BidSpan><LabelSpan>Bid:</LabelSpan> ${highestBid} | <LabelSpan>Time:</LabelSpan> <Countdown  style={ {display: 'inline-block'} } value={Date.now() + 1000 * 60 * 60 * 24 * 2 + 1000 * 30} /></BidSpan>
         </ImageDiv>
         <h2>{carName}</h2>
         {
