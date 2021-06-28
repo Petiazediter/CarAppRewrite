@@ -53,15 +53,15 @@ export function Auctions() {
         <SortRow flex={1}>
                 <Col flex={1}><BoldH1>Auctions</BoldH1></Col>
                 <Col flex={1}>
-                <Dropdown overlay={transmissionMenu} placement="bottomCenter" arrow>
+                <Dropdown overlay={transmissionMenu} placement="bottomLeft" arrow>
                     <Button icon={<DownOutlined />}>Transmission</Button>
                 </Dropdown></Col>
                 <Col flex={1}>
-                <Dropdown overlay={bodyStyleMenu} placement="bottomCenter" arrow>
+                <Dropdown overlay={bodyStyleMenu} placement="bottomLeft" arrow>
                     <Button icon={<DownOutlined />}>BodyStyle</Button>
                 </Dropdown></Col>
                 <Col flex={1}>
-                <Dropdown overlay={yearsMenu} placement="bottomCenter" arrow>
+                <Dropdown overlay={yearsMenu} placement="bottomLeft" arrow>
                     <Button icon={<DownOutlined />}>Years</Button>
                 </Dropdown></Col>
         </SortRow>
