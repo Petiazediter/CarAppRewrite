@@ -101,13 +101,13 @@ export function Auctions() {
             </FlexCol>
             <NewsCol flex={1}>
                 <h2>Advanced filters</h2>
-                <label>Ends until<br></br>
+                <label>Ends until<br/>
                     <DatePicker style={{marginBottom:"20px"}} className="full-width" defaultValue={moment('2021/12/31', dateFormat)} format={dateFormat} />
                 </label>
-                <label>Price range<br></br>
+                <label>Price range<br/>
                     <Slider style={{marginBottom:"20px"}} step={500} range defaultValue={[0,100000]} min={0} max={100000} />
                 </label>
-                <label>Country<br></br>
+                <label>Country<br/>
                 <Select style={{marginBottom:"20px"}} defaultValue="all" className="full-width">
                     <Option value="all">All</Option>
                     <Option value="hu">Hungary</Option>
