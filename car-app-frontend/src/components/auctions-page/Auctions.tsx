@@ -48,6 +48,12 @@ enum Filter{
     COUNTRY = "country"
 }
 
+const getParamFromUrl = (filter: Filter,defaultValue: number): number => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const urlParam = urlParams.get(filter.valueOf())
+    if ( urlParam != null) return Number(urlParam);
+    return defaultValue
+}
 export function Auctions() {
 
     const getCars = useGetCars();
