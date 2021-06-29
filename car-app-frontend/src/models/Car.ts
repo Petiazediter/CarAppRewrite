@@ -1,5 +1,3 @@
-import { User } from "./User";
-
 export interface Car{
     id: number,
     brand: string,
