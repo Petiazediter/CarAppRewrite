@@ -41,7 +41,7 @@ export function CarDisplay( {car} : {car: Car}) {
             <Link to={`/car/${car.id}`}>
                 <ImageDiv>
                     <Carousel autoplay>
-                        {car.imgLinks.map((item) => <img style={{borderRadius: "10px", overflow: "hidden"}} src={item} alt="Image of the car"/>)}
+                        {car.imgLinks.map((item) => <img style={{borderRadius: "10px", overflow: "hidden"}} src={item} alt="The car"/>)}
                     </Carousel>
                     <BidSpan><LabelSpan>Bid:</LabelSpan> ${car.bid} | <LabelSpan>Time:</LabelSpan> </BidSpan>
                 </ImageDiv>

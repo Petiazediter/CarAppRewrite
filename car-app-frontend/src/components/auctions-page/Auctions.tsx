@@ -1,4 +1,3 @@
-import useWindowDimensions from '../../hooks/WindowSize'
 import {Row, Col, Slider, Menu, Dropdown, Button, DatePicker,Select } from 'antd';
 import styled from '@emotion/styled';
 import { DownOutlined } from '@ant-design/icons'
@@ -71,8 +70,6 @@ const NewsCol = styled(Col)`
 `
 
 export function Auctions() {
-    const { width } = useWindowDimensions();
-
     const transmissionMenu = (
     <Menu>
         <Menu.Item>All</Menu.Item>

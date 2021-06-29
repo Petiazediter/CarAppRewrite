@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Link, Route } from 'react-router-dom'; 
+import { BrowserRouter, Route } from 'react-router-dom'; 
 import { About } from "./components/about-page/About";
 import styled from '@emotion/styled';
 import { Navbar, navbarHeight } from './components/navbar-component/Navbar';
