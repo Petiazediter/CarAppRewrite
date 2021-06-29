@@ -9,7 +9,7 @@ import { Row, Col } from 'antd';
 const ContentLayout = styled.div`
   width:90%;
   margin:auto;
-  margin-top: calc(${navbarHeight} + 1em);
+  padding-top: calc(${navbarHeight} + 1em);
   box-sizing:border-box;
   @media only screen and (min-width:800px){
     width:90%;
