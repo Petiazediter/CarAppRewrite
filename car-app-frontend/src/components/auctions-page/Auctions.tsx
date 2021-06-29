@@ -4,7 +4,7 @@ import { DownOutlined,FilterFilled } from '@ant-design/icons'
 import { CarDisplay } from '../car-display-component/CarDisplay';
 import { Car } from '../../models/Car';
 import moment from 'moment';
-import useDatabase from '../../hooks/Connection';
+import { useGetCars } from '../../context/DatabaseContext';
 
 const { Option } = Select;
 
@@ -43,7 +43,7 @@ const PrimaryButton = styled(Button)`
 
 export function Auctions() {
 
-    const connection = useDatabase()
+    const getCars = useGetCars();
 
     const transmissionMenu = (
     <Menu>
@@ -92,7 +92,7 @@ export function Auctions() {
         </Row>
         <Row style={{marginTop:"1em"}}>
             <FlexCol flex={9}>
-                { connection.cars.map((item: Car) => <CarDisplay car={item} />
+                { getCars().map((item: Car) => <CarDisplay car={item} />
                 )}
             </FlexCol>
             <NewsCol flex={1}>
