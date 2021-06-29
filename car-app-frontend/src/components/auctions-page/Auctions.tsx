@@ -134,15 +134,10 @@ const deleteParamFromUrl = (href: string, key: string): string => {
     }
     return rtn;
 }
+
 export function Auctions() {
 
     const getCars = useGetCars();
-
-    const yearsMenu = (<Menu>
-        <Menu.Item>
-            <Slider style={{width:'100%'}} range={{ draggableTrack: true }} min={1980} max={2021} defaultValue={[1980, 2021]} />
-        </Menu.Item>
-    </Menu>)
 
     return (
         <div>
@@ -150,7 +145,7 @@ export function Auctions() {
             <SortRow flex={1}>
                     <Col flex={1}>
                         <label>Transmission
-                            <Select defaultValue={0} className="full-width">
+                            <Select onSelect={applyTransmission} defaultValue={getParamFromUrl(Filter.TRANSMISSION,0)} className="full-width">
                                 <Option value={0}>All</Option>
                                 <Option value={1}>Manual</Option>
                                 <Option value={2}>Automatic</Option>
@@ -159,7 +154,7 @@ export function Auctions() {
                     </Col>
                     <Col flex={1}>
                         <label>Body style
-                            <Select defaultValue={0} className="full-width">
+                            <Select onSelect={applyBodyStyle} defaultValue={getParamFromUrl(Filter.BODY_STYLE,0)} className="full-width">
                                 <Option value={0}>All</Option>
                                 <Option value={1}>Coupe</Option>
                                 <Option value={2}>Convertible</Option>
