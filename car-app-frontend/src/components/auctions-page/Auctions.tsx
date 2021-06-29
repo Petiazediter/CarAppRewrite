@@ -1,6 +1,6 @@
 import {Row, Col, Slider, Menu, Dropdown, Button, DatePicker,Select } from 'antd';
 import styled from '@emotion/styled';
-import { DownOutlined } from '@ant-design/icons'
+import { DownOutlined,FilterFilled } from '@ant-design/icons'
 import { CarDisplay } from '../car-display-component/CarDisplay';
 import { Car } from '../../models/Car';
 import moment from 'moment';
@@ -66,6 +66,16 @@ const NewsCol = styled(Col)`
     display:none;
     @media only screen and (min-width:800px){
         display:initial;
+    }
+`
+
+const PrimaryButton = styled(Button)`
+    background:#fc5c65;
+    color:white;
+    &:hover, &:active, &:focus{
+        background:#eb3b5a;
+        border-color:#eb3b5a;
+        color:white;
     }
 `
 
@@ -135,6 +145,7 @@ export function Auctions() {
                     <Option value="de">Germany</Option>
                 </Select>
                 </label>
+                <PrimaryButton className="full-width" icon={<FilterFilled />}>Apply filters</PrimaryButton>
             </NewsCol>
         </Row>
         </div>
