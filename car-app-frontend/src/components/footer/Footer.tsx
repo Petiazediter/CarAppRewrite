@@ -9,9 +9,9 @@ const TitleLi = styled('li')`
   color:grey;
 `
 
-export function Footer() { 
-    return (      
-    <div style={{background: "#EEEEF0", width: '100vw', left:0,bottom:0, margin:0}}>
+export function Footer() {
+    return (
+    <div style={{background: "#EEEEF0", width: '100vw', left:0,bottom:0, margin:0, marginTop: '20px'}}>
         <Row>
         <Col flex={1}>
             <h1>CarsBidApp</h1>
