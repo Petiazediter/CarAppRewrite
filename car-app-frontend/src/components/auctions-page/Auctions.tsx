@@ -4,6 +4,7 @@ import { DownOutlined,FilterFilled } from '@ant-design/icons'
 import { CarDisplay } from '../car-display-component/CarDisplay';
 import { Car } from '../../models/Car';
 import moment from 'moment';
+import useDatabase from '../../hooks/Connection';
 
 const { Option } = Select;
 
@@ -13,45 +14,6 @@ const SortRow = styled(Col)`
     display:flex;
     align-items:bottom;
 `
-
-const cars: Car[] = [
-    {
-        id: 0,
-        name: "BMW2",
-        city: "Budapest",
-        country: "Hungary",
-        tags: ["Tag1","Tag2","Tag3","Tag4"],
-        bid: 12000,
-        imgLinks: ["https://media.carsandbids.com/cdn-cgi/image/width=712,height=468,quality=70/7a0a3c6148108c9c64425dd85e0181fa3cccb652/photos/3R06APaX.hGgqDLbGi-(edit).jpg?t=162370774158"]
-    },
-    {
-        id: 1,
-        name: "BMW2",
-        city: "Budapest",
-        country: "Hungary",
-        tags: ["Tag1","Tag2","Tag3","Tag4"],
-        bid: 12000,
-        imgLinks: ["https://media.carsandbids.com/cdn-cgi/image/width=712,height=468,quality=70/7a0a3c6148108c9c64425dd85e0181fa3cccb652/photos/3R06APaX.hGgqDLbGi-(edit).jpg?t=162370774158"]
-    },
-    {
-        id: 2,
-        name: "BMW2",
-        city: "Budapest",
-        country: "Hungary",
-        tags: ["Tag1","Tag2","Tag3","Tag4"],
-        bid: 12000,
-        imgLinks: ["https://media.carsandbids.com/cdn-cgi/image/width=712,height=468,quality=70/7a0a3c6148108c9c64425dd85e0181fa3cccb652/photos/3R06APaX.hGgqDLbGi-(edit).jpg?t=162370774158"]
-    },
-    {
-        id: 3,
-        name: "BMW2",
-        city: "Budapest",
-        country: "Hungary",
-        tags: ["Tag1","Tag2","Tag3","Tag4"],
-        bid: 12000,
-        imgLinks: ["https://media.carsandbids.com/cdn-cgi/image/width=712,height=468,quality=70/7a0a3c6148108c9c64425dd85e0181fa3cccb652/photos/3R06APaX.hGgqDLbGi-(edit).jpg?t=162370774158"]
-    },
-]
 
 const FlexCol = styled(Col)`
     position:relative;
@@ -80,6 +42,9 @@ const PrimaryButton = styled(Button)`
 `
 
 export function Auctions() {
+
+    const connection = useDatabase()
+
     const transmissionMenu = (
     <Menu>
         <Menu.Item>All</Menu.Item>
@@ -127,7 +92,7 @@ export function Auctions() {
         </Row>
         <Row style={{marginTop:"1em"}}>
             <FlexCol flex={9}>
-                { cars.map((item: Car) => <CarDisplay car={item} />
+                { connection.cars.map((item: Car) => <CarDisplay car={item} />
                 )}
             </FlexCol>
             <NewsCol flex={1}>
