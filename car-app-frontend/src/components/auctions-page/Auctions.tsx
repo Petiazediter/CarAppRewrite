@@ -92,11 +92,6 @@ export function Auctions() {
                             </Select>
                         </label>
                     </Col>
-                    <Col flex={1}>
-                        <label><br/>
-                        <PrimaryButton className="full-width" icon={<FilterFilled />}>Apply filters</PrimaryButton>
-                        </label>
-                    </Col>
             </SortRow>
         </Row>
         <Row style={{marginTop:"1em"}}>
