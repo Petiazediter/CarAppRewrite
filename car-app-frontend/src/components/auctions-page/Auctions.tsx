@@ -54,6 +54,75 @@ const getParamFromUrl = (filter: Filter,defaultValue: number): number => {
     if ( urlParam != null) return Number(urlParam);
     return defaultValue
 }
+const addFilterToURL = (filter: Filter, values: number[]): void => {
+    let urlStrings: string[] = [];
+    switch (filter){
+        case Filter.PRICE_RANGE:
+            urlStrings.push("price_min");
+            urlStrings.push("price_max");
+            break;
+        default:
+            urlStrings.push(filter.valueOf())
+            break;
+    }
+
+    const urlParams: string = window.location.search;
+    let newUrl = window.location.href;
+    let noParam = false;
+    if ( urlParams === ""){
+        // If there's no param in url yet
+        noParam = true;
+    }
+    for ( let i = 0; i < urlStrings.length; i++){
+        const urlString = urlStrings[i];
+        const value = values[i];
+        if ( noParam ){
+            newUrl = `${newUrl}?${urlString}=${value}`
+            noParam = false;
+        } else {
+            const urlParams = new URLSearchParams(window.location.search);
+            const urlParam = urlParams.get(urlString)
+            if ( urlParam !== null) {
+                // If already there
+                // Delete first
+                console.log(`Its in ${urlParam}`)
+                newUrl = deleteParamFromUrl(newUrl,urlString);
+                if ( !newUrl.includes('?')){
+                    // If that was the only parameter, then set noParam to true again.
+                    noParam = true
+                }
+            }
+            // If the new value is 0 then skip the append
+            if ( value !== 0) {
+                if ( noParam) {
+                    newUrl = `${newUrl}?${urlString}=${value}`
+                    noParam = false;
+                } else {
+                    newUrl = `${newUrl}&${urlString}=${value}`
+                }
+            }
+        }
+    }
+    window.location.href = newUrl;
+}
+
+const deleteParamFromUrl = (href: string, key: string): string => {
+    let rtn = href.split("?")[0],
+        param,
+        params_arr = [],
+        queryString = (href.indexOf("?") !== -1) ? href.split("?")[1] : "";
+    if (queryString !== "") {
+        params_arr = queryString.split("&");
+        for (let i = params_arr.length - 1; i >= 0; i -= 1) {
+            param = params_arr[i].split("=")[0];
+            if (param === key) {
+                params_arr.splice(i, 1);
+            }
+        }
+        if (params_arr.length) rtn = rtn + "?" + params_arr.join("&");
+    }
+    return rtn;
+}
 export function Auctions() {
 
     const getCars = useGetCars();
