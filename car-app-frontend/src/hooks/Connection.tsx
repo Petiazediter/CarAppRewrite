@@ -58,6 +58,7 @@ const getDatabase = (): DatabaseInterface => {
         cars: [
             {
                 id: 0,
+                title: "2005 BMW Alpina B5",
                 brand: "BMW",
                 model: "Alpina B5",
                 sellerId: 0,
