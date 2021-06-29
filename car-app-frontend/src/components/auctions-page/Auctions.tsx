@@ -1,6 +1,6 @@
-import {Row, Col, Slider, Menu, Dropdown, Button, DatePicker,Select } from 'antd';
+import {Row, Col, Slider, Button, DatePicker,Select } from 'antd';
 import styled from '@emotion/styled';
-import { DownOutlined,FilterFilled } from '@ant-design/icons'
+import { FilterFilled } from '@ant-design/icons'
 import { CarDisplay } from '../car-display-component/CarDisplay';
 import { Car } from '../../models/Car';
 import moment from 'moment';
@@ -39,6 +39,14 @@ const PrimaryButton = styled(Button)`
         color:white;
     }
 `
+
+enum Filter{
+    TRANSMISSION = "transmission",
+    BODY_STYLE = "body_type",
+    PRICE_RANGE = "price_range",
+    TIME_RANGE = "time_range",
+    COUNTRY = "country"
+}
 
 export function Auctions() {
 
