@@ -12,7 +12,6 @@ const dateFormat = 'YYYY/MM/DD';
 
 const SortRow = styled(Col)`
     display:flex;
-    align-items:bottom;
 `
 
 const FlexCol = styled(Col)`
@@ -45,27 +44,6 @@ export function Auctions() {
 
     const getCars = useGetCars();
 
-    const transmissionMenu = (
-    <Menu>
-        <Menu.Item>All</Menu.Item>
-        <Menu.Item>Automatic</Menu.Item>
-        <Menu.Item>Manual</Menu.Item>
-    </Menu>)
-
-    const bodyStyleMenu = (
-        <Menu>
-            <Menu.Item>All</Menu.Item>
-            <Menu.Item>Coupe</Menu.Item>
-            <Menu.Item>Convertible</Menu.Item>
-            <Menu.Item>Hatchback</Menu.Item>
-            <Menu.Item>Sedan</Menu.Item>
-            <Menu.Item>SUV/Crossover</Menu.Item>
-            <Menu.Item>Truck</Menu.Item>
-            <Menu.Item>Van/Minivan</Menu.Item>
-            <Menu.Item>Wagon</Menu.Item>
-        </Menu>
-    )
-
     const yearsMenu = (<Menu>
         <Menu.Item>
             <Slider style={{width:'100%'}} range={{ draggableTrack: true }} min={1980} max={2021} defaultValue={[1980, 2021]} />
@@ -77,17 +55,34 @@ export function Auctions() {
         <Row className="full-width" justify='center' style={{width:'100%'}}>
             <SortRow flex={1}>
                     <Col flex={1}>
-                    <Dropdown className="full-width" overlay={transmissionMenu} placement="bottomLeft" arrow>
-                        <Button icon={<DownOutlined />}>Transmission</Button>
-                    </Dropdown></Col>
+                        <label>Transmission
+                            <Select defaultValue={0} className="full-width">
+                                <Option value={0}>All</Option>
+                                <Option value={1}>Manual</Option>
+                                <Option value={2}>Automatic</Option>
+                            </Select>
+                        </label>
+                    </Col>
                     <Col flex={1}>
-                    <Dropdown className="full-width" overlay={bodyStyleMenu} placement="bottomLeft" arrow>
-                        <Button icon={<DownOutlined />}>BodyStyle</Button>
-                    </Dropdown></Col>
+                        <label>Body style
+                            <Select defaultValue={0} className="full-width">
+                                <Option value={0}>All</Option>
+                                <Option value={1}>Coupe</Option>
+                                <Option value={2}>Convertible</Option>
+                                <Option value={3}>Hatchback</Option>
+                                <Option value={4}>Sedan</Option>
+                                <Option value={5}>SUV/Crossover</Option>
+                                <Option value={6}>Truck</Option>
+                                <Option value={7}>Van/Minivan</Option>
+                                <Option value={8}>Wagon</Option>
+                            </Select>
+                        </label>
+                    </Col>
                     <Col flex={1}>
-                    <Dropdown className="full-width" overlay={yearsMenu} placement="bottomLeft" arrow>
-                        <Button icon={<DownOutlined />}>Years</Button>
-                    </Dropdown></Col>
+                        <label><br/>
+                        <PrimaryButton className="full-width" icon={<FilterFilled />}>Apply filters</PrimaryButton>
+                        </label>
+                    </Col>
             </SortRow>
         </Row>
         <Row style={{marginTop:"1em"}}>
