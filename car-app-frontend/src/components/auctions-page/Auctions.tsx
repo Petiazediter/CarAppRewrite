@@ -54,6 +54,17 @@ const getParamFromUrl = (filter: Filter,defaultValue: number): number => {
     if ( urlParam != null) return Number(urlParam);
     return defaultValue
 }
+
+const applyBodyStyle = (value: number) => {
+    // Add filters to URL
+    addFilterToURL(Filter.BODY_STYLE, [value]);
+}
+
+const applyTransmission = (value: number) => {
+    // Add filters to URL
+    addFilterToURL(Filter.TRANSMISSION, [value]);
+}
+
 const addFilterToURL = (filter: Filter, values: number[]): void => {
     let urlStrings: string[] = [];
     switch (filter){
