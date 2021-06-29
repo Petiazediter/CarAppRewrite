@@ -1,7 +1,7 @@
 import styled from "@emotion/styled"
 import { Row, Col, Menu, AutoComplete, Dropdown, Input } from "antd"
 import { Link } from 'react-router-dom'
-import useWindowDimensions from '../../hooks/WindowSize'
+import useWindowDimensions from '../../../hooks/WindowSize'
 import { MenuOutlined, CarFilled } from '@ant-design/icons'
 
 const { Search } = Input;

@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter, Route } from 'react-router-dom'; 
 import { About } from "./components/about-page/About";
 import styled from '@emotion/styled';
-import { Navbar, navbarHeight } from './components/navbar-component/Navbar';
+import { Navbar, navbarHeight } from './components/shared/navbar-component/Navbar';
 import { Auctions } from './components/auctions-page/Auctions';
 import { Row, Col } from 'antd';
 
