@@ -4,6 +4,7 @@ import styled from '@emotion/styled';
 import { Navbar, navbarHeight } from './components/shared/navbar-component/Navbar';
 import { Auctions } from './components/auctions-page/Auctions';
 import { Footer } from './components/footer/Footer';
+import { DatabaseProvider } from './context/DatabaseContext';
 
 const ContentLayout = styled.div`
   width:90%;
@@ -20,18 +21,20 @@ const ContentLayout = styled.div`
 
 function App() {
   return (
-    <BrowserRouter>
-      <ContentLayout>
-          <Route path="/" exact>
-            <Auctions/>
-          </Route>
-          <Route path="/about">
-            <About/>
-          </Route>
-          <Navbar/>
-      </ContentLayout>
-      <Footer/>
-    </BrowserRouter>
+    <DatabaseProvider>
+      <BrowserRouter>
+        <ContentLayout>
+            <Route path="/" exact>
+              <Auctions/>
+            </Route>
+            <Route path="/about">
+              <About/>
+            </Route>
+            <Navbar/>
+        </ContentLayout>
+        <Footer/>
+      </BrowserRouter>
+    </DatabaseProvider>
   );
 }
 
