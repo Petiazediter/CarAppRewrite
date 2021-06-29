@@ -165,6 +165,6 @@ const getDatabase = (): DatabaseInterface => {
 }
 
 export default function useDatabase(){
-    const [connection,setConnection] = useState(getDatabase());
+    const [connection] = useState(getDatabase());
     return connection;
 }

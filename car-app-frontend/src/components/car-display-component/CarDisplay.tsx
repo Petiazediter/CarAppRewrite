@@ -1,5 +1,5 @@
 import styled from "@emotion/styled"
-import {Tag, Carousel} from "antd"
+import { Carousel} from "antd"
 import { Link } from "react-router-dom";
 import { Car } from "../../models/Car";
 
@@ -48,6 +48,6 @@ export function CarDisplay( {car} : {car: Car}) {
                 <h2>{car.title}</h2>
                 <p>{car.city},{car.country}</p>
             </Link>
-    </CarComponentWrapper>
+        </CarComponentWrapper>
     )
 }
