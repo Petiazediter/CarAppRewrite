@@ -1,10 +1,11 @@
-import { Seller } from "./Seller";
+import { User } from "./User";
 
 export interface Car{
     id: number,
     brand: string,
     model: string,
-    seller: Seller,
+    sellerId: number,
+    minBid: number,
     country: string,
     city: string,
     vin: string,
