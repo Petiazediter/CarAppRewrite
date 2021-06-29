@@ -34,14 +34,13 @@ const LabelSpan = styled('span')`
     color:grey;
 `
 
-
 export function CarDisplay( {car} : {car: Car}) {
     return (
         <CarComponentWrapper>
             <Link to={`/car/${car.id}`}>
                 <ImageDiv>
                     <Carousel autoplay>
-                        {car.exteriorImages.map((item) => <img style={{borderRadius: "10px", overflow: "hidden"}} src={item} alt="The car"/>)}
+                        {car.exteriorImages.map((item,index) => <img key={index} style={{borderRadius: "10px", overflow: "hidden"}} src={item} alt="The car"/>)}
                     </Carousel>
                     <BidSpan><LabelSpan>Bid:</LabelSpan> ${car.minBid} | <LabelSpan>Time:</LabelSpan> </BidSpan>
                 </ImageDiv>

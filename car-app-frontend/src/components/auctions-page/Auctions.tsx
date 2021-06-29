@@ -173,7 +173,7 @@ export function Auctions() {
         </Row>
         <Row style={{marginTop:"1em"}}>
             <FlexCol flex={9}>
-                { getCars().map((item: Car) => <CarDisplay car={item} />
+                { getCars().map((item: Car) => <CarDisplay key={item.id} car={item} />
                 )}
             </FlexCol>
             <NewsCol flex={1}>
