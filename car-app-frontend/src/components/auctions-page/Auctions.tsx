@@ -78,7 +78,7 @@ const addFilterToURL = (filter: Filter, values: number[]): void => {
     }
 
     const urlParams: string = window.location.search;
-    let newUrl = window.location.href;
+    let newUrl = window.location.search;
     let noParam = false;
     if ( urlParams === ""){
         // If there's no param in url yet
@@ -114,7 +114,9 @@ const addFilterToURL = (filter: Filter, values: number[]): void => {
             }
         }
     }
-    window.location.href = newUrl;
+    // window.location.href = newUrl;
+    const new_url = '/' + newUrl;
+    window.history.pushState('data', "Hello world!", new_url);
 }
 
 const deleteParamFromUrl = (href: string, key: string): string => {
