@@ -5,7 +5,7 @@ import { Car } from '../../models/Car';
 import moment from 'moment';
 import { useGetCars} from '../../context/DatabaseContext';
 import { SortRow, PrimaryButton, NewsCol, FlexCol } from "./Auctions.styled";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 
 const { Option } = Select;
 
@@ -21,7 +21,8 @@ enum Filter{
 
 export function Auctions() {
     const cars = useGetCars();
-    const [carsList, setCarsList] = useState(cars(0,0));
+    const [carsList, setCarsList] = useState(useGetCars());
+
     // Get parameter from URL by key, with a filter's value.
     const getParamFromUrl = (filter: Filter,defaultValue: number): number => {
         const urlParams = new URLSearchParams(window.location.search);
@@ -116,6 +117,11 @@ export function Auctions() {
         })
         setCarsList(cars(parameters.transmission,parameters.bodyStyle));
     }
+
+    useEffect(() => {
+        onFilterChange();
+    },[onFilterChange]);
+
     // Delete a parameter from url.
     const deleteParamFromUrl = (href: string, key: string): string => {
         let rtn = href.split("?")[0],
@@ -167,6 +173,7 @@ export function Auctions() {
             </Row>
             <Row style={{marginTop:"1em"}}>
                 <FlexCol flex={9}>
+                    { carsList.length === 0 && <h1>Sadly, none of the cars met the requirements.</h1>}
                     { carsList.map((item: Car) => <CarDisplay key={item.id} car={item} />
                     )}
                 </FlexCol>
