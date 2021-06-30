@@ -48,23 +48,24 @@ enum Filter{
     COUNTRY = "country"
 }
 
+// Get parameter from URL by key, with a filter's value.
 const getParamFromUrl = (filter: Filter,defaultValue: number): number => {
     const urlParams = new URLSearchParams(window.location.search);
     const urlParam = urlParams.get(filter.valueOf())
     if ( urlParam != null) return Number(urlParam);
     return defaultValue
 }
-
+// Assign filter to bodyStyle.
 const applyBodyStyle = (value: number) => {
     // Add filters to URL
     addFilterToURL(Filter.BODY_STYLE, [value]);
 }
-
+// Assign filter to transmission.
 const applyTransmission = (value: number) => {
     // Add filters to URL
     addFilterToURL(Filter.TRANSMISSION, [value]);
 }
-
+// Get url key by filter's value.
 const getUrlStrings = (filter: Filter): string[] => {
     let urlStrings: string[] = [];
     switch (filter){
@@ -78,7 +79,7 @@ const getUrlStrings = (filter: Filter): string[] => {
     }
     return urlStrings;
 }
-
+// Add key and value pair to the URL without refreshing the page
 const addFilterToURL = (filter: Filter, values: number[]): void => {
     const urlStrings: string[] = getUrlStrings(filter);
     const urlParams: string = window.location.search;
@@ -120,6 +121,11 @@ const addFilterToURL = (filter: Filter, values: number[]): void => {
     // window.location.href = newUrl;
     const new_url = '/' + newUrl;
     window.history.pushState('data', "Hello world!", new_url);
+    onFilterChange()
+}
+// Callback function when new there are new URL params.
+const onFilterChange = (): void => {
+    
 }
 
 const deleteParamFromUrl = (href: string, key: string): string => {
