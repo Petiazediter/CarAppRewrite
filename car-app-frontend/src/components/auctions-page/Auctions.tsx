@@ -1,44 +1,14 @@
-import {Row, Col, Slider, Button, DatePicker,Select } from 'antd';
-import styled from '@emotion/styled';
+import {Row, Col, Slider, DatePicker,Select } from 'antd';
 import { FilterFilled } from '@ant-design/icons'
 import { CarDisplay } from '../car-display-component/CarDisplay';
 import { Car } from '../../models/Car';
 import moment from 'moment';
-import { useGetCars } from '../../context/DatabaseContext';
+import { useGetCars} from '../../context/DatabaseContext';
+import { SortRow, PrimaryButton, NewsCol, FlexCol } from "./Auctions.styled";
 
 const { Option } = Select;
 
 const dateFormat = 'YYYY/MM/DD';
-
-const SortRow = styled(Col)`
-    display:flex;
-`
-
-const FlexCol = styled(Col)`
-    position:relative;
-    width:0;
-    display:flex;
-    flex-wrap:wrap;
-    overflow:hidden;
-`
-
-const NewsCol = styled(Col)`
-    position:relative;
-    display:none;
-    @media only screen and (min-width:800px){
-        display:initial;
-    }
-`
-
-const PrimaryButton = styled(Button)`
-    background:#fc5c65;
-    color:white;
-    &:hover, &:active, &:focus{
-        background:#eb3b5a;
-        border-color:#eb3b5a;
-        color:white;
-    }
-`
 
 enum Filter{
     TRANSMISSION = "transmission",
@@ -48,106 +18,116 @@ enum Filter{
     COUNTRY = "country"
 }
 
-// Get parameter from URL by key, with a filter's value.
-const getParamFromUrl = (filter: Filter,defaultValue: number): number => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const urlParam = urlParams.get(filter.valueOf())
-    if ( urlParam != null) return Number(urlParam);
-    return defaultValue
-}
-// Assign filter to bodyStyle.
-const applyBodyStyle = (value: number) => {
-    // Add filters to URL
-    addFilterToURL(Filter.BODY_STYLE, [value]);
-}
-// Assign filter to transmission.
-const applyTransmission = (value: number) => {
-    // Add filters to URL
-    addFilterToURL(Filter.TRANSMISSION, [value]);
-}
-// Get url key by filter's value.
-const getUrlStrings = (filter: Filter): string[] => {
-    let urlStrings: string[] = [];
-    switch (filter){
-        case Filter.PRICE_RANGE:
-            urlStrings.push("price_min");
-            urlStrings.push("price_max");
-            break;
-        default:
-            urlStrings.push(filter.valueOf())
-            break;
-    }
-    return urlStrings;
-}
-// Add key and value pair to the URL without refreshing the page
-const addFilterToURL = (filter: Filter, values: number[]): void => {
-    const urlStrings: string[] = getUrlStrings(filter);
-    const urlParams: string = window.location.search;
-    let newUrl = window.location.search;
-    let noParam = false;
-    if ( urlParams === ""){
-        // If there's no param in url yet
-        noParam = true;
-    }
-    for ( let i = 0; i < urlStrings.length; i++){
-        const urlString = urlStrings[i];
-        const value = values[i];
-        if ( noParam ){
-            newUrl = `${newUrl}?${urlString}=${value}`
-            noParam = false;
-        } else {
-            const urlParams = new URLSearchParams(window.location.search);
-            const urlParam = urlParams.get(urlString)
-            if ( urlParam !== null) {
-                // If already there
-                // Delete first
-                newUrl = deleteParamFromUrl(newUrl,urlString);
-                if ( !newUrl.includes('?')){
-                    // If that was the only parameter, then set noParam to true again.
-                    noParam = true
-                }
-            }
-            // If the new value is 0 then skip the append
-            if ( value !== 0) {
-                if ( noParam) {
-                    newUrl = `${newUrl}?${urlString}=${value}`
-                    noParam = false;
-                } else {
-                    newUrl = `${newUrl}&${urlString}=${value}`
-                }
-            }
-        }
-    }
-    // window.location.href = newUrl;
-    const new_url = '/' + newUrl;
-    window.history.pushState('data', "Hello world!", new_url);
-    onFilterChange()
-}
-// Callback function when new there are new URL params.
-const onFilterChange = (): void => {
-    
-}
-
-const deleteParamFromUrl = (href: string, key: string): string => {
-    let rtn = href.split("?")[0],
-        param,
-        params_arr = [],
-        queryString = (href.indexOf("?") !== -1) ? href.split("?")[1] : "";
-    if (queryString !== "") {
-        params_arr = queryString.split("&");
-        for (let i = params_arr.length - 1; i >= 0; i -= 1) {
-            param = params_arr[i].split("=")[0];
-            if (param === key) {
-                params_arr.splice(i, 1);
-            }
-        }
-        if (params_arr.length) rtn = rtn + "?" + params_arr.join("&");
-    }
-    return rtn;
-}
-
 export function Auctions() {
-    const getCars = useGetCars();
+    const cars = useGetCars();
+    // Get parameter from URL by key, with a filter's value.
+    const getParamFromUrl = (filter: Filter,defaultValue: number): number => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const urlParam = urlParams.get(filter.valueOf())
+        if ( urlParam != null) return Number(urlParam);
+        return defaultValue
+    }
+    // Assign filter to bodyStyle.
+    const applyBodyStyle = (value: number) => {
+        // Add filters to URL
+        addFilterToURL(Filter.BODY_STYLE, [value]);
+    }
+    // Assign filter to transmission.
+    const applyTransmission = (value: number) => {
+        // Add filters to URL
+        addFilterToURL(Filter.TRANSMISSION, [value]);
+    }
+    // Get url key by filter's value.
+    const getUrlStrings = (filter: Filter): string[] => {
+        let urlStrings: string[] = [];
+        switch (filter){
+            case Filter.PRICE_RANGE:
+                urlStrings.push("price_min");
+                urlStrings.push("price_max");
+                break;
+            default:
+                urlStrings.push(filter.valueOf())
+                break;
+        }
+        return urlStrings;
+    }
+    // Add key and value pair to the URL without refreshing the page
+    const addFilterToURL = (filter: Filter, values: number[]): void => {
+        const urlStrings: string[] = getUrlStrings(filter);
+        const urlParams: string = window.location.search;
+        let newUrl = window.location.search;
+        let noParam = false;
+        if ( urlParams === ""){
+            // If there's no param in url yet
+            noParam = true;
+        }
+        for ( let i = 0; i < urlStrings.length; i++){
+            const urlString = urlStrings[i];
+            const value = values[i];
+            if ( noParam ){
+                newUrl = `${newUrl}?${urlString}=${value}`
+                noParam = false;
+            } else {
+                const urlParams = new URLSearchParams(window.location.search);
+                const urlParam = urlParams.get(urlString)
+                if ( urlParam !== null) {
+                    // If already there
+                    // Delete first
+                    newUrl = deleteParamFromUrl(newUrl,urlString);
+                    if ( !newUrl.includes('?')){
+                        // If that was the only parameter, then set noParam to true again.
+                        noParam = true
+                    }
+                }
+                // If the new value is 0 then skip the append
+                if ( value !== 0) {
+                    if ( noParam) {
+                        newUrl = `${newUrl}?${urlString}=${value}`
+                        noParam = false;
+                    } else {
+                        newUrl = `${newUrl}&${urlString}=${value}`
+                    }
+                }
+            }
+        }
+        // window.location.href = newUrl;
+        const new_url = '/' + newUrl;
+        window.history.pushState('data', "Hello world!", new_url);
+        onFilterChange()
+    }
+    // Callback function when new there are new URL params.
+    const onFilterChange = (): void => {
+        const urlSearchParams = new URLSearchParams(window.location.search);
+        Array.from(urlSearchParams.keys()).forEach((key: string) => {
+            switch (key){
+                case Filter.BODY_STYLE.valueOf():
+
+                    break;
+                case Filter.TRANSMISSION.valueOf():
+                    console.log('Transmission')
+                    break;
+            }
+        })
+    }
+    // Delete a parameter from url.
+    const deleteParamFromUrl = (href: string, key: string): string => {
+        let rtn = href.split("?")[0],
+            param,
+            params_arr = [],
+            queryString = (href.indexOf("?") !== -1) ? href.split("?")[1] : "";
+        if (queryString !== "") {
+            params_arr = queryString.split("&");
+            for (let i = params_arr.length - 1; i >= 0; i -= 1) {
+                param = params_arr[i].split("=")[0];
+                if (param === key) {
+                    params_arr.splice(i, 1);
+                }
+            }
+            if (params_arr.length) rtn = rtn + "?" + params_arr.join("&");
+        }
+        return rtn;
+    }
+
     return (
         <>
             <Row className="full-width" justify='center' style={{width:'100%'}}>
@@ -180,7 +160,7 @@ export function Auctions() {
             </Row>
             <Row style={{marginTop:"1em"}}>
                 <FlexCol flex={9}>
-                    { getCars().map((item: Car) => <CarDisplay key={item.id} car={item} />
+                    { cars().map((item: Car) => <CarDisplay key={item.id} car={item} />
                     )}
                 </FlexCol>
                 <NewsCol flex={1}>
