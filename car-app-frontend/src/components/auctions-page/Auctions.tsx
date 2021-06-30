@@ -5,6 +5,7 @@ import { Car } from '../../models/Car';
 import moment from 'moment';
 import { useGetCars} from '../../context/DatabaseContext';
 import { SortRow, PrimaryButton, NewsCol, FlexCol } from "./Auctions.styled";
+import {useState} from "react";
 
 const { Option } = Select;
 
@@ -20,6 +21,7 @@ enum Filter{
 
 export function Auctions() {
     const cars = useGetCars();
+    const [carsList, setCarsList] = useState(cars);
     // Get parameter from URL by key, with a filter's value.
     const getParamFromUrl = (filter: Filter,defaultValue: number): number => {
         const urlParams = new URLSearchParams(window.location.search);
@@ -101,7 +103,7 @@ export function Auctions() {
         Array.from(urlSearchParams.keys()).forEach((key: string) => {
             switch (key){
                 case Filter.BODY_STYLE.valueOf():
-
+                    setCarsList(cars());
                     break;
                 case Filter.TRANSMISSION.valueOf():
                     console.log('Transmission')
@@ -160,7 +162,7 @@ export function Auctions() {
             </Row>
             <Row style={{marginTop:"1em"}}>
                 <FlexCol flex={9}>
-                    { cars().map((item: Car) => <CarDisplay key={item.id} car={item} />
+                    { carsList.map((item: Car) => <CarDisplay key={item.id} car={item} />
                     )}
                 </FlexCol>
                 <NewsCol flex={1}>

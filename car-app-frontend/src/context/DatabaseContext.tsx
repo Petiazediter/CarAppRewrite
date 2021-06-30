@@ -7,7 +7,7 @@ const getCarsTable = (): Car[] => {
 }
 
 export function useGetCars(){
-    return useContext(GetUsersTableContext)
+    return useContext(GetUsersTableContext);
 }
 
 export const GetUsersTableContext = React.createContext(getCarsTable);
