@@ -21,7 +21,7 @@ enum Filter{
 
 export function Auctions() {
     const cars = useGetCars();
-    const [carsList, setCarsList] = useState(cars);
+    const [carsList, setCarsList] = useState(cars(0,0));
     // Get parameter from URL by key, with a filter's value.
     const getParamFromUrl = (filter: Filter,defaultValue: number): number => {
         const urlParams = new URLSearchParams(window.location.search);
@@ -99,17 +99,22 @@ export function Auctions() {
     }
     // Callback function when new there are new URL params.
     const onFilterChange = (): void => {
+        let parameters = {
+            bodyStyle : 0,
+            transmission : 0
+        };
         const urlSearchParams = new URLSearchParams(window.location.search);
         Array.from(urlSearchParams.keys()).forEach((key: string) => {
             switch (key){
                 case Filter.BODY_STYLE.valueOf():
-                    setCarsList(cars());
+                    parameters.bodyStyle = Number(urlSearchParams.get(key));
                     break;
                 case Filter.TRANSMISSION.valueOf():
-                    console.log('Transmission')
+                    parameters.transmission = Number(urlSearchParams.get(key));
                     break;
             }
         })
+        setCarsList(cars(parameters.transmission,parameters.bodyStyle));
     }
     // Delete a parameter from url.
     const deleteParamFromUrl = (href: string, key: string): string => {
