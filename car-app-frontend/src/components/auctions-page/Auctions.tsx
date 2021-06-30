@@ -148,60 +148,59 @@ const deleteParamFromUrl = (href: string, key: string): string => {
 
 export function Auctions() {
     const getCars = useGetCars();
-
     return (
-        <div>
-        <Row className="full-width" justify='center' style={{width:'100%'}}>
-            <SortRow flex={1}>
-                    <Col flex={1}>
-                        <label>Transmission
-                            <Select onSelect={applyTransmission} defaultValue={getParamFromUrl(Filter.TRANSMISSION,0)} className="full-width">
-                                <Option value={0}>All</Option>
-                                <Option value={1}>Manual</Option>
-                                <Option value={2}>Automatic</Option>
-                            </Select>
-                        </label>
-                    </Col>
-                    <Col flex={1}>
-                        <label>Body style
-                            <Select onSelect={applyBodyStyle} defaultValue={getParamFromUrl(Filter.BODY_STYLE,0)} className="full-width">
-                                <Option value={0}>All</Option>
-                                <Option value={1}>Coupe</Option>
-                                <Option value={2}>Convertible</Option>
-                                <Option value={3}>Hatchback</Option>
-                                <Option value={4}>Sedan</Option>
-                                <Option value={5}>SUV/Crossover</Option>
-                                <Option value={6}>Truck</Option>
-                                <Option value={7}>Van/Minivan</Option>
-                                <Option value={8}>Wagon</Option>
-                            </Select>
-                        </label>
-                    </Col>
-            </SortRow>
-        </Row>
-        <Row style={{marginTop:"1em"}}>
-            <FlexCol flex={9}>
-                { getCars().map((item: Car) => <CarDisplay key={item.id} car={item} />
-                )}
-            </FlexCol>
-            <NewsCol flex={1}>
-                <h2>Advanced filters</h2>
-                <label>Ends until<br/>
-                    <DatePicker style={{marginBottom:"20px"}} className="full-width" defaultValue={moment('2021/12/31', dateFormat)} format={dateFormat} />
-                </label>
-                <label>Price range<br/>
-                    <Slider style={{marginBottom:"20px"}} step={500} range defaultValue={[0,100000]} min={0} max={100000} />
-                </label>
-                <label>Country<br/>
-                <Select style={{marginBottom:"20px"}} defaultValue="all" className="full-width">
-                    <Option value="all">All</Option>
-                    <Option value="hu">Hungary</Option>
-                    <Option value="de">Germany</Option>
-                </Select>
-                </label>
-                <PrimaryButton className="full-width" icon={<FilterFilled />}>Apply filters</PrimaryButton>
-            </NewsCol>
-        </Row>
-        </div>
+        <>
+            <Row className="full-width" justify='center' style={{width:'100%'}}>
+                <SortRow flex={1}>
+                        <Col flex={1}>
+                            <label>Transmission
+                                <Select onSelect={applyTransmission} defaultValue={getParamFromUrl(Filter.TRANSMISSION,0)} className="full-width">
+                                    <Option value={0}>All</Option>
+                                    <Option value={1}>Manual</Option>
+                                    <Option value={2}>Automatic</Option>
+                                </Select>
+                            </label>
+                        </Col>
+                        <Col flex={1}>
+                            <label>Body style
+                                <Select onSelect={applyBodyStyle} defaultValue={getParamFromUrl(Filter.BODY_STYLE,0)} className="full-width">
+                                    <Option value={0}>All</Option>
+                                    <Option value={1}>Coupe</Option>
+                                    <Option value={2}>Convertible</Option>
+                                    <Option value={3}>Hatchback</Option>
+                                    <Option value={4}>Sedan</Option>
+                                    <Option value={5}>SUV/Crossover</Option>
+                                    <Option value={6}>Truck</Option>
+                                    <Option value={7}>Van/Minivan</Option>
+                                    <Option value={8}>Wagon</Option>
+                                </Select>
+                            </label>
+                        </Col>
+                </SortRow>
+            </Row>
+            <Row style={{marginTop:"1em"}}>
+                <FlexCol flex={9}>
+                    { getCars().map((item: Car) => <CarDisplay key={item.id} car={item} />
+                    )}
+                </FlexCol>
+                <NewsCol flex={1}>
+                    <h2>Advanced filters</h2>
+                    <label>Ends until<br/>
+                        <DatePicker style={{marginBottom:"20px"}} className="full-width" defaultValue={moment('2021/12/31', dateFormat)} format={dateFormat} />
+                    </label>
+                    <label>Price range<br/>
+                        <Slider style={{marginBottom:"20px"}} step={500} range defaultValue={[0,100000]} min={0} max={100000} />
+                    </label>
+                    <label>Country<br/>
+                    <Select style={{marginBottom:"20px"}} defaultValue="all" className="full-width">
+                        <Option value="all">All</Option>
+                        <Option value="hu">Hungary</Option>
+                        <Option value="de">Germany</Option>
+                    </Select>
+                    </label>
+                    <PrimaryButton className="full-width" icon={<FilterFilled />}>Apply filters</PrimaryButton>
+                </NewsCol>
+            </Row>
+        </>
     )
 }
