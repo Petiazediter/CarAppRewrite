@@ -44,7 +44,7 @@ export const StyledNav = styled('nav')`
 `
 
 export const NavbarLink = styled(Link)<NavbarMenuColProps>`
-    color:${(p: NavbarMenuColProps) => p.isHighlighted ? '#eee' : 'grey'};
+    color:${(p: NavbarMenuColProps) => p.isHighlighted ? '#eeeeee' : 'grey'};
     &:hover{
         color:${(p: NavbarMenuColProps) => p.isHighlighted ? 'white' : 'black'};
     }
