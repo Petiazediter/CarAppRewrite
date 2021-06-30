@@ -5,7 +5,6 @@ import { MenuOutlined, CarFilled } from '@ant-design/icons'
 import { StyledNav, NavbarLink, NavbarMenuCol, TitleLink, LeftAlignedH1 } from "./Navbar.styled";
 
 const { Search } = Input;
-export const navbarHeight: string = '60px';
 
 const menu = (
     <Menu>

@@ -1,7 +1,8 @@
 import styled from "@emotion/styled";
 import {Col} from "antd";
 import {Link} from "react-router-dom";
-import {navbarHeight} from "./Navbar";
+
+export const navbarHeight: string = '60px';
 
 interface NavbarMenuColProps{
     isHighlighted?: boolean;
