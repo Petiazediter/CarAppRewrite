@@ -65,7 +65,7 @@ const applyTransmission = (value: number) => {
     addFilterToURL(Filter.TRANSMISSION, [value]);
 }
 
-const addFilterToURL = (filter: Filter, values: number[]): void => {
+const getUrlStrings = (filter: Filter): string[] => {
     let urlStrings: string[] = [];
     switch (filter){
         case Filter.PRICE_RANGE:
@@ -76,7 +76,11 @@ const addFilterToURL = (filter: Filter, values: number[]): void => {
             urlStrings.push(filter.valueOf())
             break;
     }
+    return urlStrings;
+}
 
+const addFilterToURL = (filter: Filter, values: number[]): void => {
+    const urlStrings: string[] = getUrlStrings(filter);
     const urlParams: string = window.location.search;
     let newUrl = window.location.search;
     let noParam = false;
@@ -96,7 +100,6 @@ const addFilterToURL = (filter: Filter, values: number[]): void => {
             if ( urlParam !== null) {
                 // If already there
                 // Delete first
-                console.log(`Its in ${urlParam}`)
                 newUrl = deleteParamFromUrl(newUrl,urlString);
                 if ( !newUrl.includes('?')){
                     // If that was the only parameter, then set noParam to true again.
@@ -138,7 +141,6 @@ const deleteParamFromUrl = (href: string, key: string): string => {
 }
 
 export function Auctions() {
-
     const getCars = useGetCars();
 
     return (
