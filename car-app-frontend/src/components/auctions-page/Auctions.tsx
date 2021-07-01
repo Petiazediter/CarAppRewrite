@@ -10,7 +10,7 @@ import moment from 'moment';
 
 const { Option } = Select;
 
-const dateFormat = 'YYYY/MM/DD';
+const dateFormat = 'DD/MM/YYYY';
 
 enum Filter{
     TRANSMISSION = "transmission",
@@ -41,7 +41,7 @@ export function Auctions() {
 
     // Advanced filters
     const applyEndDateFilter = (value: moment.Moment): void => {
-        const dateAsString = `${value.date()}-${value.month()}-${value.year()}`;
+        const dateAsString = `${value.date()}-${value.month() + 1}-${value.year()}`;
         addParameterToURL(Filter.TIME_RANGE.valueOf(), dateAsString, false);
         onFilterChange()
     }
@@ -140,7 +140,7 @@ export function Auctions() {
                         <DatePicker
                             style={{marginBottom:"20px"}}
                             className="full-width"
-                            defaultValue={moment('2021/12/31', dateFormat)}
+                            defaultValue={moment(getParamFromUrl(Filter.TIME_RANGE, '2021-12-31').replace('-','/'), dateFormat)}
                             format={dateFormat}
                             onSelect={(value) => applyEndDateFilter(value)}
                         />
