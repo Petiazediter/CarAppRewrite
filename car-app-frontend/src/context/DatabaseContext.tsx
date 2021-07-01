@@ -29,15 +29,7 @@ const getCarsTable = (filters: CarFilters): Car[] => {
     return returnArray;
 }
 
-function fixURLDate(value: string): string{
-    // Fix the date because january is the 0th month in the URL.
-    let array: string[] = value.split('-');
-    array[1] = (Number(array[1]) + 1).toString();
-    return array.join('-')
-}
-
 function isValidDate(urlDate: string, carDate: string):boolean {
-    urlDate = fixURLDate(urlDate);
     const moment1 = convertToMoment(urlDate);
     const moment2 = convertToMoment(carDate);
     // IF the date from the URL is before the expire date then return true
