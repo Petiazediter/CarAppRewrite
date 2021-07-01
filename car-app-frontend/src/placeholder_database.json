@@ -1,52 +1,18 @@
 {
-    "users": [
-        {
-            "id": 0,
-            "username": "bmwsellerguy",
-            "emailAddress": "bmwsellerguy@gmail.com",
-            "password": "",
-            "type": 0
-        },
-        {
-            "id": 1,
-            "username": "bmwbuyerguy",
-            "emailAddress": "bmwbuyerguy@gmail.com",
-            "password": "",
-            "type": 0
-        },
-        {
-            "id": 2,
-            "username": "evenmorebmwbuyerguy",
-            "emailAddress": "evenmorebmwbuyerguy@gmail.com",
-            "password": "",
-            "type": 0
-        }
-    ],
-    "bids": [
-        {
-            "buyerId": 1,
-            "carId": 0,
-            "bid": 1000
-        },
-        {
-            "buyerId": 2,
-            "carId": 0,
-            "bid": 1500
-        },
-        {
-            "buyerId": 1,
-            "carId": 0,
-            "bid": 2000
-        }
-    ],
-    "cars": [
+    "data": [
         {
             "id": 0,
             "title": "2005 BMW Alpina B5",
             "endDate": "01-01-2021",
+            "seller": {
+                "id": 0,
+                "username": "bmwsellerguy",
+                "emailAddress": "bmwsellerguy@gmail.com",
+                "password": "",
+                "type": 0
+            },
             "brand": "BMW",
             "model": "Alpina B5",
-            "sellerId": 0,
             "minBid": 0,
             "country": "Hungary",
             "city": "Budapest",
@@ -143,6 +109,43 @@
                 "https://media.carsandbids.com/cdn-cgi/image/width=2080,quality=80/c4611fbfec320634914d3912d22f298d5b699853/photos/KPDGxNGo-KqBsuTl620p.JPG?t=162259839292",
                 "https://media.carsandbids.com/cdn-cgi/image/width=2080,quality=80/c4611fbfec320634914d3912d22f298d5b699853/photos/KPDGxNGo-N62aJeaC1wW.JPG?t=162259839376",
                 "https://media.carsandbids.com/cdn-cgi/image/width=2080,quality=80/c4611fbfec320634914d3912d22f298d5b699853/photos/KPDGxNGo-bd1vU412EMr.JPG?t=162259846103"
+            ],
+            "bids": [
+                {
+                    "buyerId": 1,
+                    "carId": 0,
+                    "bid": 1000,
+                    "user": {
+                        "id": 1,
+                        "username": "bmwbuyer",
+                        "emailAddress": "bmwbuyerguy@gmail.com",
+                        "password": "",
+                        "type": 0
+                    }
+                },
+                {
+                    "buyerId": 2,
+                    "carId": 0,
+                    "bid": 1500,
+                    "user": {
+                        "id": 1,
+                        "username": "bmwevenbuyer",
+                        "emailAddress": "bmwevenbuyer@gmail.com",
+                        "password": "",
+                        "type": 0
+                    }
+                },
+                {
+                    "buyerId": 1,
+                    "bid": 8000,
+                    "user": {
+                        "id": 1,
+                        "username": "bmwultrabuyer",
+                        "emailAddress": "bmwultrabuyer@gmail.com",
+                        "password": "",
+                        "type": 0
+                    }
+                }
             ]
         }
     ]
