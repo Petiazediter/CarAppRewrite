@@ -7,14 +7,12 @@ import { CarComponentWrapper, ImageDiv, BidSpan, LabelSpan, CarName,SellerName }
 export function CarDisplay( {car} : {car: Car}) {
     return (
         <CarComponentWrapper>
-                <Link to={`/car/${car.id}`}>
-                    <ImageDiv>
-                        <Carousel autoplay>
-                            {car.exteriorImages.map((item,index) => <img key={index} style={{borderRadius: "10px", overflow: "hidden"}} src={item} alt="The car"/>)}
-                        </Carousel>
-                        <BidSpan><LabelSpan>Bid:</LabelSpan> ${car.minBid} | <LabelSpan>Time:</LabelSpan> </BidSpan>
-                    </ImageDiv>
-                </Link>
+                <ImageDiv>
+                    <Carousel autoplay>
+                        {car.exteriorImages.map((item,index) => <img key={index} style={{borderRadius: "10px", overflow: "hidden"}} src={item} alt="The car"/>)}
+                    </Carousel>
+                    <BidSpan><LabelSpan>Bid:</LabelSpan> ${car.minBid} | <LabelSpan>Time:</LabelSpan> </BidSpan>
+                </ImageDiv>
                 <Link to={`/car/${car.id}`}>
                     <CarName>{car.title}</CarName>
                 </Link>
