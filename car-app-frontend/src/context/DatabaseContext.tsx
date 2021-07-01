@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import React, {ReactElement, useContext} from "react";
 import { Car } from "../models/Car";
 import data from '../placeholder_database.json';
 
@@ -16,7 +16,7 @@ const getCarsTable = (transmission: number = 0,
 }
 
 export function useGetCars(){
-    return getCarsTable
+    return useContext(GetUsersTableContext);
 }
 
 export const GetUsersTableContext = React.createContext(getCarsTable);
