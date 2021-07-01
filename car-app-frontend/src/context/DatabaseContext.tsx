@@ -14,7 +14,7 @@ export interface CarFilters {
 
 const getCarsTable = (filters: CarFilters): Car[] => {
     const returnArray: Car[] = [];
-    data.cars.forEach(car => {
+    data.data.forEach(car => {
         if ( filters.bodyStyle === 0 || filters.bodyStyle === car.body){
             if ( filters.transmission === 0 || filters.transmission === car.transmission){
                 if ( filters.country === 'all' || filters.country === '' || filters.country === car.country){
