@@ -12,7 +12,11 @@ export function CarDisplay( {car} : {car: Car}) {
                         {car.exteriorImages.map((item,index) =>
                             <Image key={index} style={{borderRadius: "10px", overflow: "hidden"}} src={item} alt="The car"/>)}
                     </Carousel>
-                    <BidSpan><LabelSpan>Bid:</LabelSpan> ${car.minBid} | <LabelSpan>Time:</LabelSpan> </BidSpan>
+                    <BidSpan>
+                        <LabelSpan>Bid: </LabelSpan>
+                        ${car.bids[car.bids.length-1].bid}
+                        <LabelSpan> | Time: </LabelSpan>
+                    </BidSpan>
                 </ImageDiv>
                 <Link to={`/car/${car.id}`}>
                     <CarName>{car.title}</CarName>
