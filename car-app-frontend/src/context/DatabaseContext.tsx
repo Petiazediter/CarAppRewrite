@@ -33,7 +33,7 @@ function isValidDate(urlDate: string, carDate: string):boolean {
     const moment1 = convertToMoment(urlDate);
     const moment2 = convertToMoment(carDate);
     // IF the date from the URL is before the expire date then return true
-    return moment.min([moment1,moment2]) === moment1;
+    return moment.min([moment2,moment1]) === moment2;
 }
 
 function convertToMoment(dateInString: string): moment.Moment{
