@@ -2,11 +2,11 @@ import {Row, Col, Slider, DatePicker,Select } from 'antd';
 import { FilterFilled } from '@ant-design/icons'
 import { CarDisplay } from '../car-display-component/CarDisplay';
 import { Car } from '../../models/Car';
-import moment from 'moment';
-import {GetUsersTableContext, useGetCars} from '../../context/DatabaseContext';
+import { useGetCars} from '../../context/DatabaseContext';
 import { SortRow, PrimaryButton, NewsCol, FlexCol } from "./Auctions.styled";
-import {useContext, useEffect, useState} from "react";
+import { useEffect, useState} from "react";
 import {addParameterToURL} from "../../utils/URLHandler";
+import moment from 'moment';
 
 const { Option } = Select;
 
@@ -15,9 +15,10 @@ const dateFormat = 'YYYY/MM/DD';
 enum Filter{
     TRANSMISSION = "transmission",
     BODY_STYLE = "body_type",
-    PRICE_RANGE = "price_range",
-    TIME_RANGE = "time_range",
-    COUNTRY = "country"
+    TIME_RANGE = "ends_until",
+    COUNTRY = "country",
+    MIN_PRICE = "min_price",
+    MAX_PRICE = "max_price"
 }
 
 export function Auctions() {
@@ -32,9 +33,21 @@ export function Auctions() {
         return defaultValue
     }
 
-    const applyFilter = (filter: Filter, value: number):void => {
-        addParameterToURL(filter.valueOf(), value.toString(), value === 0);
+    const applyFilter = (filter: Filter, value: string):void => {
+        addParameterToURL(filter.valueOf(), value, value === "0");
         onFilterChange()
+    }
+
+    // Advanced filters
+    const applyEndDateFilter = (value: moment.Moment): void => {
+        console.log(value);
+        const dateAsString = `${value.date()}-${value.month()}-${value.year()}`;
+        addParameterToURL(Filter.TIME_RANGE.valueOf(), dateAsString, false);
+    }
+
+    const applyPriceRangeFilter = (min: number, max: number): void => {
+        addParameterToURL(Filter.MIN_PRICE.valueOf(), min.toString(), false);
+        addParameterToURL(Filter.MAX_PRICE.valueOf(), max.toString(), false);
     }
 
     // Callback function when new there are new URL params.
@@ -67,7 +80,10 @@ export function Auctions() {
                 <SortRow flex={1}>
                         <Col flex={1}>
                             <label>Transmission
-                                <Select onSelect={(value) => applyFilter(Filter.TRANSMISSION,value)} defaultValue={Number(getParamFromUrl(Filter.TRANSMISSION,'0'))} className="full-width">
+                                <Select
+                                    onSelect={value => applyFilter(Filter.TRANSMISSION,value.toString())}
+                                    defaultValue={Number(getParamFromUrl(Filter.TRANSMISSION,'0'))}
+                                    className="full-width">
                                     <Option value={0}>All</Option>
                                     <Option value={1}>Manual</Option>
                                     <Option value={2}>Automatic</Option>
@@ -76,7 +92,10 @@ export function Auctions() {
                         </Col>
                         <Col flex={1}>
                             <label>Body style
-                                <Select onSelect={(value) => applyFilter(Filter.BODY_STYLE,value)} defaultValue={Number(getParamFromUrl(Filter.BODY_STYLE,'0'))} className="full-width">
+                                <Select
+                                    onSelect={(value) => applyFilter(Filter.BODY_STYLE,value.toString())}
+                                    defaultValue={Number(getParamFromUrl(Filter.BODY_STYLE,'0'))}
+                                    className="full-width">
                                     <Option value={0}>All</Option>
                                     <Option value={1}>Coupe</Option>
                                     <Option value={2}>Convertible</Option>
@@ -100,13 +119,31 @@ export function Auctions() {
                 <NewsCol flex={1}>
                     <h2>Advanced filters</h2>
                     <label>Ends until<br/>
-                        <DatePicker style={{marginBottom:"20px"}} className="full-width" defaultValue={moment('2021/12/31', dateFormat)} format={dateFormat} />
+                        <DatePicker
+                            style={{marginBottom:"20px"}}
+                            className="full-width"
+                            defaultValue={moment('2021/12/31', dateFormat)}
+                            format={dateFormat}
+                            onSelect={(value) => applyEndDateFilter(value)}
+                        />
                     </label>
                     <label>Price range<br/>
-                        <Slider style={{marginBottom:"20px"}} step={500} range defaultValue={[0,100000]} min={0} max={100000} />
+                        <Slider
+                            style={{marginBottom:"20px"}}
+                            step={500}
+                            range
+                            defaultValue={[0,100000]}
+                            min={0}
+                            max={100000}
+                            onAfterChange={(values => { applyPriceRangeFilter(values[0], values[1]) })}
+                        />
                     </label>
                     <label>Country<br/>
-                    <Select style={{marginBottom:"20px"}} defaultValue="all" className="full-width">
+                    <Select style={{marginBottom:"20px"}}
+                            defaultValue="all"
+                            className="full-width"
+                            onSelect={value => applyFilter(Filter.COUNTRY, value)}
+                    >
                         <Option value="all">All</Option>
                         <Option value="hu">Hungary</Option>
                         <Option value="de">Germany</Option>
