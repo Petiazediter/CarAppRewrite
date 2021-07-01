@@ -2,7 +2,7 @@ import {Row, Col, Slider, DatePicker,Select } from 'antd';
 import { ClearOutlined } from '@ant-design/icons'
 import { CarDisplay } from '../car-display-component/CarDisplay';
 import { Car } from '../../models/Car';
-import { useGetCars} from '../../context/DatabaseContext';
+import { useGetCars, CarFilters} from '../../context/DatabaseContext';
 import { SortRow, PrimaryButton, NewsCol, FlexCol } from "./Auctions.styled";
 import { useEffect, useState} from "react";
 import {addParameterToURL} from "../../utils/URLHandler";
@@ -23,7 +23,8 @@ enum Filter{
 
 export function Auctions() {
     const cars = useGetCars();
-    const [carsList, setCarsList] = useState(cars);
+    const initialCars : Car[] = [];
+    const [carsList, setCarsList] = useState(initialCars);
 
     // Get parameter from URL by key, with a filter's value.
     const getParamFromUrl = (filter: Filter,defaultValue: string): string => {
@@ -40,21 +41,26 @@ export function Auctions() {
 
     // Advanced filters
     const applyEndDateFilter = (value: moment.Moment): void => {
-        console.log(value);
         const dateAsString = `${value.date()}-${value.month()}-${value.year()}`;
         addParameterToURL(Filter.TIME_RANGE.valueOf(), dateAsString, false);
+        onFilterChange()
     }
 
     const applyPriceRangeFilter = (min: number, max: number): void => {
         addParameterToURL(Filter.MIN_PRICE.valueOf(), min.toString(), false);
         addParameterToURL(Filter.MAX_PRICE.valueOf(), max.toString(), false);
+        onFilterChange()
     }
 
     // Callback function when new there are new URL params.
     const onFilterChange = (): void => {
-        let parameters = {
+        let parameters: CarFilters = {
             bodyStyle : 0,
-            transmission : 0
+            transmission : 0,
+            country: '',
+            maxPrice: 0,
+            minPrice: 0,
+            endDate: ''
         };
         const urlSearchParams = new URLSearchParams(window.location.search);
         Array.from(urlSearchParams.keys()).forEach((key: string) => {
@@ -65,9 +71,21 @@ export function Auctions() {
                 case Filter.TRANSMISSION.valueOf():
                     parameters.transmission = Number(urlSearchParams.get(key));
                     break;
+                case Filter.COUNTRY.valueOf():
+                    parameters.country = urlSearchParams.get(key)!;
+                    break;
+                case Filter.MAX_PRICE.valueOf():
+                    parameters.maxPrice = Number(urlSearchParams.get(key))!;
+                    break;
+                case Filter.MIN_PRICE.valueOf():
+                    parameters.minPrice = Number(urlSearchParams.get(key))!;
+                    break;
+                case Filter.TIME_RANGE.valueOf():
+                    parameters.endDate = urlSearchParams.get(key)!;
+                    break;
             }
         })
-        setCarsList(cars(parameters.transmission,parameters.bodyStyle));
+        setCarsList(cars(parameters));
     }
 
     useEffect(() => {
