@@ -10,12 +10,9 @@ export function addParameterToURL(parameter: string, value: string, isEmpty: boo
     // We need to check if we just want to clear the parameter or not.
     if ( !isEmpty ) {
         if ( newURL.includes('?')){
-            console.log(`${parameter}=${value}`)
             newURL = `${newURL}&${parameter}=${value}`
         } else {
-            console.log(`${parameter}=${value}`)
             newURL = `${newURL}?${parameter}=${value}`
-            console.log(`${newURL}`)
         }
     }
     window.history.pushState('', 'CarBidApp', `/${newURL}`);
