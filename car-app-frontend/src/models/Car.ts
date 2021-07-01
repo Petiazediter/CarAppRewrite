@@ -1,9 +1,12 @@
+import {Bid} from "./Bid";
+import {User} from "./User";
+
 export interface Car{
     id: number,
     title: string,
     brand: string,
     model: string,
-    sellerId: number,
+    seller: User,
     minBid: number,
     country: string,
     city: string,
@@ -26,5 +29,6 @@ export interface Car{
     videos: string[],
     exteriorImages: string[],
     interiorImages: string[],
-    paperImages: string[]
+    paperImages: string[],
+    bids: Bid[]
 }

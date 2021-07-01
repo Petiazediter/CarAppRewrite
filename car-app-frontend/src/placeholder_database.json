@@ -113,7 +113,6 @@
             "bids": [
                 {
                     "buyerId": 1,
-                    "carId": 0,
                     "bid": 1000,
                     "user": {
                         "id": 1,
@@ -125,7 +124,6 @@
                 },
                 {
                     "buyerId": 2,
-                    "carId": 0,
                     "bid": 1500,
                     "user": {
                         "id": 1,

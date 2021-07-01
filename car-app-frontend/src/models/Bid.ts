@@ -1,5 +1,7 @@
+import {User} from "./User";
+
 export interface Bid{
     buyerId: number,
-    carId: number,
-    bid: number
+    bid: number,
+    user: User
 }
