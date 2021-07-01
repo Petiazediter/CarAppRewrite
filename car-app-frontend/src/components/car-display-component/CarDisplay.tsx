@@ -1,4 +1,4 @@
-import { Carousel} from "antd"
+import { Carousel, Image} from "antd"
 import { Link } from "react-router-dom";
 import { Car } from "../../models/Car";
 import { CarComponentWrapper, ImageDiv, BidSpan, LabelSpan, CarName,SellerName } from "./CarDisplay.styled";
@@ -9,7 +9,9 @@ export function CarDisplay( {car} : {car: Car}) {
         <CarComponentWrapper>
                 <ImageDiv>
                     <Carousel autoplay>
-                        {car.exteriorImages.map((item,index) => <img key={index} style={{borderRadius: "10px", overflow: "hidden"}} src={item} alt="The car"/>)}
+
+                        {car.exteriorImages.map((item,index) =>
+                            <Image key={index} style={{borderRadius: "10px", overflow: "hidden"}} src={item} alt="The car"/>)}
                     </Carousel>
                     <BidSpan><LabelSpan>Bid:</LabelSpan> ${car.minBid} | <LabelSpan>Time:</LabelSpan> </BidSpan>
                 </ImageDiv>
