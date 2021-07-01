@@ -150,7 +150,7 @@ export function Auctions() {
                             style={{marginBottom:"20px"}}
                             step={500}
                             range
-                            defaultValue={[0,100000]}
+                            defaultValue={[Number(getParamFromUrl(Filter.MIN_PRICE, "0")),Number(getParamFromUrl(Filter.MAX_PRICE, "100000"))]}
                             min={0}
                             max={100000}
                             onAfterChange={(values => { applyPriceRangeFilter(values[0], values[1]) })}
