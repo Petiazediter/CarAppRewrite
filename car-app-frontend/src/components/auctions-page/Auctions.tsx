@@ -120,7 +120,7 @@ export function Auctions() {
 
     useEffect(() => {
         onFilterChange();
-    },[onFilterChange]);
+    },[]);
 
     // Delete a parameter from url.
     const deleteParamFromUrl = (href: string, key: string): string => {
