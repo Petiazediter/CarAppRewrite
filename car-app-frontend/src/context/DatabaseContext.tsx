@@ -36,7 +36,7 @@ function isValidDate(urlDate: string, carDate: string):boolean {
     return moment.min([moment2,moment1]) === moment2;
 }
 
-function convertToMoment(dateInString: string): moment.Moment{
+export function convertToMoment(dateInString: string): moment.Moment{
     // Split the date by the separator
     // Then format the string to Moment type.
     const array = dateInString.split('-');
