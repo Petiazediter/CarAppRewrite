@@ -158,7 +158,7 @@ export function Auctions() {
                     </label>
                     <label>Country<br/>
                     <Select style={{marginBottom:"20px"}}
-                            defaultValue="all"
+                            defaultValue={getParamFromUrl(Filter.COUNTRY, "all")}
                             className="full-width"
                             onSelect={value => applyFilter(Filter.COUNTRY, value)}
                     >

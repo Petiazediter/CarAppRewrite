@@ -9,7 +9,6 @@ export function CarDisplay( {car} : {car: Car}) {
         <CarComponentWrapper>
                 <ImageDiv>
                     <Carousel autoplay>
-
                         {car.exteriorImages.map((item,index) =>
                             <Image key={index} style={{borderRadius: "10px", overflow: "hidden"}} src={item} alt="The car"/>)}
                     </Carousel>
