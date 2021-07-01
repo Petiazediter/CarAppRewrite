@@ -7,6 +7,7 @@ export interface Car{
     brand: string,
     model: string,
     seller: User,
+    endDate: string,
     minBid: number,
     country: string,
     city: string,
