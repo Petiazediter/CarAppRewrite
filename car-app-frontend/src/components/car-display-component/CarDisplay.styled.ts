@@ -30,3 +30,23 @@ export const ImageDiv = styled('div')`
 export const LabelSpan = styled('span')`
     color:grey;
 `
+
+export const Title = styled('h2')`
+  color:black;
+  padding:0;
+  margin:0;
+
+  &:hover{
+    color: #fc5c65;
+    transform: scale(1.02);
+  }
+`
+
+export const CarName = styled(Title)``
+
+export const SellerName = styled(Title)`
+  color:black;
+  padding:0;
+  margin:0;
+  font-size: medium;
+`
