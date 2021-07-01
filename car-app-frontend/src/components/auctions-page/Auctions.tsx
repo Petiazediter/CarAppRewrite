@@ -1,5 +1,5 @@
 import {Row, Col, Slider, DatePicker,Select } from 'antd';
-import { FilterFilled } from '@ant-design/icons'
+import { ClearOutlined } from '@ant-design/icons'
 import { CarDisplay } from '../car-display-component/CarDisplay';
 import { Car } from '../../models/Car';
 import { useGetCars} from '../../context/DatabaseContext';
@@ -149,7 +149,7 @@ export function Auctions() {
                         <Option value="de">Germany</Option>
                     </Select>
                     </label>
-                    <PrimaryButton className="full-width" icon={<FilterFilled />}>Apply filters</PrimaryButton>
+                    <PrimaryButton className="full-width" icon={<ClearOutlined />}>Clear filters</PrimaryButton>
                 </NewsCol>
             </Row>
         </>
