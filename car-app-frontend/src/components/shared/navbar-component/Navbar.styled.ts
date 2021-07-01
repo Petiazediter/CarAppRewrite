@@ -5,12 +5,12 @@ import {Link} from "react-router-dom";
 export const navbarHeight: string = '60px';
 
 interface NavbarMenuColProps{
-    isHighlighted?: boolean;
+    ishighlighted?: boolean;
 }
 
 export const NavbarMenuCol = styled(Col)<NavbarMenuColProps>`
-    background: ${(p: NavbarMenuColProps) => p.isHighlighted ? '#fc5c65' : 'none'};
-    color: ${(p: NavbarMenuColProps) => p.isHighlighted ? 'white' : 'black'};
+    background: ${(p: NavbarMenuColProps) => p.ishighlighted ? '#fc5c65' : 'none'};
+    color: ${(p: NavbarMenuColProps) => p.ishighlighted ? 'white' : 'black'};
     font-weight:bolder;
     text-align:center;
     display:flex;
@@ -18,7 +18,7 @@ export const NavbarMenuCol = styled(Col)<NavbarMenuColProps>`
     justify-content: center;
     position:relative;
     &:hover{
-        background: ${(p:NavbarMenuColProps) => p.isHighlighted ? '#eb3b5a' : 'none'};
+        background: ${(p:NavbarMenuColProps) => p.ishighlighted ? '#eb3b5a' : 'none'};
     }
 `
 
@@ -44,9 +44,9 @@ export const StyledNav = styled('nav')`
 `
 
 export const NavbarLink = styled(Link)<NavbarMenuColProps>`
-    color:${(p: NavbarMenuColProps) => p.isHighlighted ? '#eeeeee' : 'grey'};
+    color:${(p: NavbarMenuColProps) => p.ishighlighted ? '#eeeeee' : 'grey'};
     &:hover{
-        color:${(p: NavbarMenuColProps) => p.isHighlighted ? 'white' : 'black'};
+        color:${(p: NavbarMenuColProps) => p.ishighlighted ? 'white' : 'black'};
     }
 `
 
