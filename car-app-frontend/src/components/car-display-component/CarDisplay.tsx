@@ -6,15 +6,30 @@ import moment from 'moment'
 import {convertToMoment} from "../../context/DatabaseContext";
 
 setInterval(() => {
-    const timerElements : NodeListOf<Element> =
-        document.querySelectorAll('.timer');
+    const timerElements : NodeListOf<Element> = document.querySelectorAll('.timer');
     timerElements.forEach((element: Element) => {
-       const currentText = element.innerHTML;
-       // [days,hours,minutes]
-       const dateArray = currentText.split(':');
-
+        const currentText = element.innerHTML;
+        // [days,hours,minutes]
+        const dateArray = currentText.split(':');
+        for ( let i = dateArray.length -1; i >= 0; i-- ) {
+            const newValue: number = (Number(dateArray[i]) - 1);
+            dateArray[i] = newValue.toString();
+            if ( newValue !== 0) {
+                break;
+            } else {
+                if ( i === 0 ){
+                    break;
+                }
+                if ( i === 1){
+                    dateArray[i] = '23'
+                } else {
+                    dateArray[i] = '59'
+                }
+            }
+        }
+        element.innerHTML = dateArray.join(':')
     })
-}, 1000)
+}, 1)
 
 
 export function CarDisplay( {car} : {car: Car}) {
