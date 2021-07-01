@@ -85,8 +85,8 @@ export function Navbar() {
             <NavbarMenuCol flex={1}>
                 <NavbarLink to="/auctions">Auctions</NavbarLink>
             </NavbarMenuCol>
-            <NavbarMenuCol ishighlighted flex={1}>
-                <NavbarLink ishighlighted to="/sell">Sell a car</NavbarLink>
+            <NavbarMenuCol highlight={true} flex={1}>
+                <NavbarLink highlight={true} to="/sell">Sell a car</NavbarLink>
             </NavbarMenuCol>
 
             <NavbarMenuCol flex={1}>
@@ -101,8 +101,8 @@ export function Navbar() {
                 <Search placeholder="Search for cars" onSearch={onSearch} style={searchStyle} />
             </AutoComplete>
             </NavbarMenuCol>
-            <NavbarMenuCol ishighlighted flex={1}>
-                <NavbarLink ishighlighted to="/sign-in">Sign in</NavbarLink>
+            <NavbarMenuCol highlight={true} flex={1}>
+                <NavbarLink highlight={true} to="/sign-in">Sign in</NavbarLink>
             </NavbarMenuCol>
         </Row>
     </StyledNav>) : 
