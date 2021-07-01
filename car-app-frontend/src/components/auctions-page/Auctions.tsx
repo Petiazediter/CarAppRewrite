@@ -3,9 +3,10 @@ import { FilterFilled } from '@ant-design/icons'
 import { CarDisplay } from '../car-display-component/CarDisplay';
 import { Car } from '../../models/Car';
 import moment from 'moment';
-import { useGetCars} from '../../context/DatabaseContext';
+import {GetUsersTableContext, useGetCars} from '../../context/DatabaseContext';
 import { SortRow, PrimaryButton, NewsCol, FlexCol } from "./Auctions.styled";
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
+import {addParameterToURL} from "../../utils/URLHandler";
 
 const { Option } = Select;
 
@@ -21,83 +22,21 @@ enum Filter{
 
 export function Auctions() {
     const cars = useGetCars();
-    const [carsList, setCarsList] = useState(useGetCars());
+    const [carsList, setCarsList] = useState(cars);
 
     // Get parameter from URL by key, with a filter's value.
-    const getParamFromUrl = (filter: Filter,defaultValue: number): number => {
+    const getParamFromUrl = (filter: Filter,defaultValue: string): string => {
         const urlParams = new URLSearchParams(window.location.search);
         const urlParam = urlParams.get(filter.valueOf())
-        if ( urlParam != null) return Number(urlParam);
+        if ( urlParam != null) return urlParam;
         return defaultValue
     }
-    // Assign filter to bodyStyle.
-    const applyBodyStyle = (value: number) => {
-        // Add filters to URL
-        addFilterToURL(Filter.BODY_STYLE, [value]);
-    }
-    // Assign filter to transmission.
-    const applyTransmission = (value: number) => {
-        // Add filters to URL
-        addFilterToURL(Filter.TRANSMISSION, [value]);
-    }
-    // Get url key by filter's value.
-    const getUrlStrings = (filter: Filter): string[] => {
-        let urlStrings: string[] = [];
-        switch (filter){
-            case Filter.PRICE_RANGE:
-                urlStrings.push("price_min");
-                urlStrings.push("price_max");
-                break;
-            default:
-                urlStrings.push(filter.valueOf())
-                break;
-        }
-        return urlStrings;
-    }
-    // Add key and value pair to the URL without refreshing the page
-    const addFilterToURL = (filter: Filter, values: number[]): void => {
-        const urlStrings: string[] = getUrlStrings(filter);
-        const urlParams: string = window.location.search;
-        let newUrl = window.location.search;
-        let noParam = false;
-        if ( urlParams === ""){
-            // If there's no param in url yet
-            noParam = true;
-        }
-        for ( let i = 0; i < urlStrings.length; i++){
-            const urlString = urlStrings[i];
-            const value = values[i];
-            if ( noParam ){
-                newUrl = `${newUrl}?${urlString}=${value}`
-                noParam = false;
-            } else {
-                const urlParams = new URLSearchParams(window.location.search);
-                const urlParam = urlParams.get(urlString)
-                if ( urlParam !== null) {
-                    // If already there
-                    // Delete first
-                    newUrl = deleteParamFromUrl(newUrl,urlString);
-                    if ( !newUrl.includes('?')){
-                        // If that was the only parameter, then set noParam to true again.
-                        noParam = true
-                    }
-                }
-                // If the new value is 0 then skip the append
-                if ( value !== 0) {
-                    if ( noParam) {
-                        newUrl = `${newUrl}?${urlString}=${value}`
-                        noParam = false;
-                    } else {
-                        newUrl = `${newUrl}&${urlString}=${value}`
-                    }
-                }
-            }
-        }
-        // window.location.href = newUrl;
-        const new_url = '/' + newUrl;
-        window.history.pushState('data', "Hello world!", new_url);
+
+    const applyFilter = (filter: Filter, value: number):void => {
+        addParameterToURL(filter.valueOf(), value.toString(), value === 0);
         onFilterChange()
     }
+
     // Callback function when new there are new URL params.
     const onFilterChange = (): void => {
         let parameters = {
@@ -122,32 +61,13 @@ export function Auctions() {
         onFilterChange();
     },[]);
 
-    // Delete a parameter from url.
-    const deleteParamFromUrl = (href: string, key: string): string => {
-        let rtn = href.split("?")[0],
-            param,
-            params_arr = [],
-            queryString = (href.indexOf("?") !== -1) ? href.split("?")[1] : "";
-        if (queryString !== "") {
-            params_arr = queryString.split("&");
-            for (let i = params_arr.length - 1; i >= 0; i -= 1) {
-                param = params_arr[i].split("=")[0];
-                if (param === key) {
-                    params_arr.splice(i, 1);
-                }
-            }
-            if (params_arr.length) rtn = rtn + "?" + params_arr.join("&");
-        }
-        return rtn;
-    }
-
     return (
         <>
             <Row className="full-width" justify='center' style={{width:'100%'}}>
                 <SortRow flex={1}>
                         <Col flex={1}>
                             <label>Transmission
-                                <Select onSelect={applyTransmission} defaultValue={getParamFromUrl(Filter.TRANSMISSION,0)} className="full-width">
+                                <Select onSelect={(value) => applyFilter(Filter.TRANSMISSION,value)} defaultValue={Number(getParamFromUrl(Filter.TRANSMISSION,'0'))} className="full-width">
                                     <Option value={0}>All</Option>
                                     <Option value={1}>Manual</Option>
                                     <Option value={2}>Automatic</Option>
@@ -156,7 +76,7 @@ export function Auctions() {
                         </Col>
                         <Col flex={1}>
                             <label>Body style
-                                <Select onSelect={applyBodyStyle} defaultValue={getParamFromUrl(Filter.BODY_STYLE,0)} className="full-width">
+                                <Select onSelect={(value) => applyFilter(Filter.BODY_STYLE,value)} defaultValue={Number(getParamFromUrl(Filter.BODY_STYLE,'0'))} className="full-width">
                                     <Option value={0}>All</Option>
                                     <Option value={1}>Coupe</Option>
                                     <Option value={2}>Convertible</Option>
