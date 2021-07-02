@@ -1,7 +1,6 @@
 import React from 'react';
 import { RouteComponentProps } from 'react-router';
 import {Car} from '../../models/Car'
-import {useGetCars} from "../../context/DatabaseContext";
 import {CarPageHOC} from "./CarPageHOC";
 interface IUrlProps {
     carId: string | undefined;
@@ -39,8 +38,9 @@ export class CarPage extends React.Component<RouteComponentProps<IUrlProps>,ISta
     render(){
         return (
             <div>
-                <h1>Hello there!</h1>
-                <h2>Car id: {this.state.car?.id}</h2>
+                <h1>{this.state.car?.title}</h1>
+                <h2>{this.state.car?.seller.username}</h2>
+                <h3>Expiration day: {this.state.car?.endDate}</h3>
             </div>
         )
     }
