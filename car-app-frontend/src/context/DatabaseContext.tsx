@@ -1,5 +1,5 @@
 import React, {ReactElement, useContext} from "react";
-import { Car } from "../models/Car";
+import {Car} from "../models/Car";
 import data from '../placeholder_database.json';
 import moment from 'moment'
 
@@ -33,6 +33,10 @@ const getCarsTable = (filters: CarFilters): Car[] => {
     return returnArray;
 }
 
+const getCarById = (id: number): Car | undefined => {
+    return data.data.find(car => car.id === id);
+}
+
 function isValidDate(urlDate: string, carDate: string):boolean {
     const moment1 = convertToMoment(urlDate);
     const moment2 = convertToMoment(carDate);
@@ -56,11 +60,14 @@ export function useGetCars(){
     return useContext(GetUsersTableContext);
 }
 
-export const GetUsersTableContext = React.createContext(getCarsTable);
+export const GetUsersTableContext = React.createContext({getCarsTable: getCarsTable, getCarById: getCarById});
 
 export function DatabaseProvider({children} : {children: ReactElement}) {
     return (
-        <GetUsersTableContext.Provider value={getCarsTable} >
+        <GetUsersTableContext.Provider value={{
+            getCarsTable: getCarsTable,
+            getCarById: getCarById
+        }} >
             {children}
         </GetUsersTableContext.Provider>
     )
