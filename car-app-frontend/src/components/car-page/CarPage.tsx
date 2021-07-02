@@ -1,15 +1,21 @@
 import React from 'react';
+import { RouteComponentProps } from 'react-router';
 
-export class CarPage extends React.Component{
+interface IUrlProps {
+    carId: string | undefined;
+}
+interface IState {
+    carId : string;
+}
 
-    constructor(props: {carId: number}) {
-        super(props);
-        this.state = {
-            carId: props.carId
-        }
-    }
+export class CarPage extends React.Component<RouteComponentProps<IUrlProps>,IState>{
 
-    componentDidUpdate(prevProps: Readonly<{carId: number}>, prevState: Readonly<{}>, snapshot?: any) {
-
+    render(){
+        return (
+            <div>
+                <h1>Hello there!</h1>
+                <h2>Car id: {this.props.match.params.carId}</h2>
+            </div>
+        )
     }
 }

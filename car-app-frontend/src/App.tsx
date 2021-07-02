@@ -1,4 +1,4 @@
-import { BrowserRouter, Route } from 'react-router-dom'; 
+import { BrowserRouter, Route } from 'react-router-dom';
 import { About } from "./components/about-page/About";
 import styled from '@emotion/styled';
 import { Navbar } from './components/shared/navbar-component/Navbar';
@@ -6,6 +6,7 @@ import { Auctions } from './components/auctions-page/Auctions';
 import { Footer } from './components/footer/Footer';
 import { DatabaseProvider } from './context/DatabaseContext';
 import {navbarHeight} from "./components/shared/navbar-component/Navbar.styled";
+import {CarPage} from "./components/car-page/CarPage";
 
 const ContentLayout = styled.div`
   width:90%;
@@ -32,6 +33,7 @@ function App() {
               <About/>
             </Route>
             <Navbar/>
+            <Route path="/car/:carId" component={CarPage} />
         </ContentLayout>
         <Footer/>
       </BrowserRouter>
