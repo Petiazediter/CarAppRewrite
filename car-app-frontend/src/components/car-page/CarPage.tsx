@@ -1,11 +1,14 @@
 import React from 'react';
 import { RouteComponentProps } from 'react-router';
-
+import {Car} from '../../models/Car'
+import {useGetCars} from "../../context/DatabaseContext";
+import {CarPageHOC} from "./CarPageHOC";
 interface IUrlProps {
     carId: string | undefined;
 }
 interface IState {
-    carId : number;
+    car: Car | null;
+    hook: any;
 }
 
 export class CarPage extends React.Component<RouteComponentProps<IUrlProps>,IState>{
@@ -13,7 +16,8 @@ export class CarPage extends React.Component<RouteComponentProps<IUrlProps>,ISta
     constructor(props: any){
         super(props);
         this.state = {
-            carId: -1
+            car: null,
+            hook: props.hook
         }
     }
 
@@ -21,9 +25,11 @@ export class CarPage extends React.Component<RouteComponentProps<IUrlProps>,ISta
         const carId: string|undefined = this.props.match.params.carId;
         if ( carId !== undefined){
             try{
+                const car = this.state.hook.getCarById(Number(carId));
                 this.setState({
-                    carId: Number(carId)
-                });
+                    car: car,
+                    hook: this.state.hook
+                })
             }catch (e) {
                 console.error('Id is not a number.')
             }
@@ -34,8 +40,10 @@ export class CarPage extends React.Component<RouteComponentProps<IUrlProps>,ISta
         return (
             <div>
                 <h1>Hello there!</h1>
-                <h2>Car id: {this.state.carId}</h2>
+                <h2>Car id: {this.state.car?.id}</h2>
             </div>
         )
     }
 }
+
+export default CarPageHOC;
