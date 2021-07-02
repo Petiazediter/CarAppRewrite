@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import useWindowDimensions from '../../../utils/WindowSize'
 import { MenuOutlined, CarFilled } from '@ant-design/icons'
 import { StyledNav, NavbarLink, NavbarMenuCol, TitleLink, LeftAlignedH1 } from "./Navbar.styled";
+import {FunctionComponent} from "react";
 
 const { Search } = Input;
 
@@ -73,7 +74,7 @@ const options = [
     }
 ];
 
-export function Navbar() {
+export const Navbar : FunctionComponent = () => {
     const { width } = useWindowDimensions();
 
     return width >= 800 ? (
@@ -105,7 +106,7 @@ export function Navbar() {
                 <NavbarLink highlight={true} to="/sign-in">Sign in</NavbarLink>
             </NavbarMenuCol>
         </Row>
-    </StyledNav>) : 
+    </StyledNav>) :
     (<StyledNav>
         <Row>
             <NavbarMenuCol flex={1}>
