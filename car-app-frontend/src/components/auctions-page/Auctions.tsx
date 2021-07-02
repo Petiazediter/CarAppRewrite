@@ -22,7 +22,7 @@ enum Filter{
 }
 
 export const Auctions: FunctionComponent = () => {
-    const cars = useGetCars();
+    const cars = useGetCars().getCarsTable;
     const initialCars : Car[] = [];
     const [carsList, setCarsList] = useState(initialCars);
 
