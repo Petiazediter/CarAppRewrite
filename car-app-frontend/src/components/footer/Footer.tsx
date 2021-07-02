@@ -1,5 +1,6 @@
 import { Row, Col } from 'antd';
 import styled from '@emotion/styled'
+import {FunctionComponent} from "react";
 
 const StyledUl = styled('ul')`
   list-style: none;
@@ -9,8 +10,8 @@ const TitleLi = styled('li')`
   color:grey;
 `
 
-export function Footer() { 
-    return (      
+export const Footer: FunctionComponent = () => {
+    return (
     <div style={{background: "#EEEEF0", width: '100vw', left:0,bottom:0, margin:0}}>
         <Row>
         <Col flex={1}>
