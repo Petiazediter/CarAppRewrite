@@ -29,7 +29,7 @@ setInterval(() => {
         }
         element.innerHTML = dateArray.join(':')
     })
-}, 1)
+}, 1000)
 
 
 export function CarDisplay( {car} : {car: Car}) {
