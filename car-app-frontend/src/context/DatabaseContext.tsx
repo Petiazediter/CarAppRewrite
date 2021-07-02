@@ -20,7 +20,10 @@ const getCarsTable = (filters: CarFilters): Car[] => {
                 if ( filters.country === 'all' || filters.country === '' || filters.country === car.country){
                     const date = filters.endDate;
                     if ( date === '' || isValidDate(date,car.endDate)){
-                        returnArray.push(car);
+                        if ( filters.minPrice <= car.bids[car.bids.length -1 ].bid
+                            && filters.maxPrice >= car.bids[car.bids.length -1 ].bid ){
+                            returnArray.push(car);
+                        }
                     }
                 }
             }
