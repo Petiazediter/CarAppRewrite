@@ -4,6 +4,7 @@ import { Car } from "../../models/Car";
 import { CarComponentWrapper, ImageDiv, BidSpan, LabelSpan, CarName,SellerName } from "./CarDisplay.styled";
 import moment from 'moment'
 import {convertToMoment} from "../../context/DatabaseContext";
+import {FunctionComponent} from "react";
 
 setInterval(() => {
     const timerElements : NodeListOf<Element> = document.querySelectorAll('.timer');
@@ -32,8 +33,7 @@ setInterval(() => {
 }, 1000)
 
 
-export function CarDisplay( {car} : {car: Car}) {
-
+export const CarDisplay: FunctionComponent<{car: Car}> = (props) => {
     const getTimeLeft = (endDate: string): string => {
         const now =  moment();
         const carDate =  convertToMoment(endDate.replace('/','-'));
@@ -49,23 +49,23 @@ export function CarDisplay( {car} : {car: Car}) {
         <CarComponentWrapper>
                 <ImageDiv>
                     <Carousel autoplay>
-                        {car.exteriorImages.map((item,index) =>
+                        {props.car.exteriorImages.map((item,index) =>
                             <Image key={index} style={{borderRadius: "10px", overflow: "hidden"}} src={item} alt="The car"/>)}
                     </Carousel>
                     <BidSpan>
                         <LabelSpan>Bid: </LabelSpan>
-                        ${car.bids[car.bids.length-1].bid}
+                        ${props.car.bids[props.car.bids.length-1].bid}
                         <LabelSpan> | Time: </LabelSpan>
-                        <span className="timer">{getTimeLeft(car.endDate)}</span>
+                        <span className="timer">{getTimeLeft(props.car.endDate)}</span>
                     </BidSpan>
                 </ImageDiv>
-                <Link to={`/car/${car.id}`}>
-                    <CarName>{car.title}</CarName>
+                <Link to={`/car/${props.car.id}`}>
+                    <CarName>{props.car.title}</CarName>
                 </Link>
-                <Link to={`/user/${car.seller.id}`}>
-                    <SellerName>{car.seller.username}</SellerName>
+                <Link to={`/user/${props.car.seller.id}`}>
+                    <SellerName>{props.car.seller.username}</SellerName>
                 </Link>
-                <p>{car.city},{car.country}</p>
+                <p>{props.car.city},{props.car.country}</p>
 
         </CarComponentWrapper>
     )
