@@ -4,7 +4,7 @@ import { CarDisplay } from '../car-display-component/CarDisplay';
 import { Car } from '../../models/Car';
 import { useGetCars, CarFilters} from '../../context/DatabaseContext';
 import { SortRow, PrimaryButton, NewsCol, FlexCol } from "./Auctions.styled";
-import { useEffect, useState} from "react";
+import {FunctionComponent, useEffect, useState} from "react";
 import {addParameterToURL} from "../../utils/URLHandler";
 import moment from 'moment';
 
@@ -21,7 +21,7 @@ enum Filter{
     MAX_PRICE = "max_price"
 }
 
-export function Auctions() {
+export const Auctions: FunctionComponent = () => {
     const cars = useGetCars();
     const initialCars : Car[] = [];
     const [carsList, setCarsList] = useState(initialCars);
