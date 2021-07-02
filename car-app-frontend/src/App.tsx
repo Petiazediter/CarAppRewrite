@@ -7,6 +7,7 @@ import { Footer } from './components/footer/Footer';
 import { DatabaseProvider } from './context/DatabaseContext';
 import {navbarHeight} from "./components/shared/navbar-component/Navbar.styled";
 import {CarPage} from "./components/car-page/CarPage";
+import {CarPageHOC} from "./components/car-page/CarPageHOC";
 
 const ContentLayout = styled.div`
   width:90%;
@@ -33,7 +34,7 @@ function App() {
               <About/>
             </Route>
             <Navbar/>
-            <Route path="/car/:carId" component={CarPage} />
+            <Route path="/car/:carId" component={CarPageHOC(CarPage)} />
         </ContentLayout>
         <Footer/>
       </BrowserRouter>
