@@ -1,8 +1,9 @@
 import React from 'react';
 import { RouteComponentProps } from 'react-router';
 import {Car} from '../../models/Car'
-import {ImageDisplay,NoMarginTitle,NoMarginSubTitle, Category, CategoriesContainer} from "./Carpage.styled";
+import {ImageDisplay,NoMarginTitle,NoMarginSubTitle, Category,FlexContainer,CategoryName, CategoriesContainer} from "./Carpage.styled";
 import {Col, Image, Row} from "antd";
+import {PaperClipOutlined, CarFilled, EnterOutlined, VideoCameraFilled} from "@ant-design/icons";
 
 interface IUrlProps {
     carId: string | undefined;
@@ -55,15 +56,31 @@ export class CarPage extends React.Component<RouteComponentProps<IUrlProps>,ISta
                     <Col span={12}>
                         <CategoriesContainer>
                             <Category background={"red"}>
-                                Hello world
+                                <FlexContainer>
+                                    <PaperClipOutlined />
+                                    <CategoryName className="full-width">Papers</CategoryName>
+                                </FlexContainer>
                             </Category>
 
-                            <Category background={"red"}>
-                                Hello world
+                            <Category background={"orange"}>
+                                <FlexContainer>
+                                    <CarFilled />
+                                    <CategoryName className="full-width">Exterior</CategoryName>
+                                </FlexContainer>
                             </Category>
 
-                            <Category background={"red"}>
-                                Hello world
+                            <Category background={"green"}>
+                                <FlexContainer>
+                                    <EnterOutlined />
+                                    <CategoryName className="full-width">Interior</CategoryName>
+                                </FlexContainer>
+                            </Category>
+
+                            <Category background={"blue"}>
+                                <FlexContainer>
+                                    <VideoCameraFilled />
+                                    <CategoryName className="full-width">Videos</CategoryName>
+                                </FlexContainer>
                             </Category>
                         </CategoriesContainer>
                     </Col>

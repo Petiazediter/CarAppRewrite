@@ -18,8 +18,8 @@ export const ImageDisplay = styled(Carousel)`
 `
 
 export const CategoriesContainer = styled('div')`
+  display: inline-block;
   position:relative;
-  background:blue;
 `
 
 interface ICategoryProps {
@@ -28,4 +28,23 @@ interface ICategoryProps {
 
 export const Category = styled('section')<ICategoryProps>`
   background: ${props => props.background};
+  width: 80px;
+  aspect-ratio: 1/1;
+  display:flex;
+  justify-content: center;
+  align-content: center;
+  color:white;
+`
+export const FlexContainer = styled('div')`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: center;
+  color:white;
+  text-align: center;
+`
+
+export const CategoryName = styled('h2')`
+  color:white;
+  font-size: large;
 `
