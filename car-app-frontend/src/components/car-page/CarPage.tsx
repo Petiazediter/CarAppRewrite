@@ -2,6 +2,7 @@ import React from 'react';
 import { RouteComponentProps } from 'react-router';
 import {Car} from '../../models/Car'
 import { NoMarginTitle,NoMarginSubTitle } from "./CarPage.styled";
+import {CarPageHOC} from "./CarPageHOC";
 
 interface IUrlProps {
     carId: string | undefined;
@@ -42,7 +43,14 @@ export class CarPage extends React.Component<RouteComponentProps<IUrlProps>,ISta
                 <NoMarginTitle>{this.state.car?.title}</NoMarginTitle>
                 <NoMarginSubTitle>{this.state.car?.seller.username}</NoMarginSubTitle>
                 <NoMarginSubTitle>Expiration day: {this.state.car?.endDate}</NoMarginSubTitle>
+
+                <h1>{this.state.car?.title}</h1>
+                <h2>{this.state.car?.seller.username}</h2>
+                <h3>Expiration day: {this.state.car?.endDate}</h3>
             </div>
         )
     }
 }
+
+export default CarPageHOC;
+

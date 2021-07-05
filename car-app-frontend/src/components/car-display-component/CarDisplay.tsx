@@ -1,58 +1,72 @@
-import styled from "@emotion/styled"
-import {Tag, Carousel} from "antd"
+import { Carousel, Image} from "antd"
 import { Link } from "react-router-dom";
 import { Car } from "../../models/Car";
+import { CarComponentWrapper, ImageDiv, BidSpan, LabelSpan, CarName,SellerName } from "./CarDisplay.styled";
+import moment from 'moment'
+import {convertToMoment} from "../../context/DatabaseContext";
+import {FunctionComponent} from "react";
 
-const CarComponentWrapper = styled('div')`
-    position:relative;
-    width:100%;
-    @media only screen and ( min-width: 800px){
-        width:50%;
-        padding:1em;
+setInterval(() => {
+    const timerElements : NodeListOf<Element> = document.querySelectorAll('.timer');
+    timerElements.forEach((element: Element) => {
+        const currentText = element.innerHTML;
+        // [days,hours,minutes]
+        const dateArray = currentText.split(':');
+        for ( let i = dateArray.length -1; i >= 0; i-- ) {
+            const newValue: number = (Number(dateArray[i]) - 1);
+            dateArray[i] = newValue.toString();
+            if ( newValue !== 0) {
+                break;
+            } else {
+                if ( i === 0 ){
+                    break;
+                }
+                if ( i === 1){
+                    dateArray[i] = '23'
+                } else {
+                    dateArray[i] = '59'
+                }
+            }
+        }
+        element.innerHTML = dateArray.join(':')
+    })
+}, 1000)
+
+
+export const CarDisplay: FunctionComponent<{car: Car}> = (props) => {
+    const getTimeLeft = (endDate: string): string => {
+        const now =  moment();
+        const carDate =  convertToMoment(endDate.replace('/','-'));
+        const differenceBetweenDatesInSeconds = carDate.diff(now,'seconds');
+        const daysLeft = Math.floor(differenceBetweenDatesInSeconds / 86400); // 26686 / 86400 = 0
+        const hoursLeft = Math.floor((differenceBetweenDatesInSeconds % 86400) / 3600); // 26686 / 3600 = 7
+        const minutesLeft = Math.floor(((differenceBetweenDatesInSeconds % 86400) % 3600 ) / 60); // 26686 % 3600 = 24
+        const secondsLeft = Math.floor((((differenceBetweenDatesInSeconds % 86400) % 3600 ) % 60));
+        return `${daysLeft}:${hoursLeft}:${minutesLeft}:${secondsLeft}`;
     }
-    @media only screen and ( min-width: 1200px){
-        width:33%;
-    }
-`
 
-const BidSpan = styled('span')`
-    position:absolute;
-    top:0;
-    left:0;
-    background:rgba(40,40,40,1);
-    color:white;
-    padding:.2em 1em .2em 1em;
-    border-radius:8px;
-    margin:1.5em 0 0 .5em;
-`
-
-const ImageDiv = styled('div')`
-    position:relative;
-`
-
-const LabelSpan = styled('span')`
-    color:grey;
-`
-
-
-export function CarDisplay( {car} : {car: Car}) {
     return (
         <CarComponentWrapper>
-            <Link to={`/car/${car.id}`}>
                 <ImageDiv>
                     <Carousel autoplay>
-                        {car.imgLinks.map((item) => <img style={{borderRadius: "10px", overflow: "hidden"}} src={item} alt="The car"/>)}
+                        {props.car.exteriorImages.map((item,index) =>
+                            <Image key={index} style={{borderRadius: "10px", overflow: "hidden"}} src={item} alt="The car"/>)}
                     </Carousel>
-                    <BidSpan><LabelSpan>Bid:</LabelSpan> ${car.bid} | <LabelSpan>Time:</LabelSpan> </BidSpan>
+                    <BidSpan>
+                        <LabelSpan>Bid: </LabelSpan>
+                        ${props.car.bids[props.car.bids.length-1].bid}
+                        <LabelSpan> | Time: </LabelSpan>
+                        <span className="timer">{getTimeLeft(props.car.endDate)}</span>
+                    </BidSpan>
                 </ImageDiv>
-                <h2>{car.name}</h2>
-                {
-                car.tags.map((item) => 
-                        <Tag>{item}</Tag>
-                    )
-                }
-                <p>{car.city},{car.country}</p>
-            </Link>
-    </CarComponentWrapper>
+                <Link to={`/car/${props.car.id}`}>
+                    <CarName>{props.car.title}</CarName>
+                </Link>
+                <Link to={`/user/${props.car.seller.id}`}>
+                    <SellerName>{props.car.seller.username}</SellerName>
+                </Link>
+                <p>{props.car.city},{props.car.country}</p>
+
+        </CarComponentWrapper>
     )
 }
