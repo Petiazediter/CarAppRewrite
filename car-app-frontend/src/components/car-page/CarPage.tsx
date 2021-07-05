@@ -1,7 +1,7 @@
 import React from 'react';
 import { RouteComponentProps } from 'react-router';
 import {Car} from '../../models/Car'
-import { NoMarginTitle,NoMarginSubTitle } from "./CarPage.styled";
+import {NoMarginTitle,NoMarginSubTitle} from "./Carpage.styled";
 import {CarPageHOC} from "./CarPageHOC";
 
 interface IUrlProps {
@@ -51,6 +51,4 @@ export class CarPage extends React.Component<RouteComponentProps<IUrlProps>,ISta
         )
     }
 }
-
-export default CarPageHOC;
 
