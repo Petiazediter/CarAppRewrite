@@ -27,6 +27,8 @@ interface ICategoryProps {
 }
 
 export const Category = styled('section')<ICategoryProps>`
+  cursor:pointer;
+  margin:1em;
   background: ${props => props.background};
   width: 80px;
   aspect-ratio: 1/1;
