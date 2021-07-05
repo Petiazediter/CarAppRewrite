@@ -15,8 +15,11 @@ export const NoMarginSubTitle = styled('h2')`
 
 export const ImageDisplay = styled(Carousel)`
   position: relative;
-  max-height: 200px;
-  overflow-y: hidden;
+  width: 50%;
+  display: flex;
+  left: 50%;
+  transform: translateX(-50%);
+  justify-content: center;
 `
 
 export const CategoriesContainer = styled('div')`
@@ -39,6 +42,7 @@ export const Category = styled('section')<ICategoryProps>`
   justify-content: center;
   align-content: center;
   color:white;
+  position: relative;
 `
 export const FlexContainer = styled('div')`
   display: flex;
@@ -47,6 +51,7 @@ export const FlexContainer = styled('div')`
   align-content: center;
   color:white;
   text-align: center;
+  position: relative;
 `
 
 export const CategoryName = styled('h2')`

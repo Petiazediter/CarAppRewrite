@@ -23,6 +23,7 @@ export const NavbarMenuCol = styled(Col)<NavbarMenuColProps>`
 `
 
 export const StyledNav = styled('nav')`
+    z-index:10;
     box-shadow: 0 1px 0 0 rgba(100,100,100,.2);
     height: ${navbarHeight};
     position:fixed;
