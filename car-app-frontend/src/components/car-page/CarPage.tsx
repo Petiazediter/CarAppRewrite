@@ -63,7 +63,7 @@ export class CarPage extends React.Component<RouteComponentProps<IUrlProps>,ISta
                 <NoMarginSubTitle>{this.state.car?.seller.username}</NoMarginSubTitle>
                 <NoMarginSubTitle>Expiration day: {this.state.car?.endDate}</NoMarginSubTitle>
 
-                <Row className="full-width" gutter={[8, 8]}>
+                <Row className="full-width" gutter={[8, 1]}>
                     <Col span={12}>
                         <ImageDisplay autoplay={true}>
 
@@ -81,13 +81,9 @@ export class CarPage extends React.Component<RouteComponentProps<IUrlProps>,ISta
                                 :
                                 <h2>Video format not supported yet</h2>
                             }
-
-                            { this.state.car?.exteriorImages.map(imgLink =>
-                                <Image alt="Image of car" src={imgLink} />
-                            )}
                         </ImageDisplay>
                     </Col>
-                    <Col span={12}>
+                    <Col span={1}>
                         <CategoriesContainer>
                             <Category background={"red"} onClick={() => this.setImageType(ImageType.PAPERS)}>
                                 <FlexContainer>
