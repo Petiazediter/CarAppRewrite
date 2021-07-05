@@ -63,27 +63,9 @@ export class CarPage extends React.Component<RouteComponentProps<IUrlProps>,ISta
                 <NoMarginSubTitle>{this.state.car?.seller.username}</NoMarginSubTitle>
                 <NoMarginSubTitle>Expiration day: {this.state.car?.endDate}</NoMarginSubTitle>
 
-                <Row className="full-width" gutter={[8, 1]}>
-                    <Col span={12}>
-                        <ImageDisplay autoplay={true}>
+                <Row className="full-width">
 
-                            { this.state.imageType === ImageType.PAPERS ?
-                                    this.state.car?.paperImages.map((imgLink:string) =>
-                                        <Image alt="Image of car" src={imgLink} />)
-                                :
-                                this.state.imageType === ImageType.EXTERIOR ?
-                                    this.state.car?.exteriorImages.map((imgLink:string) =>
-                                        <Image alt="Image of car" src={imgLink} />)
-                                :
-                                this.state.imageType === ImageType.INTERIOR ?
-                                    this.state.car?.interiorImages.map((imgLink:string) =>
-                                            <Image alt="Image of car" src={imgLink} />)
-                                :
-                                <h2>Video format not supported yet</h2>
-                            }
-                        </ImageDisplay>
-                    </Col>
-                    <Col span={1}>
+                    <Col flex={1}>
                         <CategoriesContainer>
                             <Category background={"red"} onClick={() => this.setImageType(ImageType.PAPERS)}>
                                 <FlexContainer>
@@ -113,6 +95,29 @@ export class CarPage extends React.Component<RouteComponentProps<IUrlProps>,ISta
                                 </FlexContainer>
                             </Category>
                         </CategoriesContainer>
+                    </Col>
+                    <Col flex={1}>
+                        <ImageDisplay autoplay={true}>
+
+                            { this.state.imageType === ImageType.PAPERS ?
+                                    this.state.car?.paperImages.map((imgLink:string) =>
+                                        <Image alt="Image of car" src={imgLink} />)
+                                :
+                                this.state.imageType === ImageType.EXTERIOR ?
+                                    this.state.car?.exteriorImages.map((imgLink:string) =>
+                                        <img style={{
+                                            position:'relative',
+                                            height: '100px',
+                                            width: '50px',
+                                        }} alt="Car exterior" src={imgLink} />)
+                                :
+                                this.state.imageType === ImageType.INTERIOR ?
+                                    this.state.car?.interiorImages.map((imgLink:string) =>
+                                            <Image alt="Image of car" src={imgLink} />)
+                                :
+                                <h2>Video format not supported yet</h2>
+                            }
+                        </ImageDisplay>
                     </Col>
                 </Row>
             </div>

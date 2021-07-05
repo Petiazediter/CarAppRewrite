@@ -15,11 +15,14 @@ export const NoMarginSubTitle = styled('h2')`
 
 export const ImageDisplay = styled(Carousel)`
   position: relative;
+  max-height: 200px;
+  overflow-y: hidden;
 `
 
 export const CategoriesContainer = styled('div')`
-  display: inline-block;
-  position:relative;
+  position: relative;
+  display:flex;
+  justify-content: center;
 `
 
 interface ICategoryProps {
