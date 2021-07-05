@@ -23,7 +23,9 @@ const getCarsTable = (filters: CarFilters): Car[] => {
                         if ( (filters.minPrice <= car.bids[car.bids.length -1 ].bid
                             && filters.maxPrice >= car.bids[car.bids.length -1 ].bid)
                             || filters.maxPrice <= filters.minPrice){
-                            if ( moment.min(convertToMoment(car.endDate.replace('/','-')),moment()) === moment()){
+                            const now = moment();
+                            const momentOfCarEndDate = convertToMoment(car.endDate.replace('/','-'));
+                            if ( moment.min(momentOfCarEndDate,now) === now){
                                 returnArray.push(car);
                             }
                         }
@@ -53,7 +55,11 @@ export function convertToMoment(dateInString: string): moment.Moment{
     const formattedDate: moment.MomentInput = {
         year: Number(array[2]),
         month: Number(array[1] ) -1,
-        day: Number(array[0])
+        day: Number(array[0]),
+        hours: Number(array[3]),
+        minutes: Number(array[4]),
+        seconds: Number(array[5]),
+        millisecond: 0
     }
     return moment(formattedDate);
 }
