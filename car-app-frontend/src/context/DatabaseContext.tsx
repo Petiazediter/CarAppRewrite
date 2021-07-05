@@ -23,7 +23,9 @@ const getCarsTable = (filters: CarFilters): Car[] => {
                         if ( (filters.minPrice <= car.bids[car.bids.length -1 ].bid
                             && filters.maxPrice >= car.bids[car.bids.length -1 ].bid)
                             || filters.maxPrice <= filters.minPrice){
-                            returnArray.push(car);
+                            if ( moment.min(convertToMoment(car.endDate.replace('/','-')),moment()) === moment()){
+                                returnArray.push(car);
+                            }
                         }
                     }
                 }
