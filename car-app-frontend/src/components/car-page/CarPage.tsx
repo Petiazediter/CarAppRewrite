@@ -4,6 +4,7 @@ import {Car} from '../../models/Car'
 import {ImageDisplay,NoMarginTitle,NoMarginSubTitle, Category,FlexContainer,CategoryName, CategoriesContainer} from "./Carpage.styled";
 import {Col, Image, Row} from "antd";
 import {PaperClipOutlined, CarFilled, EnterOutlined, VideoCameraFilled} from "@ant-design/icons";
+import {CarDataTable} from "./CarDataTable";
 
 interface IUrlProps {
     carId: string | undefined;
@@ -115,6 +116,10 @@ export class CarPage extends React.Component<RouteComponentProps<IUrlProps>,ISta
                         </ImageDisplay>
                     </Col>
                 </Row>
+
+                {this.state.car != null ?
+                    <CarDataTable car={this.state.car} />
+                : <span>NO Data </span>}
             </div>
         )
     }
