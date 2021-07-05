@@ -1,8 +1,8 @@
 import React from 'react';
 import { RouteComponentProps } from 'react-router';
 import {Car} from '../../models/Car'
-import {NoMarginTitle,NoMarginSubTitle} from "./Carpage.styled";
-import {CarPageHOC} from "./CarPageHOC";
+import {ImageDisplay,NoMarginTitle,NoMarginSubTitle, Category, CategoriesContainer} from "./Carpage.styled";
+import {Col, Image, Row} from "antd";
 
 interface IUrlProps {
     carId: string | undefined;
@@ -44,9 +44,30 @@ export class CarPage extends React.Component<RouteComponentProps<IUrlProps>,ISta
                 <NoMarginSubTitle>{this.state.car?.seller.username}</NoMarginSubTitle>
                 <NoMarginSubTitle>Expiration day: {this.state.car?.endDate}</NoMarginSubTitle>
 
-                <h1>{this.state.car?.title}</h1>
-                <h2>{this.state.car?.seller.username}</h2>
-                <h3>Expiration day: {this.state.car?.endDate}</h3>
+                <Row className="full-width" gutter={[8, 8]}>
+                    <Col span={12}>
+                        <ImageDisplay autoplay={true}>
+                            { this.state.car?.exteriorImages.map(imgLink =>
+                                <Image alt="Image of car" src={imgLink} />
+                            )}
+                        </ImageDisplay>
+                    </Col>
+                    <Col span={12}>
+                        <CategoriesContainer>
+                            <Category background={"red"}>
+                                Hello world
+                            </Category>
+
+                            <Category background={"red"}>
+                                Hello world
+                            </Category>
+
+                            <Category background={"red"}>
+                                Hello world
+                            </Category>
+                        </CategoriesContainer>
+                    </Col>
+                </Row>
             </div>
         )
     }
