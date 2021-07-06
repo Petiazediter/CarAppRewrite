@@ -71,6 +71,8 @@ export const HighlightTitle = styled('h1')`
 export const TableList = styled('ul')`
   list-style: none;
   font-weight: bolder;
+  padding:0;
+  margin:0;
   font-family: sans-serif;
   li {
     padding: 1em;
