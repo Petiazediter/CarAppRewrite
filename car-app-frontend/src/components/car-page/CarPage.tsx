@@ -137,6 +137,12 @@ export class CarPage extends React.Component<RouteComponentProps<IUrlProps>,ISta
                                 <li>{item}</li>
                             )}
                         </ul>
+                        <Divider orientation="left">Flaws</Divider>
+                        <ul>
+                            {this.state.car.flaws.map((item:string) =>
+                                <li>{item}</li>
+                            )}
+                        </ul>
                     </section>
                 : <span>NO Data </span>}
             </div>
