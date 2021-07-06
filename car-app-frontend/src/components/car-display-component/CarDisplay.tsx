@@ -47,19 +47,19 @@ export const CarDisplay: FunctionComponent<{car: Car}> = (props) => {
 
     return (
         <CarComponentWrapper>
-                <ImageDiv>
-                    <Carousel autoplay>
-                        {props.car.exteriorImages.map((item,index) =>
-                            <Image key={index} style={{borderRadius: "10px", overflow: "hidden"}} src={item} alt="The car"/>)}
-                    </Carousel>
-                    <BidSpan>
-                        <LabelSpan>Bid: </LabelSpan>
-                        ${props.car.bids[props.car.bids.length-1].bid}
-                        <LabelSpan> | Time: </LabelSpan>
-                        <span className="timer">{getTimeLeft(props.car.endDate)}</span>
-                    </BidSpan>
-                </ImageDiv>
                 <Link to={`/car/${props.car.id}`}>
+                    <ImageDiv>
+                        <Carousel autoplay>
+                            {props.car.exteriorImages.map((item,index) =>
+                                <img key={index} style={{borderRadius: "10px", overflow: "hidden"}} src={item} alt="The car"/>)}
+                        </Carousel>
+                        <BidSpan>
+                            <LabelSpan>Bid: </LabelSpan>
+                            ${props.car.bids[props.car.bids.length-1].bid}
+                            <LabelSpan> | Time: </LabelSpan>
+                            <span className="timer">{getTimeLeft(props.car.endDate)}</span>
+                        </BidSpan>
+                    </ImageDiv>
                     <CarName>{props.car.title}</CarName>
                 </Link>
                 <Link to={`/user/${props.car.seller.id}`}>

@@ -100,8 +100,7 @@ export class CarPage extends React.Component<RouteComponentProps<IUrlProps>,ISta
                         </CategoriesContainer>
                     </Col>
                     <Col flex={1}>
-                        <ImageDisplay autoplay={true}>
-
+                        < ImageDisplay autoplay={true}>
                             { this.state.imageType === ImageType.PAPERS ?
                                     this.state.car?.paperImages.map((imgLink:string) =>
                                         <Image alt="Image of car" src={imgLink} />)
