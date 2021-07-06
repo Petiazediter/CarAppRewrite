@@ -143,6 +143,8 @@ export class CarPage extends React.Component<RouteComponentProps<IUrlProps>,ISta
                                 <li>{item}</li>
                             )}
                         </ul>
+                        <Divider orientation="left">Service history</Divider>
+                        <HighlightTitle>{this.state.car.serviceHistory}</HighlightTitle>
                     </section>
                 : <span>NO Data </span>}
             </div>
