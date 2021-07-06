@@ -1,7 +1,7 @@
 import { Row, Menu, AutoComplete, Dropdown, Input } from "antd"
 import { Link } from 'react-router-dom'
 import useWindowDimensions from '../../../utils/WindowSize'
-import { MenuOutlined, CarFilled } from '@ant-design/icons'
+import { MenuOutlined } from '@ant-design/icons'
 import { StyledNav, NavbarLink, NavbarMenuCol, TitleLink, LeftAlignedH1 } from "./Navbar.styled";
 import { FunctionComponent, useEffect, useState} from "react";
 
