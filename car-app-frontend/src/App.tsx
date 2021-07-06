@@ -3,7 +3,7 @@ import { About } from "./components/about-page/About";
 import styled from '@emotion/styled';
 import { Navbar } from './components/shared/navbar-component/Navbar';
 import { Auctions } from './components/auctions-page/Auctions';
-import { Footer } from './components/footer/Footer';
+import { Footer } from './components/shared/footer/Footer';
 import { DatabaseProvider } from './context/DatabaseContext';
 import {navbarHeight} from "./components/shared/navbar-component/Navbar.styled";
 import {CarPage} from "./components/car-page/CarPage";
