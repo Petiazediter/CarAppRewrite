@@ -3,7 +3,7 @@ import { RouteComponentProps } from 'react-router';
 import {Car} from '../../models/Car'
 import {ImageDisplay,NoMarginTitle,
         NoMarginSubTitle, Category,FlexContainer,
-        CategoryName, CategoriesContainer,HighlightTitle}
+        CategoryName, CategoriesContainer,HighlightTitle,TableList}
     from "./Carpage.styled";
 import {Col, Image, Row, Divider} from "antd";
 import {PaperClipOutlined, CarFilled, EnterOutlined, VideoCameraFilled} from "@ant-design/icons";
@@ -125,32 +125,32 @@ export class CarPage extends React.Component<RouteComponentProps<IUrlProps>,ISta
                         <CarDataTable car={this.state.car} />
                         <Divider orientation="left">Highlights</Divider>
                         <HighlightTitle>{this.state.car.highlightsTitle}</HighlightTitle>
-                        <ul>
+                        <TableList>
                             {this.state.car.highLightsItems.map((item:string) =>
                                 <li>{item}</li>
                             )}
-                        </ul>
+                        </TableList>
                         <Divider orientation="left">Equipment</Divider>
                         <HighlightTitle>{this.state.car.equipmentTitle}</HighlightTitle>
-                        <ul>
+                        <TableList>
                             {this.state.car.equipmentItems.map((item:string) =>
                                 <li>{item}</li>
                             )}
-                        </ul>
+                        </TableList>
                         <Divider orientation="left">Flaws</Divider>
-                        <ul>
+                        <TableList>
                             {this.state.car.flaws.map((item:string) =>
                                 <li>{item}</li>
                             )}
-                        </ul>
+                        </TableList>
                         <Divider orientation="left">Service history</Divider>
                         <HighlightTitle>{this.state.car.serviceHistory}</HighlightTitle>
                         <Divider orientation="left">Extra items</Divider>
-                        <ul>
+                        <TableList>
                             {this.state.car.extraItems.map((item:string) =>
                                 <li>{item}</li>
                             )}
-                        </ul>
+                        </TableList>
 
                     </section>
                 : <span>NO Data </span>}
