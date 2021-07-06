@@ -15,7 +15,7 @@ export const NoMarginSubTitle = styled('h2')`
 
 export const ImageDisplay = styled(Carousel)`
   position: relative;
-  width: 50%;
+  width: 100%;
   display: flex;
   left: 50%;
   transform: translateX(-50%);
