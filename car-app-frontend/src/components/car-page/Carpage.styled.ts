@@ -67,3 +67,16 @@ export const HighlightTitle = styled('h1')`
   color:white;
   font-style: italic;
 `
+
+export const TableList = styled('ul')`
+  list-style: none;
+  font-weight: bolder;
+  font-family: sans-serif;
+  li {
+    padding: 1em;
+    background: #C8CDD9;
+  }
+  li:nth-child(even){
+    background: #D7DCE7;
+  }
+`
