@@ -11,6 +11,7 @@ import {CarPageHOC} from "./components/car-page/CarPageHOC";
 
 const ContentLayout = styled.div`
   width:90%;
+  min-height: 100vh;
   margin:auto;
   padding-top: calc(${navbarHeight} + 1em);
   box-sizing:border-box;
