@@ -4,7 +4,7 @@ import { CarDisplay } from '../car-display-component/CarDisplay';
 import { Car } from '../../models/Car';
 import { useGetCars, CarFilters} from '../../context/DatabaseContext';
 import { SortRow, PrimaryButton, NewsCol, FlexCol } from "./Auctions.styled";
-import {FunctionComponent, useEffect, useState} from "react";
+import {FunctionComponent, useCallback, useEffect, useState} from "react";
 import {addParameterToURL} from "../../utils/URLHandler";
 import moment from 'moment';
 
@@ -53,7 +53,7 @@ export const Auctions: FunctionComponent = () => {
     }
 
     // Callback function when new there are new URL params.
-    const onFilterChange = (): void => {
+    const onFilterChange = useCallback((): void => {
         let parameters: CarFilters = {
             bodyStyle : 0,
             transmission : 0,
@@ -86,11 +86,12 @@ export const Auctions: FunctionComponent = () => {
             }
         })
         setCarsList(cars(parameters));
-    }
+    },[cars])
 
     useEffect(() => {
         onFilterChange();
-    },[]);
+    },[onFilterChange]);
+
 
     return (
         <>
