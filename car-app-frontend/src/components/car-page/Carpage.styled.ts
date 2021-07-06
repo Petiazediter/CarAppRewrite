@@ -20,6 +20,7 @@ export const ImageDisplay = styled(Carousel)`
   left: 50%;
   transform: translateX(-50%);
   justify-content: center;
+  background: black;
 `
 
 export const CategoriesContainer = styled('div')`
