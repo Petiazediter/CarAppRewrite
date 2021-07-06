@@ -60,9 +60,6 @@ const renderTitle = (title:string) => (
         }}
       >
         {title}
-        <span>
-            <CarFilled /> {10}
-        </span>
       </div>
     ),
 });
