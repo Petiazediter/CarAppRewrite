@@ -58,3 +58,12 @@ export const CategoryName = styled('h2')`
   color:white;
   font-size: large;
 `
+
+export const HighlightTitle = styled('h1')`
+  width:100%;
+  padding:1em;
+  box-sizing: border-box;
+  background: #fc5c65;
+  color:white;
+  font-style: italic;
+`

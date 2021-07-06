@@ -1,8 +1,11 @@
 import React from 'react';
 import { RouteComponentProps } from 'react-router';
 import {Car} from '../../models/Car'
-import {ImageDisplay,NoMarginTitle,NoMarginSubTitle, Category,FlexContainer,CategoryName, CategoriesContainer} from "./Carpage.styled";
-import {Col, Image, Row} from "antd";
+import {ImageDisplay,NoMarginTitle,
+        NoMarginSubTitle, Category,FlexContainer,
+        CategoryName, CategoriesContainer,HighlightTitle}
+    from "./Carpage.styled";
+import {Col, Image, Row, Divider} from "antd";
 import {PaperClipOutlined, CarFilled, EnterOutlined, VideoCameraFilled} from "@ant-design/icons";
 import {CarDataTable} from "./CarDataTable";
 
@@ -118,7 +121,16 @@ export class CarPage extends React.Component<RouteComponentProps<IUrlProps>,ISta
                 </Row>
 
                 {this.state.car != null ?
-                    <CarDataTable car={this.state.car} />
+                    <section>
+                        <CarDataTable car={this.state.car} />
+                        <Divider orientation="left">Highlights</Divider>
+                        <HighlightTitle>{this.state.car.highlightsTitle}</HighlightTitle>
+                        <ul>
+                            {this.state.car.highLightsItems.map((item:string) =>
+                                <li>{item}</li>
+                            )}
+                        </ul>
+                    </section>
                 : <span>NO Data </span>}
             </div>
         )
