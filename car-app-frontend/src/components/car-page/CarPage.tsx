@@ -67,57 +67,51 @@ export class CarPage extends React.Component<RouteComponentProps<IUrlProps>,ISta
                 <NoMarginSubTitle>{this.state.car?.seller.username}</NoMarginSubTitle>
                 <NoMarginSubTitle>Expiration day: {this.state.car?.endDate}</NoMarginSubTitle>
 
-                <Row className="full-width">
-                    <Col flex={1}>
-                        <CategoriesContainer>
-                            <Category background={"red"} onClick={() => this.setImageType(ImageType.PAPERS)}>
-                                <FlexContainer>
-                                    <PaperClipOutlined />
-                                    <CategoryName className="full-width">Papers</CategoryName>
-                                </FlexContainer>
-                            </Category>
+                <CategoriesContainer>
+                    <Category background={"red"} onClick={() => this.setImageType(ImageType.PAPERS)}>
+                        <FlexContainer>
+                            <PaperClipOutlined />
+                            <CategoryName className="full-width">Papers</CategoryName>
+                        </FlexContainer>
+                    </Category>
 
-                            <Category background={"orange"} onClick={() => this.setImageType(ImageType.EXTERIOR)}>
-                                <FlexContainer>
-                                    <CarFilled />
-                                    <CategoryName className="full-width">Exterior</CategoryName>
-                                </FlexContainer>
-                            </Category>
+                    <Category background={"orange"} onClick={() => this.setImageType(ImageType.EXTERIOR)}>
+                        <FlexContainer>
+                            <CarFilled />
+                            <CategoryName className="full-width">Exterior</CategoryName>
+                        </FlexContainer>
+                    </Category>
 
-                            <Category background={"green"} onClick={() => this.setImageType(ImageType.INTERIOR)}>
-                                <FlexContainer>
-                                    <EnterOutlined />
-                                    <CategoryName className="full-width">Interior</CategoryName>
-                                </FlexContainer>
-                            </Category>
+                    <Category background={"green"} onClick={() => this.setImageType(ImageType.INTERIOR)}>
+                        <FlexContainer>
+                            <EnterOutlined />
+                            <CategoryName className="full-width">Interior</CategoryName>
+                        </FlexContainer>
+                    </Category>
 
-                            <Category background={"blue"} onClick={() => this.setImageType(ImageType.VIDEOS)}>
-                                <FlexContainer>
-                                    <VideoCameraFilled />
-                                    <CategoryName className="full-width">Videos</CategoryName>
-                                </FlexContainer>
-                            </Category>
-                        </CategoriesContainer>
-                    </Col>
-                    <Col flex={1}>
-                        < ImageDisplay autoplay={true}>
-                            { this.state.imageType === ImageType.PAPERS ?
-                                    this.state.car?.paperImages.map((imgLink:string) =>
-                                        <Image alt="Image of car" src={imgLink} />)
-                                :
-                                this.state.imageType === ImageType.EXTERIOR ?
-                                    this.state.car?.exteriorImages.map((imgLink:string) =>
-                                        <Image  alt="Car exterior" src={imgLink} />)
-                                :
-                                this.state.imageType === ImageType.INTERIOR ?
-                                    this.state.car?.interiorImages.map((imgLink:string) =>
-                                        <Image  alt="Image of car" src={imgLink} />)
-                                :
-                                <h2>Video format not supported yet</h2>
-                            }
-                        </ImageDisplay>
-                    </Col>
-                </Row>
+                    <Category background={"blue"} onClick={() => this.setImageType(ImageType.VIDEOS)}>
+                        <FlexContainer>
+                            <VideoCameraFilled />
+                            <CategoryName className="full-width">Videos</CategoryName>
+                        </FlexContainer>
+                    </Category>
+                </CategoriesContainer>
+                < ImageDisplay autoplay={true}>
+                    { this.state.imageType === ImageType.PAPERS ?
+                            this.state.car?.paperImages.map((imgLink:string) =>
+                                <Image alt="Image of car" src={imgLink} />)
+                        :
+                        this.state.imageType === ImageType.EXTERIOR ?
+                            this.state.car?.exteriorImages.map((imgLink:string) =>
+                                <Image  alt="Car exterior" src={imgLink} />)
+                        :
+                        this.state.imageType === ImageType.INTERIOR ?
+                            this.state.car?.interiorImages.map((imgLink:string) =>
+                                <Image  alt="Image of car" src={imgLink} />)
+                        :
+                        <h2>Video format not supported yet</h2>
+                    }
+                </ImageDisplay>
 
                 {this.state.car != null ?
                     <section>
