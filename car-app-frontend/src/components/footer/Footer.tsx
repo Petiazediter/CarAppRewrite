@@ -10,9 +10,16 @@ const TitleLi = styled('li')`
   color:grey;
 `
 
+const FooterDiv = styled('div')`
+  background: #eeeef0;
+  width: 100vw;
+  inset: 0;
+  margin:2em 0 0 0;
+`
+
 export const Footer: FunctionComponent = () => {
     return (
-    <div style={{background: "#EEEEF0", width: '100vw', left:0,bottom:0, margin:0}}>
+    <FooterDiv>
         <Row>
         <Col flex={1}>
             <h1>CarsBidApp</h1>
@@ -42,5 +49,5 @@ export const Footer: FunctionComponent = () => {
             </StyledUl>
         </Col>
         </Row>
-  </div>)
+    </FooterDiv>)
 }
