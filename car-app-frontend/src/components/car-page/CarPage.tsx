@@ -145,6 +145,13 @@ export class CarPage extends React.Component<RouteComponentProps<IUrlProps>,ISta
                         </ul>
                         <Divider orientation="left">Service history</Divider>
                         <HighlightTitle>{this.state.car.serviceHistory}</HighlightTitle>
+                        <Divider orientation="left">Extra items</Divider>
+                        <ul>
+                            {this.state.car.extraItems.map((item:string) =>
+                                <li>{item}</li>
+                            )}
+                        </ul>
+
                     </section>
                 : <span>NO Data </span>}
             </div>
