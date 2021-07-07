@@ -1,6 +1,6 @@
 import {Row, Col, Slider, DatePicker,Select } from 'antd';
 import { ClearOutlined } from '@ant-design/icons'
-import { CarDisplay } from '../car-display-component/CarDisplay';
+import { CarDisplay } from './car-display-component/CarDisplay';
 import { Car } from '../../models/Car';
 import { useGetCars, CarFilters} from '../../context/DatabaseContext';
 import { SortRow, PrimaryButton, NewsCol, FlexCol } from "./Auctions.styled";

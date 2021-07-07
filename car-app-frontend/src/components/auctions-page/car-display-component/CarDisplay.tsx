@@ -1,9 +1,9 @@
 import {Carousel} from "antd"
 import {Link} from "react-router-dom";
-import {Car} from "../../models/Car";
+import {Car} from "../../../models/Car";
 import {CarComponentWrapper, ImageDiv, BidSpan, LabelSpan, CarName, SellerName} from "./CarDisplay.styled";
 import moment from 'moment'
-import {convertToMoment} from "../../context/DatabaseContext";
+import {convertToMoment} from "../../../context/DatabaseContext";
 import {FunctionComponent} from "react";
 
 setInterval(() => {
