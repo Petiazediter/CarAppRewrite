@@ -2,7 +2,14 @@ import {FunctionComponent, useCallback, useEffect, useState} from "react";
 import moment from "moment";
 import {convertToMoment} from "../../context/DatabaseContext";
 
-export const TimerText: FunctionComponent<{ fromDate: string }> = (props) => {
+
+export enum TimerDisplayFormat {
+    TRADITIONAL_UNFORMATTED,
+    TRADITIONAL_FORMATTED,
+    SHORT_NAME
+}
+
+export const TimerText: FunctionComponent<{ fromDate: string, formatType : TimerDisplayFormat }> = (props) => {
 
     const getTimeLeft = (endDate: string): string => {
         const now = moment();
@@ -51,13 +58,35 @@ export const TimerText: FunctionComponent<{ fromDate: string }> = (props) => {
     },[currentDate])
 
     const getCurrentDate = (): string => {
-        return currentDate;
+        let formattedText = ""
+        const dateArray = currentDate.split(':');
+        switch (props.formatType){
+            case TimerDisplayFormat.SHORT_NAME:
+                if ( Number(dateArray[0]) > 0){
+                    // If at least a day remaining display just the days
+                    formattedText = `${dateArray[0]} days`
+                } else if ( Number(dateArray[1]) > 0){
+                     // If at least a hour remaining display just the hour.
+                    formattedText = `${dateArray[1]} hours`
+                } else {
+                    // Else display the minutes and seconds
+                    formattedText = `${dateArray[2]}:${dateArray[3]}`
+                }
+                break;
+            case TimerDisplayFormat.TRADITIONAL_FORMATTED:
+                formattedText = currentDate
+                break;
+            case TimerDisplayFormat.TRADITIONAL_UNFORMATTED:
+                formattedText = currentDate
+                break;
+        }
+        return formattedText;
     }
 
     useEffect( ()=> {decreaseTimer()})
 
     return (
     <span>
-        {currentDate}
+        {getCurrentDate()}
     </span>)
 }

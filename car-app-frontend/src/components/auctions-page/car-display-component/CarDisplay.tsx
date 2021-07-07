@@ -1,12 +1,9 @@
 import {Carousel} from "antd"
 import {Link} from "react-router-dom";
 import {Car} from "../../../models/Car";
-import {CarComponentWrapper, ImageDiv, BidSpan, LabelSpan, CarName, SellerName} from "./CarDisplay.styled";
-import moment from 'moment'
-import {convertToMoment} from "../../../context/DatabaseContext";
+import {BidSpan, CarComponentWrapper, CarName, ImageDiv, LabelSpan, SellerName} from "./CarDisplay.styled";
 import {FunctionComponent} from "react";
-import {TimerText} from "../TimerText";
-
+import {TimerDisplayFormat, TimerText} from "../TimerText";
 
 
 export const CarDisplay: FunctionComponent<{ car: Car }> = (props) => {
@@ -24,7 +21,7 @@ export const CarDisplay: FunctionComponent<{ car: Car }> = (props) => {
                         <LabelSpan>Bid: </LabelSpan>
                         ${props.car.bids[props.car.bids.length - 1].bid}
                         <LabelSpan> | Time: </LabelSpan>
-                         <TimerText fromDate={props.car.endDate}/>
+                         <TimerText fromDate={props.car.endDate} formatType={TimerDisplayFormat.SHORT_NAME}/>
                     </BidSpan>
                 </ImageDiv>
                 <CarName>{props.car.title}</CarName>
