@@ -1,8 +1,8 @@
-import { Row, Menu, AutoComplete, Dropdown, Input } from "antd"
-import { Link } from 'react-router-dom'
+import {AutoComplete, Dropdown, Input, Menu, Row} from "antd"
+import {Link} from 'react-router-dom'
 import useWindowDimensions from '../../../utils/WindowSize'
-import { MenuOutlined } from '@ant-design/icons'
-import { StyledNav, NavbarLink, NavbarMenuCol, TitleLink, LeftAlignedH1 } from "./Navbar.styled";
+import {MenuOutlined} from '@ant-design/icons'
+import {LeftAlignedH1, NavbarLink, NavbarMenuCol, StyledNav, TitleLink} from "./Navbar.styled";
 import {FunctionComponent, useCallback, useEffect, useState} from "react";
 import {useGetCars} from "../../../context/DatabaseContext";
 import {Car} from "../../../models/Car";
@@ -40,15 +40,12 @@ const searchStyle = {
 const renderTitle = (title:string) => (
     <span>
       {title}
-      <a
+      <Link to={"/brands"}
         style={{
           float: 'right',
-        }}
-        href="/brands"
-        rel="noopener noreferrer"
-      >
+        }}>
         more
-      </a>
+      </Link>
     </span>
 );
 
@@ -67,7 +64,7 @@ const renderTitle = (title:string) => (
 });
 
 const getOptionsBySearch = (searchTerm: string, cars: Car[]): OptionType[] => {
-    const data = [
+    return [
         {
             label: renderTitle('Bids'),
             options: cars.map(value => renderItem(value.title))
@@ -76,8 +73,7 @@ const getOptionsBySearch = (searchTerm: string, cars: Car[]): OptionType[] => {
             label: renderTitle('Users'),
             options: [renderItem('User1'), renderItem('User2')]
         }
-    ]
-    return data;
+    ];
 }
 
 export type ItemType = {
