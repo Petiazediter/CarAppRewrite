@@ -2,14 +2,20 @@ import React from 'react';
 import {RouteComponentProps} from 'react-router';
 import {Car} from '../../models/Car'
 import {
-    ImageDisplay, NoMarginTitle,
-    NoMarginSubTitle, Category, FlexContainer,
-    CategoryName, CategoriesContainer, HighlightTitle, TableList
-}
-    from "./Carpage.styled";
-import {Image, Divider} from "antd";
-import {PaperClipOutlined, CarFilled, EnterOutlined, VideoCameraFilled} from "@ant-design/icons";
+    CategoriesContainer,
+    Category,
+    CategoryName,
+    FlexContainer,
+    HighlightTitle,
+    ImageDisplay,
+    NoMarginSubTitle,
+    NoMarginTitle,
+    TableList
+} from "./Carpage.styled";
+import {Divider, Image} from "antd";
+import {CarFilled, EnterOutlined, PaperClipOutlined, VideoCameraFilled} from "@ant-design/icons";
 import {CarDataTable} from "./CarDataTable";
+import {TimerDisplayFormat, TimerText} from "../auctions-page/TimerText";
 
 interface IUrlProps {
     carId: string | undefined;
@@ -69,7 +75,10 @@ export class CarPage extends React.Component<RouteComponentProps<IUrlProps>, ISt
                 <NoMarginTitle>{this.state.car?.title}</NoMarginTitle>
                 <NoMarginSubTitle>{this.state.car?.seller.username}</NoMarginSubTitle>
                 <NoMarginSubTitle>Expiration day: {this.state.car?.endDate}</NoMarginSubTitle>
-
+                { this.state.car != null ?
+                <NoMarginSubTitle>Remaining time: <TimerText fromDate={this.state.car?.endDate} formatType={TimerDisplayFormat.TRADITIONAL_FORMATTED} /></NoMarginSubTitle>
+                :<></>
+                }
                 <CategoriesContainer>
                     <Category background={"red"} onClick={() => this.setImageType(ImageType.PAPERS)}>
                         <FlexContainer>
