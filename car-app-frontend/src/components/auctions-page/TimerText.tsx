@@ -4,8 +4,12 @@ export const TimerText: FunctionComponent<{ fromDate: string }> = (props) => {
 
     const [currentDate, setCurrentDate] = useState(props.fromDate)
 
-    const decreaseTimer = () => {
+    const decreaseTimer = (): void => {
         setCurrentDate('Hello world');
+    }
+
+    const getCurrentDate = (): string => {
+        return currentDate;
     }
 
     useEffect( () => {
@@ -16,6 +20,6 @@ export const TimerText: FunctionComponent<{ fromDate: string }> = (props) => {
 
     return (
     <span>
-        {currentDate}
+        {getCurrentDate()}
     </span>)
 }
