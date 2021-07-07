@@ -4,6 +4,8 @@ import useWindowDimensions from '../../../utils/WindowSize'
 import { MenuOutlined } from '@ant-design/icons'
 import { StyledNav, NavbarLink, NavbarMenuCol, TitleLink, LeftAlignedH1 } from "./Navbar.styled";
 import { FunctionComponent, useEffect, useState} from "react";
+import {useGetCars} from "../../../context/DatabaseContext";
+import {Car} from "../../../models/Car";
 
 const { Search } = Input;
 
@@ -50,8 +52,8 @@ const renderTitle = (title:string) => (
     </span>
 );
 
-  const renderItem = (title:string, key:string) => ({
-    value: key,
+  const renderItem = (title:string) => ({
+    value: title,
     label: (
       <div
         style={{
@@ -64,15 +66,15 @@ const renderTitle = (title:string) => (
     ),
 });
 
-const getOptionsBySearch = (searchTerm: string): OptionType[] => {
+const getOptionsBySearch = (searchTerm: string, cars: Car[]): OptionType[] => {
     const data = [
         {
             label: renderTitle('Bids'),
-            options: [renderItem(searchTerm, 'bid1'), renderItem('Bid2','bid2')]
+            options: cars.map(value => renderItem(value.title))
         },
         {
             label: renderTitle('Users'),
-            options: [renderItem('User1','bid4'), renderItem('User2','bid3')]
+            options: [renderItem('User1'), renderItem('User2')]
         }
     ]
     return data;
@@ -93,6 +95,9 @@ export const Navbar : FunctionComponent = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const initial: OptionType[] = [];
     const [options, setOptions] = useState(initial);
+    const getCarsByTerm = useGetCars().getCarBySearchTerm;
+    const initialTable: Car[] = []
+    const [filterCars, setFilterCars] = useState(initialTable)
 
     const onSearchChange = (value: string) => {
         // Hello world
@@ -100,7 +105,8 @@ export const Navbar : FunctionComponent = () => {
     }
 
     useEffect(() => {
-        setOptions(getOptionsBySearch(searchTerm));
+        setFilterCars(getCarsByTerm(searchTerm))
+        setOptions(getOptionsBySearch(searchTerm,filterCars));
     },[searchTerm])
 
     return width >= 800 ? (
