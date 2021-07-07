@@ -41,6 +41,10 @@ const getCarById = (id: number): Car | undefined => {
     return data.data.find(car => car.id === id);
 }
 
+const getCarBySearchTerm = (term: string) : Car[] => {
+    return data.data.filter(value => value.title.toLowerCase().includes(term.toLowerCase()));
+}
+
 function isValidDate(urlDate: string, carDate: string):boolean {
     const moment1 = convertToMoment(urlDate);
     const moment2 = convertToMoment(carDate);
@@ -68,13 +72,19 @@ export function useGetCars(){
     return useContext(GetUsersTableContext);
 }
 
-export const GetUsersTableContext = React.createContext({getCarsTable: getCarsTable, getCarById: getCarById});
+export const GetUsersTableContext = React.createContext(
+    {
+                    getCarsTable: getCarsTable,
+                    getCarById: getCarById,
+                    getCarBySearchTerm: getCarBySearchTerm
+                });
 
 export function DatabaseProvider({children} : {children: ReactElement}) {
     return (
         <GetUsersTableContext.Provider value={{
             getCarsTable: getCarsTable,
-            getCarById: getCarById
+            getCarById: getCarById,
+            getCarBySearchTerm: getCarBySearchTerm
         }} >
             {children}
         </GetUsersTableContext.Provider>
