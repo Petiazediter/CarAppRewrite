@@ -5,6 +5,7 @@ import {CarComponentWrapper, ImageDiv, BidSpan, LabelSpan, CarName, SellerName} 
 import moment from 'moment'
 import {convertToMoment} from "../../../context/DatabaseContext";
 import {FunctionComponent} from "react";
+import {TimerText} from "../TimerText";
 
 setInterval(() => {
     const timerElements: NodeListOf<Element> = document.querySelectorAll('.timer');
@@ -39,7 +40,15 @@ setInterval(() => {
                 // We don't need to check the days.
             }
         }
-        element.innerHTML = dateArray.join(':')
+
+        /*if ( Number(dateArray[0]) > 0){
+            element.innerHTML = `${dateArray[0]} days`
+        } else if ( Number(dateArray[1]) > 0) {
+            element.innerHTML = `${dateArray[1]} hours`
+        }else{ */
+            element.innerHTML = dateArray.join(':')
+        //}
+        console.log(dateArray.join(':'));
     })
 }, 1000)
 
@@ -69,7 +78,7 @@ export const CarDisplay: FunctionComponent<{ car: Car }> = (props) => {
                         <LabelSpan>Bid: </LabelSpan>
                         ${props.car.bids[props.car.bids.length - 1].bid}
                         <LabelSpan> | Time: </LabelSpan>
-                        <span className="timer">{getTimeLeft(props.car.endDate)}</span>
+                         <TimerText fromDate={props.car.endDate}/>
                     </BidSpan>
                 </ImageDiv>
                 <CarName>{props.car.title}</CarName>
