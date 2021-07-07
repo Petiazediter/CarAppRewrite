@@ -50,8 +50,8 @@ const renderTitle = (title:string) => (
     </span>
 );
 
-  const renderItem = (title:string) => ({
-    value: title,
+  const renderItem = (title:string, key:string) => ({
+    value: key,
     label: (
       <div
         style={{
@@ -65,16 +65,17 @@ const renderTitle = (title:string) => (
 });
 
 const getOptionsBySearch = (searchTerm: string): OptionType[] => {
-    return [
+    const data = [
         {
             label: renderTitle('Bids'),
-            options: [renderItem(searchTerm), renderItem('Item2')]
+            options: [renderItem(searchTerm, 'bid1'), renderItem('Bid2','bid2')]
         },
         {
             label: renderTitle('Users'),
-            options: [renderItem('Item1'), renderItem('Item2')]
+            options: [renderItem('User1','bid4'), renderItem('User2','bid3')]
         }
     ]
+    return data;
 }
 
 export type ItemType = {
@@ -100,7 +101,6 @@ export const Navbar : FunctionComponent = () => {
 
     useEffect(() => {
         setOptions(getOptionsBySearch(searchTerm));
-        console.log('Now changed.')
     },[searchTerm])
 
     return width >= 800 ? (
