@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import useWindowDimensions from '../../../utils/WindowSize'
 import { MenuOutlined } from '@ant-design/icons'
 import { StyledNav, NavbarLink, NavbarMenuCol, TitleLink, LeftAlignedH1 } from "./Navbar.styled";
-import { FunctionComponent, useEffect, useState} from "react";
+import {FunctionComponent, useCallback, useEffect, useState} from "react";
 import {useGetCars} from "../../../context/DatabaseContext";
 import {Car} from "../../../models/Car";
 
@@ -95,19 +95,23 @@ export const Navbar : FunctionComponent = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const initial: OptionType[] = [];
     const [options, setOptions] = useState(initial);
-    const getCarsByTerm = useGetCars().getCarBySearchTerm;
     const initialTable: Car[] = []
     const [filterCars, setFilterCars] = useState(initialTable)
+    const getCarFromDatabase = useGetCars().getCarBySearchTerm;
 
     const onSearchChange = (value: string) => {
         // Hello world
         setSearchTerm(value);
     }
 
-    useEffect(() => {
-        setFilterCars(getCarsByTerm(searchTerm))
-        setOptions(getOptionsBySearch(searchTerm,filterCars));
+    const getCarsByTerm = useCallback( () => {
+        setFilterCars(getCarFromDatabase(searchTerm))
+        setOptions(getOptionsBySearch(searchTerm,filterCars))
     },[searchTerm])
+
+    useEffect(() => {
+        getCarsByTerm()
+    },[getCarsByTerm])
 
     return width >= 800 ? (
     <StyledNav>
