@@ -12,20 +12,31 @@ setInterval(() => {
         const currentText = element.innerHTML;
         // [days,hours,minutes]
         const dateArray = currentText.split(':');
-        for (let i = dateArray.length - 1; i >= 0; i--) {
-            const newValue: number = (Number(dateArray[i]) - 1);
-            dateArray[i] = newValue.toString();
-            if (newValue !== 0) {
+
+        // Start the loop from seconds to days.
+        for ( let index = dateArray.length -1; index >= 0; index--  ){
+            // In this example the index is the last element so we check the seconds at this time.
+            // Get the seconds by the index and decrease it by one.
+            let newValue = Number(dateArray[index]) - 1;
+            if ( newValue > 0){
+                dateArray[index] = newValue.toString();
+                // If the second is greater than 0 that means we want to decrease only the second
+                // And not mocking the minutes , hours or days. So we break the loop.
                 break;
+                // We will not continue the loop to the minutes, so we will not decreasing it.
             } else {
-                if (i === 0) {
-                    break;
+                // If the second is reached the zero, that means we want to decrease the minutes too.
+                // So we'll not break the loop, and that means the next loop the minutes will decrease by one
+                // We only had to set the seconds back to 59
+                if ( index >= (dateArray.length - 2)){
+                    // If we checking the seconds or minutes at the moment:
+                    dateArray[index] = '59'
+                    // Set the seconds ( or minutes ) back to 59
+                } else if ( index === 1) {
+                    // If we checking the hours and it's reached zero set it back to 23
+                    dateArray[index] = '23'
                 }
-                if (i === 1) {
-                    dateArray[i] = '23'
-                } else {
-                    dateArray[i] = '59'
-                }
+                // We don't need to check the days.
             }
         }
         element.innerHTML = dateArray.join(':')
