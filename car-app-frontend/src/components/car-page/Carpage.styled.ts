@@ -132,6 +132,7 @@ export const CategoryName = styled.h2({
     fontSize: "large"
 })
 
+/*
 export const HighlightTitle = styled('h1')`
   width:100%;
   padding:1em;
@@ -140,6 +141,16 @@ export const HighlightTitle = styled('h1')`
   color:white;
   font-style: italic;
 `
+ */
+
+export const HighlightTitle = styled.h1({
+    width: '100%',
+    padding: '1em',
+    boxSizing: 'border-box',
+    background: '#fc5c65',
+    color: 'white',
+    fontStyle: 'italic'
+})
 
 export const TableList = styled('ul')`
   list-style: none;
