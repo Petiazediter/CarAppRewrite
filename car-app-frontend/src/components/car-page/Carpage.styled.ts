@@ -49,11 +49,18 @@ export const ImageDisplay = styled(Carousel)({
     background: 'black'
 })
 
+/*
 export const CategoriesContainer = styled('div')`
   position: relative;
   display:flex;
   justify-content: center;
-`
+`*/
+
+export const CategoriesContainer = styled.div({
+    position: 'relative',
+    display: 'flex',
+    justifyContent: 'center'
+})
 
 interface ICategoryProps {
     background: string;
