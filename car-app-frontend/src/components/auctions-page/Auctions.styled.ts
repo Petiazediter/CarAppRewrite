@@ -45,6 +45,7 @@ export const NewsCol = styled(Col)({
     }
 })
 
+/*
 export const PrimaryButton = styled(Button)`
     background:#fc5c65;
     color:white;
@@ -53,4 +54,14 @@ export const PrimaryButton = styled(Button)`
         border-color:#eb3b5a;
         color:white;
     }
-`
+` */
+
+export const PrimaryButton = styled(Button)({
+    background: "#fc5c65",
+    color: "white",
+    ["&:hover, &:active, &:focus"]: {
+        background : "#eb3b5a",
+        borderColor: "#eb3b5a",
+        color: "white"
+    }
+})
