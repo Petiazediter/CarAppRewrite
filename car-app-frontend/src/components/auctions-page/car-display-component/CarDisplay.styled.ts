@@ -35,12 +35,25 @@ export const BidSpan = styled('span')`
   padding: .2em 1em .2em 1em;
   border-radius: 8px;
   margin: 1.5em 0 0 .5em;
-`
+`*/
 
+export const BidSpan = styled.span({
+    position:'absolute',
+    top: 0,
+    left: 0,
+    background: 'rgba(40,40,40,1)',
+    color: "white",
+    padding: '.2em 1em .2em 1em',
+    borderRadius: '8px',
+    margin: '1.5em 0 0 .5em'
+})
+
+/*
 export const ImageDiv = styled('div')`
   position: relative;
 `
 
+/*
 export const LabelSpan = styled('span')`
   color: grey;
 `
