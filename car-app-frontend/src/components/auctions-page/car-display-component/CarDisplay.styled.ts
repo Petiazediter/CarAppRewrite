@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 
+/*
 export const CarComponentWrapper = styled('div')`
   position: relative;
   width: 100%;
@@ -10,8 +11,21 @@ export const CarComponentWrapper = styled('div')`
   @media only screen and ( min-width: 1200px) {
     width: 33%;
   }
-`
+` */
 
+export const CarComponentWrapper = styled.div({
+    position: 'relative',
+    width: '100%',
+    [`@media only screen and (min-width: 800px)`]: {
+        width: '50%',
+        padding: '1em'
+    },
+    ['@media only screen and (min-width: 1200px)']: {
+        width: '33%'
+    }
+})
+
+/*
 export const BidSpan = styled('span')`
   position: absolute;
   top: 0;
