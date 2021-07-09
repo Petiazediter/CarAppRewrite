@@ -27,6 +27,7 @@ export const NoMarginSubTitle = styled.h2({
     fontFamily: 'sans-serif'
 })
 
+/*
 export const ImageDisplay = styled(Carousel)`
   position: relative;
   width: 100%;
@@ -36,6 +37,17 @@ export const ImageDisplay = styled(Carousel)`
   justify-content: center;
   background: black;
 `
+*/
+
+export const ImageDisplay = styled(Carousel)({
+    position: 'relative',
+    width: '100%',
+    display: 'flex',
+    left: '50%',
+    transform : 'translateX(-50%)',
+    justifyContent: 'center',
+    background: 'black'
+})
 
 export const CategoriesContainer = styled('div')`
   position: relative;
