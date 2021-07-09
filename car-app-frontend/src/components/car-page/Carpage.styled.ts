@@ -66,6 +66,7 @@ interface ICategoryProps {
     background: string;
 }
 
+/*
 export const Category = styled('section')<ICategoryProps>`
   cursor:pointer;
   margin:1em;
@@ -78,6 +79,26 @@ export const Category = styled('section')<ICategoryProps>`
   color:white;
   position: relative;
 `
+*/
+
+export const Category = styled.section<ICategoryProps>(
+    {
+        cursor: "pointer",
+        margin: "1em",
+        width: "80px",
+        aspectRatio: "1/1",
+        display: "flex",
+        justifyContent: "center",
+        alignContent: "center",
+        color: "white",
+        position: "relative"
+    },
+    props => ({
+        background: `${props.background}`
+    })
+)
+
+/*
 export const FlexContainer = styled('div')`
   display: flex;
   flex-wrap: wrap;
