@@ -95,3 +95,13 @@ export const SellerName = styled(Title)`
   padding: 0;
   margin: 0;
   font-size: medium;
+`*/
+
+export const CarName = styled(Title)({})
+
+export const SellerName = styled(Title)({
+    color: "black",
+    padding: 0,
+    margin:0,
+    fontSize: 'medium'
+})
