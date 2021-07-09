@@ -120,10 +120,17 @@ export const FlexContainer = styled.div({
     position: "relative"
 })
 
+/*
 export const CategoryName = styled('h2')`
   color:white;
   font-size: large;
 `
+ */
+
+export const CategoryName = styled.h2({
+    color: "white",
+    fontSize: "large"
+})
 
 export const HighlightTitle = styled('h1')`
   width:100%;
