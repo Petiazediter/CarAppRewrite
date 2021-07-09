@@ -7,7 +7,7 @@ export const navbarHeight: string = '60px';
 interface NavbarMenuColProps{
     highlight?: boolean;
 }
-
+/*
 export const NavbarMenuCol = styled(Col)<NavbarMenuColProps>`
     background: ${(p: NavbarMenuColProps) => p.highlight ? '#fc5c65' : 'none'};
     color: ${(p: NavbarMenuColProps) => p.highlight ? 'white' : 'black'};
@@ -21,6 +21,21 @@ export const NavbarMenuCol = styled(Col)<NavbarMenuColProps>`
         background: ${(p:NavbarMenuColProps) => p.highlight ? '#eb3b5a' : 'none'};
     }
 `
+ */
+
+export const NavbarMenuCol = styled(Col)<NavbarMenuColProps>(props => ({
+    background: `${props.highlight ? '#fc5c65' : 'none'}`,
+    color: props.highlight ? 'white' : 'black',
+    fontWeight: 'bolder',
+    textAlign: 'center',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    position: 'relative',
+    ['&:hover']: {
+        background: props.highlight ? '#eb3b5a': 'none'
+    }
+}))
 
 export const StyledNav = styled('nav')`
     z-index:10;
