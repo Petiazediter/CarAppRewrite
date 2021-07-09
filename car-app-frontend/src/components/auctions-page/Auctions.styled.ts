@@ -1,10 +1,17 @@
 import styled from "@emotion/styled";
 import {Button, Col} from "antd";
 
+/*
 export const SortRow = styled(Col)`
     display:flex;
 `
+*/
 
+export const SortRow = styled(Col)({
+    display: 'flex'
+})
+
+/*
 export const FlexCol = styled(Col)`
     position:relative;
     width:0;
