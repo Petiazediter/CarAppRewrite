@@ -76,7 +76,9 @@ export class CarPage extends React.Component<RouteComponentProps<IUrlProps>, ISt
                 <NoMarginSubTitle>{this.state.car?.seller.username}</NoMarginSubTitle>
                 <NoMarginSubTitle>Expiration day: {this.state.car?.endDate}</NoMarginSubTitle>
                 { this.state.car != null ?
-                <NoMarginSubTitle>Remaining time: <TimerText fromDate={this.state.car?.endDate} formatType={TimerDisplayFormat.TRADITIONAL_FORMATTED} /></NoMarginSubTitle>
+                <NoMarginSubTitle>Remaining time:
+                  <TimerText fromDate={this.state.car?.endDate} formatType={TimerDisplayFormat.TRADITIONAL_FORMATTED}/>
+                </NoMarginSubTitle>
                 :<></>
                 }
                 <CategoriesContainer>
