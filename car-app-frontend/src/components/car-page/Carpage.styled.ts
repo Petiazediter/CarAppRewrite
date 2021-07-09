@@ -14,11 +14,18 @@ export const NoMarginTitle = styled.h1({
     fontFamily: 'sans-serif'
 })
 
+/*
 export const NoMarginSubTitle = styled('h2')`
   margin:0;
   padding:0;
   font-family: 'sans-serif';
-`
+` */
+
+export const NoMarginSubTitle = styled.h2({
+    margin: 0,
+    padding: 0,
+    fontFamily: 'sans-serif'
+})
 
 export const ImageDisplay = styled(Carousel)`
   position: relative;
