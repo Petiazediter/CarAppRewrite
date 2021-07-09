@@ -28,13 +28,22 @@ export const FlexCol = styled(Col)({
     overflow: 'hidden'
 })
 
+/*
 export const NewsCol = styled(Col)`
     position:relative;
     display:none;
     @media only screen and (min-width:800px){
         display:initial;
     }
-`
+` */
+
+export const NewsCol = styled(Col)({
+    position:"relative",
+    display: "none",
+    ["@media only screen and (min-width:800px)"]: {
+        display: "initial"
+    }
+})
 
 export const PrimaryButton = styled(Button)`
     background:#fc5c65;
