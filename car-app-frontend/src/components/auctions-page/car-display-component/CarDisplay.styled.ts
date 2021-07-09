@@ -51,7 +51,11 @@ export const BidSpan = styled.span({
 /*
 export const ImageDiv = styled('div')`
   position: relative;
-`
+` */
+
+export const ImageDiv = styled.div({
+    position:'relative'
+})
 
 /*
 export const LabelSpan = styled('span')`
