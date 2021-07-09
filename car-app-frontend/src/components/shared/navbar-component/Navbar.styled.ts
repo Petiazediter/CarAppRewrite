@@ -97,6 +97,7 @@ export const NavbarLink = styled(Link)<NavbarMenuColProps>(props => ({
     }
 }))
 
+/*
 export const TitleLink = styled(Link)`
     position:relative;
     width:100%;
@@ -104,6 +105,15 @@ export const TitleLink = styled(Link)`
     align-items: center;
     justify-content: center;
 `
+ */
+
+export const TitleLink = styled(Link)({
+    position: 'relative',
+    width: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center'
+})
 
 export const LeftAlignedH1 = styled('h1')`
     position:relative;
