@@ -18,7 +18,15 @@ export const FlexCol = styled(Col)`
     display:flex;
     flex-wrap:wrap;
     overflow:hidden;
-`
+`*/
+
+export const FlexCol = styled(Col)({
+    position:'relative',
+    width: 0,
+    display: 'flex',
+    flexWrap: 'wrap',
+    overflow: 'hidden'
+})
 
 export const NewsCol = styled(Col)`
     position:relative;
