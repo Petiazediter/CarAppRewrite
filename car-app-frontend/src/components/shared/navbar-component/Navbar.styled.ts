@@ -115,10 +115,19 @@ export const TitleLink = styled(Link)({
     justifyContent: 'center'
 })
 
+/*
 export const LeftAlignedH1 = styled('h1')`
     position:relative;
     width:100%;
     padding:0;
     margin:0;
     text-align:left;
-`
+`*/
+
+export const LeftAlignedH1 = styled.h1({
+    position: 'relative',
+    width: '100%',
+    padding: 0,
+    margin: 0,
+    textAlign: 'left'
+})
