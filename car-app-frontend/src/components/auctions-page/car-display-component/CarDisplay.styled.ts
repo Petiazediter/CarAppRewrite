@@ -78,6 +78,16 @@ export const Title = styled('h2')`
   }
 `*/
 
+export const Title = styled.h2({
+    color: "black",
+    padding: 0,
+    margin: 0,
+    ['&:hover']: {
+        color: '#fc5c65'
+    }
+})
+
+/*
 export const CarName = styled(Title)``
 
 export const SellerName = styled(Title)`
@@ -85,4 +95,3 @@ export const SellerName = styled(Title)`
   padding: 0;
   margin: 0;
   font-size: medium;
-`
