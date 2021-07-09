@@ -88,7 +88,14 @@ export const NavbarLink = styled(Link)<NavbarMenuColProps>`
     &:hover{
         color:${(p: NavbarMenuColProps) => p.highlight ? 'white' : 'black'};
     }
-`
+`*/
+
+export const NavbarLink = styled(Link)<NavbarMenuColProps>(props => ({
+    color: props.highlight ? '#eeeeee': 'grey',
+    ['&:hover']: {
+        color: props.highlight ? 'white' : 'black'
+    }
+}))
 
 export const TitleLink = styled(Link)`
     position:relative;
