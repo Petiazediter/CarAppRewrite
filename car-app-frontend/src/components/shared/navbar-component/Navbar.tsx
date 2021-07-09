@@ -133,7 +133,7 @@ export const Navbar : FunctionComponent = () => {
                 <Search placeholder="Search for cars" onChange={ event => { onSearchChange(event.target.value) } } onSearch={onSearch} style={searchStyle} />
             </AutoComplete>
             </NavbarMenuCol>
-            <NavbarMenuCol highlight={true} flex={1}>
+            <NavbarMenuCol highlight flex={1}>
                 <NavbarLink highlight={true} to="/sign-in">Sign in</NavbarLink>
             </NavbarMenuCol>
         </Row>

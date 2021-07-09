@@ -141,7 +141,7 @@ export const Auctions: FunctionComponent = () => {
                         <DatePicker
                             style={{marginBottom:"20px"}}
                             className="full-width"
-                            defaultValue={moment(getParamFromUrl(Filter.TIME_RANGE, '2021-12-31').replace('-','/'), dateFormat)}
+                            defaultValue={moment(getParamFromUrl(Filter.TIME_RANGE, '31-12-2021').replace('-','/'), dateFormat)}
                             format={dateFormat}
                             onSelect={(value) => applyEndDateFilter(value)}
                         />
