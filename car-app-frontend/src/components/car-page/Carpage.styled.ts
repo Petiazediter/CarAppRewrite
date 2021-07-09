@@ -108,6 +108,17 @@ export const FlexContainer = styled('div')`
   text-align: center;
   position: relative;
 `
+*/
+
+export const FlexContainer = styled.div({
+    display: "flex",
+    flexWrap: "wrap",
+    justifyContent: "center",
+    alignContent: "center",
+    color: "white",
+    textAlign: "center",
+    position: "relative"
+})
 
 export const CategoryName = styled('h2')`
   color:white;
