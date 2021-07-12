@@ -2,10 +2,21 @@ import {FunctionComponent} from "react";
 import {Button, Checkbox, Form, Input} from "antd";
 import {LockOutlined, UserOutlined} from "@ant-design/icons";
 import { Link } from 'react-router-dom'
+import { RuleObject } from "antd/lib/form";
+import { StoreValue } from "antd/lib/form/interface";
 
 export const SignInPage: FunctionComponent = () => {
 
     const onFinish = (values: { username: string,password: string }) => {}
+
+    const validateUsername = () => ({
+        validator(_: RuleObject, value: StoreValue) {
+            if ( !value || value.length > 5 ) {
+                return Promise.resolve();
+            }
+            return Promise.reject(new Error('The username is too short!'))
+        }
+    })
 
     return (
         <section>
@@ -17,7 +28,8 @@ export const SignInPage: FunctionComponent = () => {
                 <Form.Item
                     name="username"
                     rules={[
-                        {required: true, message: 'Username is required!'}
+                        {required: true, message: 'Username is required!'},
+                        validateUsername
                     ]}>
                     <Input prefix={<UserOutlined className="site-form-item-icon" />}
                            placeholder={"Username"} />
@@ -27,7 +39,7 @@ export const SignInPage: FunctionComponent = () => {
                     rules={[
                         {required: true, message: 'Password is required'}
                     ]}>
-                    <Input type="password"
+                    <Input.Password
                            placeholder="Password"
                            prefix={<LockOutlined className="site-form-item-icon" /> } />
                 </Form.Item>
@@ -46,5 +58,6 @@ export const SignInPage: FunctionComponent = () => {
                     Or <Link to={"/register"}>register now</Link>
                 </Form.Item>
             </Form>
-        </section>)
+        </section>
+    )
 }
