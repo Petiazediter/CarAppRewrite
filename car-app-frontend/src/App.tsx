@@ -8,6 +8,7 @@ import { DatabaseProvider } from './context/DatabaseContext';
 import {navbarHeight} from "./components/shared/navbar-component/Navbar.styled";
 import {CarPage} from "./components/car-page/CarPage";
 import {CarPageHOC} from "./components/car-page/CarPageHOC";
+import {SignInPage} from "./components/sign-in-page/SignInPage";
 
 const ContentLayout = styled.div`
   width:90%;
@@ -36,6 +37,7 @@ function App() {
             </Route>
             <Navbar/>
             <Route path="/car/:carId" component={CarPageHOC(CarPage)} />
+            <Route path={"/sign-in"} component={SignInPage} />
         </ContentLayout>
         <Footer/>
       </BrowserRouter>
