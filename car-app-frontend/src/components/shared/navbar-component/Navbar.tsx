@@ -4,7 +4,7 @@ import useWindowDimensions from '../../../utils/WindowSize'
 import {MenuOutlined} from '@ant-design/icons'
 import {LeftAlignedH1, NavbarLink, NavbarMenuCol, StyledNav, TitleLink} from "./Navbar.styled";
 import {FunctionComponent, useCallback, useEffect, useState} from "react";
-import {useGetCars} from "../../../context/DatabaseContext";
+import {useDatabaseContext} from "../../../context/DatabaseContext";
 import {Car} from "../../../models/Car";
 
 const { Search } = Input;
@@ -93,7 +93,7 @@ export const Navbar : FunctionComponent = () => {
     const [options, setOptions] = useState(initial);
     const initialTable: Car[] = []
     const [filterCars, setFilterCars] = useState(initialTable)
-    const getCarFromDatabase = useGetCars().getCarBySearchTerm;
+    const getCarFromDatabase = useDatabaseContext().getCarBySearchTerm;
 
     const onSearchChange = (value: string) => {
         // Hello world

@@ -2,7 +2,7 @@ import {Row, Col, Slider, DatePicker,Select } from 'antd';
 import { ClearOutlined } from '@ant-design/icons'
 import { CarDisplay } from './car-display-component/CarDisplay';
 import { Car } from '../../models/Car';
-import { useGetCars, CarFilters} from '../../context/DatabaseContext';
+import { useDatabaseContext, CarFilters} from '../../context/DatabaseContext';
 import { SortRow, PrimaryButton, NewsCol, FlexCol } from "./Auctions.styled";
 import {FunctionComponent, useCallback, useEffect, useState} from "react";
 import {addParameterToURL} from "../../utils/URLHandler";
@@ -22,7 +22,7 @@ enum Filter{
 }
 
 export const Auctions: FunctionComponent = () => {
-    const cars = useGetCars().getCarsTable;
+    const cars = useDatabaseContext().getCarsTable;
     const initialCars : Car[] = [];
     const [carsList, setCarsList] = useState(initialCars);
 

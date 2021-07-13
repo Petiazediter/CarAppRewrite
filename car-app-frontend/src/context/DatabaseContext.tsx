@@ -68,7 +68,7 @@ export function convertToMoment(dateInString: string): moment.Moment{
     return moment(formattedDate);
 }
 
-export function useGetCars(){
+export function useDatabaseContext(){
     return useContext(GetUsersTableContext);
 }
 
