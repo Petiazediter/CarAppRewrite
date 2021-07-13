@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import useWindowDimensions from '../../../utils/WindowSize';
 import { MenuOutlined, SwitcherOutlined } from '@ant-design/icons';
 import {
+	IS_HIGHLIGHTED,
 	LeftAlignedH1,
 	NavbarLink,
 	NavbarMenuCol,
@@ -136,8 +137,8 @@ export const Navbar: FunctionComponent = () => {
 				<NavbarMenuCol flex={1}>
 					<NavbarLink to="/auctions">Auctions</NavbarLink>
 				</NavbarMenuCol>
-				<NavbarMenuCol highlight={true} flex={1}>
-					<NavbarLink highlight={true} to="/sell">
+				<NavbarMenuCol highlight={IS_HIGHLIGHTED} flex={1}>
+					<NavbarLink highlight={IS_HIGHLIGHTED} to="/sell">
 						Sell a car
 					</NavbarLink>
 				</NavbarMenuCol>
@@ -161,8 +162,8 @@ export const Navbar: FunctionComponent = () => {
 						/>
 					</AutoComplete>
 				</NavbarMenuCol>
-				<NavbarMenuCol highlight flex={1}>
-					<NavbarLink highlight={true} to="/sign-in">
+				<NavbarMenuCol highlight={IS_HIGHLIGHTED} flex={1}>
+					<NavbarLink highlight={IS_HIGHLIGHTED} to="/sign-in">
 						Sign in
 					</NavbarLink>
 				</NavbarMenuCol>
