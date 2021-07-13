@@ -82,11 +82,11 @@ export const TableList = styled.ul({
     padding: 0,
     margin: 0,
     fontFamily: 'sans-serif',
-    ['li']: {
+    'li': {
         padding: '1em',
         background: '#c8cdd9'
     },
-    ['li:nth-child(even)']: {
+    'li:nth-child(even)': {
         background: '#d7dce7'
     }
 })

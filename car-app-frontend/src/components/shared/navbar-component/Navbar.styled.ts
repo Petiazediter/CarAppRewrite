@@ -17,7 +17,7 @@ export const NavbarMenuCol = styled(Col)<NavbarMenuColProps>(props => ({
     alignItems: 'center',
     justifyContent: 'center',
     position: 'relative',
-    ['&:hover']: {
+    '&:hover': {
         background: props.highlight ? '#eb3b5a': 'none'
     }
 }))
@@ -33,19 +33,19 @@ export const StyledNav = styled.nav({
     top: 0,
     margin: 0,
     paddingTop: '.5em',
-    ['@media only screen and (min-width: 800px)']: {
+    '@media only screen and (min-width: 800px)': {
         left: '50%',
         transform: 'translateX(-50%)',
         width: '90.1%'
     },
-    ['@media only screen and (min-width: 1500px)']: {
+    '@media only screen and (min-width: 1500px)': {
         width: '70.1%'
     }
 })
 
 export const NavbarLink = styled(Link)<NavbarMenuColProps>(props => ({
     color: props.highlight ? '#eeeeee': 'grey',
-    ['&:hover']: {
+    '&:hover': {
         color: props.highlight ? 'white' : 'black'
     }
 }))

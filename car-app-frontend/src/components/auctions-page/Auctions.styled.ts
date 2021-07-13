@@ -16,7 +16,7 @@ export const FlexCol = styled(Col)({
 export const NewsCol = styled(Col)({
     position:"relative",
     display: "none",
-    ["@media only screen and (min-width:800px)"]: {
+    "@media only screen and (min-width:800px)": {
         display: "initial"
     }
 })
@@ -24,7 +24,7 @@ export const NewsCol = styled(Col)({
 export const PrimaryButton = styled(Button)({
     background: "#fc5c65",
     color: "white",
-    ["&:hover, &:active, &:focus"]: {
+    "&:hover, &:active, &:focus": {
         background : "#eb3b5a",
         borderColor: "#eb3b5a",
         color: "white"

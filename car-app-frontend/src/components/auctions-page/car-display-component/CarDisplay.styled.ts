@@ -3,11 +3,11 @@ import styled from "@emotion/styled";
 export const CarComponentWrapper = styled.div({
     position: 'relative',
     width: '100%',
-    [`@media only screen and (min-width: 800px)`]: {
+    '@media only screen and (min-width: 800px)': {
         width: '50%',
         padding: '1em'
     },
-    ['@media only screen and (min-width: 1200px)']: {
+    '@media only screen and (min-width: 1200px)': {
         width: '33%'
     }
 })
@@ -35,7 +35,7 @@ export const Title = styled.h2({
     color: "black",
     padding: 0,
     margin: 0,
-    ['&:hover']: {
+    '&:hover': {
         color: '#fc5c65'
     }
 })
