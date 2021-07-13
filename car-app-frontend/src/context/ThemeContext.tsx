@@ -1,20 +1,25 @@
-import React, { FunctionComponent, ReactElement, useContext } from 'react';
+import React, { FunctionComponent, ReactElement, useState } from 'react';
 
-export type ThemeContext = {
+export type ThemeContextType = {
 	isDark: boolean;
+	toggleTheme: () => void;
 };
 
-const MyThemeContext = React.createContext<ThemeContext>({ isDark: false });
+export const MyThemeContext = React.createContext<ThemeContextType>({
+	isDark: false,
+	toggleTheme: () => {},
+});
 
-export function useThemeContext() {
-	return useContext(MyThemeContext);
-}
-
-const ThemeContextProviderComponent: FunctionComponent<{
+export const ThemeContextProviderComponent: FunctionComponent<{
 	children: ReactElement;
 }> = ({ children }) => {
+	const [isDark, setIsDark] = useState<boolean>(false);
+	const toggleTheme = (): void => {
+		setIsDark(!isDark);
+	};
+
 	return (
-		<MyThemeContext.Provider value={{ isDark: false }}>
+		<MyThemeContext.Provider value={{ isDark, toggleTheme }}>
 			{children}
 		</MyThemeContext.Provider>
 	);
