@@ -1,19 +1,12 @@
-import { Row, Col, Slider, DatePicker, Select, Button } from 'antd';
+import { Row, Col, Slider, DatePicker, Select } from 'antd';
 import { ClearOutlined } from '@ant-design/icons';
 import { CarDisplay } from './car-display-component/CarDisplay';
 import { Car } from '../../models/Car';
 import { useDatabaseContext, CarFilters } from '../../context/DatabaseContext';
 import { SortRow, PrimaryButton, NewsCol, FlexCol } from './Auctions.styled';
-import {
-	FunctionComponent,
-	useCallback,
-	useContext,
-	useEffect,
-	useState,
-} from 'react';
+import { FunctionComponent, useCallback, useEffect, useState } from 'react';
 import { addParameterToURL } from '../../utils/URLHandler';
 import moment from 'moment';
-import { MyThemeContext } from '../../context/ThemeContext';
 
 const { Option } = Select;
 
@@ -32,7 +25,6 @@ export const Auctions: FunctionComponent = () => {
 	const cars = useDatabaseContext().getCarsTable;
 	const initialCars: Car[] = [];
 	const [carsList, setCarsList] = useState(initialCars);
-	const { isDark, toggleTheme } = useContext(MyThemeContext);
 
 	// Get parameter from URL by key, with a filter's value.
 	const getParamFromUrl = (filter: Filter, defaultValue: string): string => {
