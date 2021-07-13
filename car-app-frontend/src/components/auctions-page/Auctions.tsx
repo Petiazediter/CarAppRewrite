@@ -102,14 +102,6 @@ export const Auctions: FunctionComponent = () => {
 
 	return (
 		<>
-			<Button
-				onClick={() => {
-					toggleTheme();
-				}}
-			>
-				Click here to toggle theme
-			</Button>
-			{isDark ? 'IS dark mode' : ''}
 			<Row className="full-width" justify="center" style={{ width: '100%' }}>
 				<SortRow flex={1}>
 					<Col flex={1}>
