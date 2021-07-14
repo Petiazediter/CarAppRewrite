@@ -113,7 +113,7 @@ export class CarPage extends React.Component<RouteComponentProps<IUrlProps>, ISt
                 < ImageDisplay autoplay={true}>
                     {this.state.imageType === ImageType.PAPERS ?
                         this.state.car?.paperImages.map((imgLink: string) =>
-                            <Image alt="Image of car" src={imgLink}/>)
+                            <Image key={imgLink} alt="Image of car" src={imgLink}/>)
                         :
                         this.state.imageType === ImageType.EXTERIOR ?
                             this.state.car?.exteriorImages.map((imgLink: string) =>
