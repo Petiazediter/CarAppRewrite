@@ -12,9 +12,7 @@ import {
 } from './Navbar.styled';
 import {
 	FunctionComponent,
-	useCallback,
 	useContext,
-	useEffect,
 	useState,
 } from 'react';
 import { useDatabaseContext } from '../../../context/DatabaseContext';
@@ -113,18 +111,10 @@ export const Navbar: FunctionComponent = () => {
 	const { toggleTheme } = useContext(MyThemeContext);
 
 	const onSearchChange = (value: string) => {
-		// Hello world
 		setSearchTerm(value);
-	};
-
-	const getCarsByTerm = useCallback(() => {
-		setFilterCars(getCarFromDatabase(searchTerm));
 		setOptions(getOptionsBySearch(searchTerm, filterCars));
-	}, [searchTerm]);
-
-	useEffect(() => {
-		getCarsByTerm();
-	}, [getCarsByTerm]);
+		setFilterCars(getCarFromDatabase(searchTerm));
+	};
 
 	return width >= 800 ? (
 		<StyledNav>
