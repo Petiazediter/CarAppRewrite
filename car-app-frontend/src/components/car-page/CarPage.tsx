@@ -9,13 +9,13 @@ import {
     HighlightTitle,
     ImageDisplay,
     NoMarginSubTitle,
-    NoMarginTitle,
-    TableList
+    NoMarginTitle
 } from "./Carpage.styled";
 import {Divider, Image} from "antd";
 import {CarFilled, EnterOutlined, PaperClipOutlined, VideoCameraFilled} from "@ant-design/icons";
 import {CarDataTable} from "./CarDataTable";
 import {TimerDisplayFormat, TimerText} from "../auctions-page/TimerText";
+import ExtrasTableComponent from "./ExtrasTableComponent";
 
 interface IUrlProps {
     carId: string | undefined;
@@ -132,33 +132,16 @@ export class CarPage extends React.Component<RouteComponentProps<IUrlProps>, ISt
                         <CarDataTable car={this.state.car}/>
                         <Divider orientation="left">Highlights</Divider>
                         <HighlightTitle>{this.state.car.highlightsTitle}</HighlightTitle>
-                        <TableList>
-                            {this.state.car.highLightsItems.map((item: string) =>
-                                <li>{item}</li>
-                            )}
-                        </TableList>
+                        <ExtrasTableComponent items={this.state.car.highLightsItems} />
                         <Divider orientation="left">Equipment</Divider>
                         <HighlightTitle>{this.state.car.equipmentTitle}</HighlightTitle>
-                        <TableList>
-                            {this.state.car.equipmentItems.map((item: string) =>
-                                <li>{item}</li>
-                            )}
-                        </TableList>
+                        <ExtrasTableComponent items={this.state.car.equipmentItems} />
                         <Divider orientation="left">Flaws</Divider>
-                        <TableList>
-                            {this.state.car.flaws.map((item: string) =>
-                                <li>{item}</li>
-                            )}
-                        </TableList>
+                        <ExtrasTableComponent items={this.state.car.flaws} />
                         <Divider orientation="left">Service history</Divider>
                         <HighlightTitle>{this.state.car.serviceHistory}</HighlightTitle>
                         <Divider orientation="left">Extra items</Divider>
-                        <TableList>
-                            {this.state.car.extraItems.map((item: string) =>
-                                <li>{item}</li>
-                            )}
-                        </TableList>
-
+                        <ExtrasTableComponent items={this.state.car.extraItems} />
                     </section>
                     : <span>NO Data </span>}
             </div>
