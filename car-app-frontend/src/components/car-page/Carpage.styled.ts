@@ -86,7 +86,7 @@ export const TableList = styled.ul({
         padding: '1em',
         background: '#c8cdd9'
     },
-    'li:nth-child(even)': {
+    'li:nth-of-type(even)': {
         background: '#d7dce7'
     }
 })
