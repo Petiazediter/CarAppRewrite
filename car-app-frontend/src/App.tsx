@@ -10,6 +10,7 @@ import { navbarHeight } from './components/shared/navbar-component/Navbar.styled
 import { CarPage } from './components/car-page/CarPage';
 import { CarPageHOC } from './components/car-page/CarPageHOC';
 import { SignInPage } from './components/sign-in-page/SignInPage';
+import RegisterPage from "./components/register-page/RegisterPage";
 
 const ContentLayout = styled.div`
 	width: 90%;
@@ -40,6 +41,7 @@ function App() {
 						<Navbar />
 						<Route path="/car/:carId" component={CarPageHOC(CarPage)} />
 						<Route path={'/sign-in'} component={SignInPage} />
+						<Route path={'/register'} component={RegisterPage} />
 					</ContentLayout>
 					<Footer />
 				</BrowserRouter>
