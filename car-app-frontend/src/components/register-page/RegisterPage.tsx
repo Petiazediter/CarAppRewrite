@@ -3,17 +3,31 @@ import { Steps } from 'antd';
 import { LoadingOutlined, SmileOutlined } from '@ant-design/icons';
 const { Step } = Steps;
 
-const initialState = { count: 0 };
+type State = {
+	page: number;
+};
 
-function reducer(
-	state: { count: number },
-	action: { type: string }
-): { count: number } {
+enum ActionType {
+	INCREMENT,
+	DECREMENT,
+}
+
+type Action = {
+	type: ActionType;
+};
+
+const initialState: State = { page: 0 };
+
+function reducer(state: State, action: Action): State {
 	switch (action.type) {
-		case 'increment':
-			return { count: state.count + 1 };
-		case 'decrement':
-			return { count: state.count - 1 };
+		case ActionType.INCREMENT:
+			return { page: state.page + 1 };
+		case ActionType.DECREMENT: {
+			if (state.page === 0) {
+				return state;
+			}
+			return { page: state.page - 1 };
+		}
 		default:
 			throw new Error();
 	}
@@ -27,25 +41,25 @@ const RegisterPage: FunctionComponent = () => {
 			<Steps>
 				<Step
 					title={'Basic information'}
-					status={state.count === 0 ? 'process' : 'finish'}
+					status={state.page === 0 ? 'process' : 'finish'}
 				/>
 				<Step
 					title={'Security'}
 					status={
-						state.count === 1 ? 'process' : state.count > 1 ? 'finish' : 'wait'
+						state.page === 1 ? 'process' : state.page > 1 ? 'finish' : 'wait'
 					}
 				/>
 				<Step
 					title={'Verifying'}
 					icon={<LoadingOutlined />}
 					status={
-						state.count === 2 ? 'process' : state.count > 2 ? 'finish' : 'wait'
+						state.page === 2 ? 'process' : state.page > 2 ? 'finish' : 'wait'
 					}
 				/>
 				<Step
 					title={'Finish'}
 					status={
-						state.count === 3 ? 'process' : state.count > 3 ? 'finish' : 'wait'
+						state.page === 3 ? 'process' : state.page > 3 ? 'finish' : 'wait'
 					}
 					icon={<SmileOutlined />}
 				/>
@@ -53,10 +67,10 @@ const RegisterPage: FunctionComponent = () => {
 			<section>
 				<h1>You are in Basic information's right now</h1>
 			</section>
-			<button onClick={() => dispatcher({ type: 'increment' })}>
+			<button onClick={() => dispatcher({ type: ActionType.INCREMENT })}>
 				Next page
 			</button>
-			<button onClick={() => dispatcher({ type: 'decrement' })}>
+			<button onClick={() => dispatcher({ type: ActionType.DECREMENT })}>
 				Previous page
 			</button>
 		</>
