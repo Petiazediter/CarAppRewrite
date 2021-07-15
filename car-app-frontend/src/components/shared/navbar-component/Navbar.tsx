@@ -10,11 +10,7 @@ import {
 	StyledNav,
 	TitleLink,
 } from './Navbar.styled';
-import {
-	FunctionComponent,
-	useContext,
-	useState,
-} from 'react';
+import { FunctionComponent, useContext, useState } from 'react';
 import { useDatabaseContext } from '../../../context/DatabaseContext';
 import { Car } from '../../../models/Car';
 import { MyThemeContext } from '../../../context/ThemeContext';

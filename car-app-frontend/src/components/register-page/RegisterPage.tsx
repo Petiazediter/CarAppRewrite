@@ -1,6 +1,7 @@
 import { FunctionComponent, ReactElement, useReducer } from 'react';
 import { Steps } from 'antd';
 import { LoadingOutlined, SmileOutlined } from '@ant-design/icons';
+import BasicInformationsComponent from './BasicInformations';
 const { Step } = Steps;
 
 type State = {
@@ -59,6 +60,13 @@ const CustomStep: FunctionComponent<{ value: CustomStepProps }> = (props) => {
 const RegisterPage: FunctionComponent = () => {
 	const [state, dispatcher] = useReducer(reducer, initialState);
 
+	const Pages = [
+		<BasicInformationsComponent />,
+		<BasicInformationsComponent />,
+		<BasicInformationsComponent />,
+		<BasicInformationsComponent />,
+	];
+
 	return (
 		<>
 			<Steps>
@@ -89,9 +97,7 @@ const RegisterPage: FunctionComponent = () => {
 					icon={<SmileOutlined />}
 				/>
 			</Steps>
-			<section>
-				<h1>You are in Basic information's right now</h1>
-			</section>
+			<section>{Pages[state.page]}</section>
 			<button onClick={() => dispatcher({ type: ActionType.INCREMENT })}>
 				Next page
 			</button>
