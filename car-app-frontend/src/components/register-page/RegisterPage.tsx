@@ -1,4 +1,4 @@
-import { FunctionComponent, useReducer } from 'react';
+import { FunctionComponent, ReactElement, useReducer } from 'react';
 import { Steps } from 'antd';
 import { LoadingOutlined, SmileOutlined } from '@ant-design/icons';
 const { Step } = Steps;
@@ -33,6 +33,29 @@ function reducer(state: State, action: Action): State {
 	}
 }
 
+type CustomStepProps = {
+	currentPage: number;
+	page: number;
+	title: string;
+	icon: ReactElement | null;
+};
+
+const CustomStep: FunctionComponent<{ value: CustomStepProps }> = (props) => {
+	return (
+		<Step
+			title={props.value.title}
+			status={
+				props.value.currentPage === props.value.page
+					? 'process'
+					: props.value.currentPage > props.value.page
+					? 'finish'
+					: 'wait'
+			}
+			icon={props.value.icon != null ? props.value.icon : ''}
+		/>
+	);
+};
+
 const RegisterPage: FunctionComponent = () => {
 	const [state, dispatcher] = useReducer(reducer, initialState);
 
@@ -40,8 +63,10 @@ const RegisterPage: FunctionComponent = () => {
 		<>
 			<Steps>
 				<Step
-					title={'Basic information'}
-					status={state.page === 0 ? 'process' : 'finish'}
+					title={'Basic informations'}
+					status={
+						state.page === 0 ? 'process' : state.page > 0 ? 'finish' : 'wait'
+					}
 				/>
 				<Step
 					title={'Security'}
