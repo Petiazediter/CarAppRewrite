@@ -130,6 +130,18 @@ const RegisterPage: FunctionComponent = () => {
 							required: true,
 							message: 'Please input your e-mail address!',
 						},
+						({ getFieldValue }) => ({
+							validator(rule: RuleObject, value: string) {
+								if (!value || !value.includes('@')) {
+									return Promise.resolve();
+								}
+								return Promise.reject(
+									new Error(
+										"Don't add the part after the @ to the input field."
+									)
+								);
+							},
+						}),
 					]}
 				>
 					<Input
@@ -146,6 +158,14 @@ const RegisterPage: FunctionComponent = () => {
 							required: false,
 							message: 'Please input your phone number!',
 						},
+						({ getFieldValue }) => ({
+							validator(rule: RuleObject, value: string) {
+								if (!value || Number(value)) {
+									return Promise.resolve();
+								}
+								return Promise.reject(new Error('Only numbers allowed.'));
+							},
+						}),
 					]}
 				>
 					<Input
