@@ -56,6 +56,9 @@ const RegisterPage: FunctionComponent = () => {
 		});
 		if (success) {
 			message.success('You registered successfully!');
+			window.location.href = '/';
+			// Add data to cookie
+			// Add username and password to local storage.
 		} else {
 			message.error('Something went wrong!');
 		}
