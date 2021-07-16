@@ -2,6 +2,7 @@ import { FunctionComponent } from 'react';
 import { RegisterContainerSection } from './RegisterPage.styled';
 
 import { Button, Form, Input } from 'antd';
+import { InfoCircleOutlined } from '@ant-design/icons';
 
 const RegisterPage: FunctionComponent = () => {
 	return (
@@ -9,28 +10,57 @@ const RegisterPage: FunctionComponent = () => {
 			<h1>
 				Register to <b>CardBidApp</b>
 			</h1>
-			<Form>
-				<Form.Item>
-					<Input
-						type="text"
-						name="username"
-						placeholder="Input your username here."
-					></Input>
+			<Form layout="vertical">
+				<Form.Item
+					name="username"
+					label="Username"
+					tooltip={{
+						title: 'This is going to be your display name.',
+						icon: <InfoCircleOutlined />,
+					}}
+				>
+					<Input type="text" placeholder="Input your username here."></Input>
+				</Form.Item>
+				<Form.Item
+					name="password"
+					label="Password"
+					tooltip={{
+						title: 'You need to use [A-Za-z0-9] and at least a symbol.',
+						icon: <InfoCircleOutlined />,
+					}}
+				>
 					<Input
 						type="password"
-						name="password"
 						placeholder="Input your password here."
 					></Input>
+				</Form.Item>
+				<Form.Item
+					label="Password(2x)"
+					name="password_verify"
+					tooltip={{
+						title: 'Type your previously added password here.',
+						icon: <InfoCircleOutlined />,
+					}}
+				>
 					<Input
 						type="password"
-						name="password_verify"
 						placeholder="Verify your password here."
 					></Input>
+				</Form.Item>
+				<Form.Item
+					name="email"
+					label="E-mail"
+					tooltip={{
+						title: 'Type your current valid and active e-mail address.',
+						icon: <InfoCircleOutlined />,
+					}}
+				>
 					<Input
 						type="email"
-						name="email"
 						placeholder="Input your email-address here."
 					></Input>
+				</Form.Item>
+				<Form.Item name="submitButton">
 					<Button type="primary" htmlType="submit">
 						Register
 					</Button>
