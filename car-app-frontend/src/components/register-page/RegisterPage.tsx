@@ -29,10 +29,10 @@ const RegisterPage: FunctionComponent = () => {
 						icon: <InfoCircleOutlined />,
 					}}
 				>
-					<Input
+					<Input.Password
 						type="password"
 						placeholder="Input your password here."
-					></Input>
+					></Input.Password>
 				</Form.Item>
 				<Form.Item
 					label="Password(2x)"
@@ -42,10 +42,10 @@ const RegisterPage: FunctionComponent = () => {
 						icon: <InfoCircleOutlined />,
 					}}
 				>
-					<Input
+					<Input.Password
 						type="password"
 						placeholder="Verify your password here."
-					></Input>
+					></Input.Password>
 				</Form.Item>
 				<Form.Item
 					name="email"
