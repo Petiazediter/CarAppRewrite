@@ -23,7 +23,7 @@ const prefixSelector = (
 );
 
 const emailSuffix = (
-	<Form.Item name="suffix" noStyle>
+	<Form.Item name="emailtype" noStyle>
 		<Select defaultValue="gmail" style={{ width: 'auto' }}>
 			<Option value="gmail">@gmail.com</Option>
 		</Select>
@@ -36,6 +36,7 @@ type FormValues = {
 	password2: string;
 	email: string;
 	phone: string;
+	emailtype: { value: string };
 };
 
 const RegisterPage: FunctionComponent = () => {
@@ -43,6 +44,8 @@ const RegisterPage: FunctionComponent = () => {
 
 	const onSubmit = (values: FormValues) => {
 		setIsLoading(true);
+		console.log(values.username);
+		console.log(values);
 	};
 
 	return (

@@ -7,7 +7,9 @@ import { StoreValue } from 'antd/lib/form/interface';
 import { RegisterContainerSection } from '../register-page/RegisterPage.styled';
 
 export const SignInPage: FunctionComponent = () => {
-	const onFinish = (values: { username: string; password: string }) => {};
+	const onFinish = (values: { username: string; password: string }) => {
+		console.log(values.username);
+	};
 
 	const validateUsername = () => ({
 		validator(_: RuleObject, value: StoreValue) {
