@@ -4,6 +4,7 @@ import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import { RuleObject } from 'antd/lib/form';
 import { StoreValue } from 'antd/lib/form/interface';
+import { RegisterContainerSection } from '../register-page/RegisterPage.styled';
 
 export const SignInPage: FunctionComponent = () => {
 	const onFinish = (values: { username: string; password: string }) => {};
@@ -21,7 +22,10 @@ export const SignInPage: FunctionComponent = () => {
 	});
 
 	return (
-		<section>
+		<RegisterContainerSection>
+			<h1>
+				Sign in to your <b>CarBidApp</b> user
+			</h1>
 			<Form
 				name="login_form"
 				className="login-form"
@@ -63,6 +67,6 @@ export const SignInPage: FunctionComponent = () => {
 					Or <Link to={'/register'}>register now</Link>
 				</Form.Item>
 			</Form>
-		</section>
+		</RegisterContainerSection>
 	);
 };

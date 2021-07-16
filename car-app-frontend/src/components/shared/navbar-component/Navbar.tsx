@@ -20,7 +20,7 @@ const { Search } = Input;
 const menu = (
 	<Menu>
 		<Menu.Item key="0">
-			<Link to="/auctions">Auctions</Link>
+			<Link to="/">Auctions</Link>
 		</Menu.Item>
 		<Menu.Item key="1">
 			<Link to="/sell">Sell a car</Link>

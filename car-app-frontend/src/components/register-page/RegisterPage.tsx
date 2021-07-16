@@ -141,7 +141,7 @@ const RegisterPage: FunctionComponent = () => {
 						htmlType="submit"
 						loading={isLoading}
 					>
-						Register {isLoading ? 'loading' : ''}
+						{isLoading ? 'Processing' : 'Register'}
 					</Button>
 				</Form.Item>
 			</Form>
