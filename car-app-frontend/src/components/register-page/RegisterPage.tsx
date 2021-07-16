@@ -1,8 +1,23 @@
 import { FunctionComponent } from 'react';
 import { RegisterContainerSection } from './RegisterPage.styled';
 
-import { Button, Form, Input } from 'antd';
+import { Button, Form, Input, Select } from 'antd';
 import { InfoCircleOutlined } from '@ant-design/icons';
+
+const { Option } = Select;
+
+const prefixSelector = (
+	<Form.Item name="prefix" noStyle>
+		<Select
+			defaultValue="36"
+			style={{
+				width: 70,
+			}}
+		>
+			<Option value="36">+36</Option>
+		</Select>
+	</Form.Item>
+);
 
 const RegisterPage: FunctionComponent = () => {
 	return (
@@ -59,6 +74,23 @@ const RegisterPage: FunctionComponent = () => {
 						type="email"
 						placeholder="Input your email-address here."
 					></Input>
+				</Form.Item>
+				<Form.Item
+					name="phone"
+					label="Phone Number"
+					rules={[
+						{
+							required: true,
+							message: 'Please input your phone number!',
+						},
+					]}
+				>
+					<Input
+						addonBefore={prefixSelector}
+						style={{
+							width: '100%',
+						}}
+					/>
 				</Form.Item>
 				<Form.Item name="submitButton">
 					<Button type="primary" htmlType="submit">
