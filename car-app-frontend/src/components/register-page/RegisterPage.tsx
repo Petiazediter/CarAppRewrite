@@ -135,7 +135,12 @@ const RegisterPage: FunctionComponent = () => {
 					/>
 				</Form.Item>
 				<Form.Item name="submitButton">
-					<Button type="primary" htmlType="submit" loading={isLoading}>
+					<Button
+						style={{ width: '100%' }}
+						type="primary"
+						htmlType="submit"
+						loading={isLoading}
+					>
 						Register {isLoading ? 'loading' : ''}
 					</Button>
 				</Form.Item>
