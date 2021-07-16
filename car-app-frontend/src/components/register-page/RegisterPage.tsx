@@ -7,6 +7,8 @@ import { RuleObject } from 'antd/lib/form';
 
 const { Option } = Select;
 
+const passwordRegex = new RegExp('^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,32}$');
+
 const prefixSelector = (
 	<Form.Item name="prefix" noStyle>
 		<Select
@@ -83,7 +85,14 @@ const RegisterPage: FunctionComponent = () => {
 						({ getFieldValue }) => ({
 							validator(rule: RuleObject, value: string) {
 								if (!value || value === getFieldValue('password2')) {
-									return Promise.resolve();
+									if (passwordRegex.test(value)) {
+										return Promise.resolve();
+									}
+									return Promise.reject(
+										new Error(
+											'Minimum 8 characters. 1 uppercase 1 lowercase 1 number 1 special character.'
+										)
+									);
 								}
 								return Promise.reject(
 									new Error(
