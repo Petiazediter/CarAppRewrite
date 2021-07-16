@@ -3,6 +3,7 @@ import { RegisterContainerSection } from './RegisterPage.styled';
 
 import { Button, Form, Input, Select } from 'antd';
 import { InfoCircleOutlined } from '@ant-design/icons';
+import { RuleObject } from 'antd/lib/form';
 
 const { Option } = Select;
 
@@ -15,6 +16,14 @@ const prefixSelector = (
 			}}
 		>
 			<Option value="36">+36</Option>
+		</Select>
+	</Form.Item>
+);
+
+const emailSuffix = (
+	<Form.Item name="suffix" noStyle>
+		<Select defaultValue="gmail" style={{ width: 'auto' }}>
+			<Option value="gmail">@gmail.com</Option>
 		</Select>
 	</Form.Item>
 );
@@ -71,6 +80,18 @@ const RegisterPage: FunctionComponent = () => {
 							required: true,
 							message: 'Please input your password!',
 						},
+						({ getFieldValue }) => ({
+							validator(rule: RuleObject, value: string) {
+								if (!value || value === getFieldValue('password2')) {
+									return Promise.resolve();
+								}
+								return Promise.reject(
+									new Error(
+										'Input the same password to password validation field.'
+									)
+								);
+							},
+						}),
 					]}
 				>
 					<Input.Password
@@ -112,7 +133,8 @@ const RegisterPage: FunctionComponent = () => {
 					]}
 				>
 					<Input
-						type="email"
+						suffix={emailSuffix}
+						type="text"
 						placeholder="Input your email-address here."
 					></Input>
 				</Form.Item>
