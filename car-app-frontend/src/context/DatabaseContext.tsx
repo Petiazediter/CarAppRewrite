@@ -2,6 +2,7 @@ import React, { ReactElement, useContext } from 'react';
 import { Car } from '../models/Car';
 import data from '../placeholder_database.json';
 import moment from 'moment';
+import { isValidDate, convertToMoment } from '../utils/Moment';
 
 export interface CarFilters {
 	bodyStyle: number;
@@ -11,6 +12,46 @@ export interface CarFilters {
 	minPrice: number;
 	endDate: string;
 }
+
+export type UserForm = {
+	username: string;
+	password: string;
+	emailAddress: string;
+	phone: string | undefined;
+};
+
+export type User = {
+	id: number;
+	username: string;
+	password: string;
+	emailAddress: string;
+	phone: string | undefined;
+};
+
+const users: User[] = [];
+
+const addUser = async (user: UserForm): Promise<boolean> => {
+	// If username or email taken return false
+	if (
+		users.filter(
+			(value) =>
+				value.username === user.username ||
+				value.emailAddress === user.emailAddress
+		).length > 0
+	) {
+		return false;
+	}
+	// Add user to database
+	users.push({
+		id: users.length,
+		username: user.username,
+		password: user.password,
+		emailAddress: user.emailAddress,
+		phone: user.phone,
+	});
+
+	return true;
+};
 
 const getCarsTable = (filters: CarFilters): Car[] => {
 	const returnArray: Car[] = [];
@@ -58,29 +99,6 @@ const getCarBySearchTerm = (term: string): Car[] => {
 	);
 };
 
-function isValidDate(urlDate: string, carDate: string): boolean {
-	const moment1 = convertToMoment(urlDate);
-	const moment2 = convertToMoment(carDate);
-	// IF the date from the URL is before the expire date then return true
-	return moment.min([moment2, moment1]) === moment2;
-}
-
-export function convertToMoment(dateInString: string): moment.Moment {
-	// Split the date by the separator
-	// Then format the string to Moment type.
-	const array = dateInString.split('-');
-	const formattedDate: moment.MomentInput = {
-		year: Number(array[2]),
-		month: Number(array[1]) - 1,
-		day: Number(array[0]),
-		hours: Number(array[3]),
-		minutes: Number(array[4]),
-		seconds: Number(array[5]),
-		millisecond: 0,
-	};
-	return moment(formattedDate);
-}
-
 export function useDatabaseContext() {
 	return useContext(GetUsersTableContext);
 }
@@ -89,6 +107,7 @@ export const GetUsersTableContext = React.createContext({
 	getCarsTable: getCarsTable,
 	getCarById: getCarById,
 	getCarBySearchTerm: getCarBySearchTerm,
+	addUser: addUser,
 });
 
 export function DatabaseProvider({ children }: { children: ReactElement }) {
@@ -98,6 +117,7 @@ export function DatabaseProvider({ children }: { children: ReactElement }) {
 				getCarsTable: getCarsTable,
 				getCarById: getCarById,
 				getCarBySearchTerm: getCarBySearchTerm,
+				addUser: addUser,
 			}}
 		>
 			{children}

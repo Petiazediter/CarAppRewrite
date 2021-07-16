@@ -1,9 +1,10 @@
 import { FunctionComponent, useState } from 'react';
 import { RegisterContainerSection } from './RegisterPage.styled';
 
-import { Button, Form, Input, Select } from 'antd';
+import { Button, Form, Input, message, Select } from 'antd';
 import { InfoCircleOutlined } from '@ant-design/icons';
 import { RuleObject } from 'antd/lib/form';
+import { useDatabaseContext } from '../../context/DatabaseContext';
 
 const { Option } = Select;
 
@@ -41,11 +42,24 @@ type FormValues = {
 
 const RegisterPage: FunctionComponent = () => {
 	const [isLoading, setIsLoading] = useState<boolean>(false);
+	const databaseContext = useDatabaseContext();
 
-	const onSubmit = (values: FormValues) => {
+	const onSubmit = async (values: FormValues) => {
 		setIsLoading(true);
 		console.log(values.username);
 		console.log(values);
+		const success = await databaseContext.addUser({
+			username: values.username,
+			password: values.password,
+			emailAddress: values.email + '@gmail.com',
+			phone: values.phone,
+		});
+		if (success) {
+			message.success('You registered successfully!');
+		} else {
+			message.error('Something went wrong!');
+		}
+		setIsLoading(false);
 	};
 
 	return (
