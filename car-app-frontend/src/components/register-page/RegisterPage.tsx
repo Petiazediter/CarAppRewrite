@@ -33,6 +33,12 @@ const RegisterPage: FunctionComponent = () => {
 						title: 'This is going to be your display name.',
 						icon: <InfoCircleOutlined />,
 					}}
+					rules={[
+						{
+							required: true,
+							message: 'Please input your username!',
+						},
+					]}
 				>
 					<Input type="text" placeholder="Input your username here."></Input>
 				</Form.Item>
@@ -43,6 +49,12 @@ const RegisterPage: FunctionComponent = () => {
 						title: 'You need to use [A-Za-z0-9] and at least a symbol.',
 						icon: <InfoCircleOutlined />,
 					}}
+					rules={[
+						{
+							required: true,
+							message: 'Please input your password!',
+						},
+					]}
 				>
 					<Input.Password
 						type="password"
@@ -56,6 +68,12 @@ const RegisterPage: FunctionComponent = () => {
 						title: 'Type your previously added password here.',
 						icon: <InfoCircleOutlined />,
 					}}
+					rules={[
+						{
+							required: true,
+							message: 'Please verify your password!',
+						},
+					]}
 				>
 					<Input.Password
 						type="password"
@@ -69,6 +87,12 @@ const RegisterPage: FunctionComponent = () => {
 						title: 'Type your current valid and active e-mail address.',
 						icon: <InfoCircleOutlined />,
 					}}
+					rules={[
+						{
+							required: true,
+							message: 'Please input your e-mail address!',
+						},
+					]}
 				>
 					<Input
 						type="email"
@@ -80,7 +104,7 @@ const RegisterPage: FunctionComponent = () => {
 					label="Phone Number"
 					rules={[
 						{
-							required: true,
+							required: false,
 							message: 'Please input your phone number!',
 						},
 					]}
@@ -90,6 +114,7 @@ const RegisterPage: FunctionComponent = () => {
 						style={{
 							width: '100%',
 						}}
+						maxLength={9}
 					/>
 				</Form.Item>
 				<Form.Item name="submitButton">
