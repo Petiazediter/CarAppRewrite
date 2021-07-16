@@ -1,4 +1,4 @@
-import { FunctionComponent } from 'react';
+import { FunctionComponent, useState } from 'react';
 import { RegisterContainerSection } from './RegisterPage.styled';
 
 import { Button, Form, Input, Select } from 'antd';
@@ -19,13 +19,30 @@ const prefixSelector = (
 	</Form.Item>
 );
 
+type FormValues = {
+	username: string;
+	password: string;
+	password2: string;
+	email: string;
+	phone: string;
+};
+
 const RegisterPage: FunctionComponent = () => {
+	const [isLoading, setIsLoading] = useState<boolean>(false);
+
+	const onSubmit = (values: FormValues) => {
+		setIsLoading(true);
+	};
+
 	return (
 		<RegisterContainerSection>
 			<h1>
 				Register to <b>CardBidApp</b>
 			</h1>
-			<Form layout="vertical">
+			<Form
+				layout="vertical"
+				onFinish={(values: FormValues) => onSubmit(values)}
+			>
 				<Form.Item
 					name="username"
 					label="Username"
@@ -63,7 +80,7 @@ const RegisterPage: FunctionComponent = () => {
 				</Form.Item>
 				<Form.Item
 					label="Password(2x)"
-					name="password_verify"
+					name="password2"
 					tooltip={{
 						title: 'Type your previously added password here.',
 						icon: <InfoCircleOutlined />,
@@ -118,8 +135,8 @@ const RegisterPage: FunctionComponent = () => {
 					/>
 				</Form.Item>
 				<Form.Item name="submitButton">
-					<Button type="primary" htmlType="submit">
-						Register
+					<Button type="primary" htmlType="submit" loading={isLoading}>
+						Register {isLoading ? 'loading' : ''}
 					</Button>
 				</Form.Item>
 			</Form>
