@@ -121,7 +121,7 @@ export const Navbar: FunctionComponent = () => {
 					</TitleLink>
 				</NavbarMenuCol>
 				<NavbarMenuCol flex={1}>
-					<NavbarLink to="/auctions">Auctions</NavbarLink>
+					<NavbarLink to="/">Auctions</NavbarLink>
 				</NavbarMenuCol>
 				<NavbarMenuCol highlight={IS_HIGHLIGHTED} flex={1}>
 					<NavbarLink highlight={IS_HIGHLIGHTED} to="/sell">
