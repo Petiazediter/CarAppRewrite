@@ -28,7 +28,15 @@ export type User = {
 	phone: string | undefined;
 };
 
-const users: User[] = [];
+const users: User[] = [
+	{
+		id: 0,
+		username: 'username',
+		password: 'password',
+		emailAddress: 'pverebes74@gmail.com',
+		phone: undefined,
+	},
+];
 
 const addUser = async (user: UserForm): Promise<boolean> => {
 	// If username or email taken return false
