@@ -10,7 +10,8 @@ import { navbarHeight } from './components/shared/navbar-component/Navbar.styled
 import { CarPage } from './components/car-page/CarPage';
 import { CarPageHOC } from './components/car-page/CarPageHOC';
 import { SignInPage } from './components/sign-in-page/SignInPage';
-import RegisterPage from "./components/register-page/RegisterPage";
+import RegisterPage from './components/register-page/RegisterPage';
+import { useEffect } from 'react';
 
 const ContentLayout = styled.div`
 	width: 90%;

@@ -4,6 +4,8 @@ import data from '../placeholder_database.json';
 import moment from 'moment';
 import { isValidDate, convertToMoment } from '../utils/Moment';
 
+const PANTRY_ID = '0250e17a-0ba7-4d72-b46b-3d56e74fb9c6';
+
 export interface CarFilters {
 	bodyStyle: number;
 	transmission: number;
@@ -43,8 +45,9 @@ const users: User[] = [
 	},
 ];
 
-const addUser = async (user: UserForm): Promise<boolean> => {
+const addUser = async (user: UserForm): Promise<SuccessOrError> => {
 	// If username or email taken return false
+
 	if (
 		users.filter(
 			(value) =>
@@ -52,28 +55,81 @@ const addUser = async (user: UserForm): Promise<boolean> => {
 				value.emailAddress === user.emailAddress
 		).length > 0
 	) {
-		return false;
+		return {
+			isSuccess: false,
+			errorMessage: 'Username or email address has been already taken.',
+		};
 	}
 	// Add user to database
-	users.push({
+	const newUser: User = {
 		id: users.length,
 		username: user.username,
 		password: user.password,
 		emailAddress: user.emailAddress,
 		phone: user.phone,
-	});
+	};
+	users.push(newUser);
 
-	return true;
+	addUserToPantry(newUser);
+
+	return { isSuccess: true, errorMessage: '' };
 };
 
+async function addUserToPantry(user: User) {
+	const header = {
+		method: 'PUT',
+		headers: { 'Content-Type': 'application/json' },
+		body: JSON.stringify({ [user.id]: user }),
+	};
+	fetch(
+		`https://getpantry.cloud/apiv1/pantry/${PANTRY_ID}/basket/users`,
+		header
+	)
+		.then((data) => data.json())
+		.then(
+			(result) => {
+				console.log('RESULT: ');
+				console.log(result);
+			},
+			(error) => console.error(error)
+		);
+}
+
+async function getUsers(): Promise<User[]> {
+	const result = await fetch(
+		`https://getpantry.cloud/apiv1/pantry/${PANTRY_ID}/basket/users`
+	)
+		.then((response) => response.json())
+		.then(
+			(response) => {
+				return response;
+			},
+			(error) => {
+				return error;
+			}
+		);
+	const userTable: User[] = [];
+	for (let id in result) {
+		if (result.hasOwnProperty(id)) {
+			userTable.push(result[id]);
+		}
+	}
+	return userTable;
+}
+
 const login = async (user: UserForm): Promise<SuccessOrError> => {
-	const filteredList = users.filter((value) => {
-		if (value.username === user.username && value.password === user.password) {
-			return value;
+	const users = await getUsers();
+	users.forEach((value) => {
+		if (user.username === value.username && user.password === value.password) {
+			return {
+				isSuccess: true,
+				errorMessage: '',
+			};
 		}
 	});
+
 	return {
-		isSuccess: filteredList.length > 0,
+		isSuccess: false,
 		errorMessage: 'Username or password invalid.',
 	};
 };
