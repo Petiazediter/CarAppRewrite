@@ -81,7 +81,10 @@ export const TimerText: FunctionComponent<{
 				}
 				break;
 			case TimerDisplayFormat.TRADITIONAL_FORMATTED:
-				formattedText = currentDate;
+				const mapped = dateArray.map((value: string) =>
+					value.length === 1 ? `0${value}` : value
+				);
+				formattedText = mapped.join(':');
 				break;
 			case TimerDisplayFormat.TRADITIONAL_UNFORMATTED:
 				formattedText = currentDate;
