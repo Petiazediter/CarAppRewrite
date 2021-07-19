@@ -33,6 +33,7 @@ export type User = {
 export type SuccessOrError = {
 	isSuccess: boolean;
 	errorMessage: string;
+	user: User | null;
 };
 
 const users: User[] = [
@@ -48,19 +49,11 @@ const users: User[] = [
 const addUser = async (user: UserForm): Promise<SuccessOrError> => {
 	// If username or email taken return false
 	const usertTable: User[] = await getUsers();
-
-	if (
-		usertTable.filter(
-			(value) =>
-				value.username === user.username ||
-				value.emailAddress === user.emailAddress
-		).length > 0
-	) {
-		return {
-			isSuccess: false,
-			errorMessage: 'Username or email address has been already taken.',
-		};
-	}
+	const dbUser = usertTable.find(
+		(value) =>
+			value.username === user.username ||
+			value.emailAddress === user.emailAddress
+	);
 	// Add user to database
 	const newUser: User = {
 		id: users.length,
@@ -71,7 +64,11 @@ const addUser = async (user: UserForm): Promise<SuccessOrError> => {
 	};
 
 	addUserToPantry(newUser);
-	return { isSuccess: true, errorMessage: '' };
+	return {
+		isSuccess: dbUser === undefined,
+		errorMessage: 'Username or email has been already taken.',
+		user: newUser,
+	};
 };
 
 async function addUserToPantry(user: User) {
@@ -118,14 +115,13 @@ async function getUsers(): Promise<User[]> {
 
 const login = async (user: UserForm): Promise<SuccessOrError> => {
 	const users = await getUsers();
-	const filteredList = users
-		.map(
-			(value) =>
-				user.username === value.username && user.password === value.password
-		)
-		.filter((val: boolean) => val);
+	const dbUser = users.find(
+		(value) =>
+			user.username === value.username && user.password === value.password
+	);
 	return {
-		isSuccess: filteredList.length > 0,
+		user: dbUser !== undefined ? dbUser : null,
+		isSuccess: dbUser !== undefined,
 		errorMessage: 'Username or password invalid.',
 	};
 };

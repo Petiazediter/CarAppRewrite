@@ -32,13 +32,9 @@ export const SignInPage: FunctionComponent = () => {
 					// Login here
 					setUsername(values.username);
 					setPasswordValue(values.password);
-					setUser({
-						username: values.username,
-						password: values.password,
-						emailAddress: 'emailAddress',
-						id: 0,
-						phone: '',
-					});
+					if (value.user != null) {
+						setUser(value.user);
+					}
 					window.location.href = '/';
 				} else {
 					message.error(value.errorMessage);

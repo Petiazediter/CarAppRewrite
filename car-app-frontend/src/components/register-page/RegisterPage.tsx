@@ -48,24 +48,20 @@ const RegisterPage: FunctionComponent = () => {
 
 	const onSubmit = async (values: FormValues) => {
 		setIsLoading(true);
-		const success = await databaseContext.addUser({
+		const result = await databaseContext.addUser({
 			username: values.username,
 			password: values.password,
 			emailAddress: values.email + '@gmail.com',
 			phone: values.phone,
 		});
-		if (success) {
+		if (result.isSuccess) {
 			message.success('You registered successfully!');
-			setUser({
-				username: values.username,
-				password: values.password,
-				emailAddress: values.email,
-				id: 0,
-				phone: values.phone,
-			});
+			if (result.user != null) {
+				setUser(result.user);
+			}
 			window.location.href = '/';
 		} else {
-			message.error('Something went wrong!');
+			message.error(result.errorMessage);
 		}
 		setIsLoading(false);
 	};
