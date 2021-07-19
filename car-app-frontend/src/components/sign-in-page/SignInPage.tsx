@@ -30,7 +30,7 @@ export const SignInPage: FunctionComponent = () => {
 					// Login here
 					setUsername(values.username);
 					setPasswordValue(values.password);
-					console.log('You logged in.');
+					window.location.href = '/';
 				} else {
 					message.error(value.errorMessage);
 				}
