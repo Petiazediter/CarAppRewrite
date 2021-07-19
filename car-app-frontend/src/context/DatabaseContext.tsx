@@ -47,9 +47,10 @@ const users: User[] = [
 
 const addUser = async (user: UserForm): Promise<SuccessOrError> => {
 	// If username or email taken return false
+	const usertTable: User[] = await getUsers();
 
 	if (
-		users.filter(
+		usertTable.filter(
 			(value) =>
 				value.username === user.username ||
 				value.emailAddress === user.emailAddress
@@ -68,10 +69,8 @@ const addUser = async (user: UserForm): Promise<SuccessOrError> => {
 		emailAddress: user.emailAddress,
 		phone: user.phone,
 	};
-	users.push(newUser);
 
 	addUserToPantry(newUser);
-
 	return { isSuccess: true, errorMessage: '' };
 };
 
@@ -119,17 +118,14 @@ async function getUsers(): Promise<User[]> {
 
 const login = async (user: UserForm): Promise<SuccessOrError> => {
 	const users = await getUsers();
-	users.forEach((value) => {
-		if (user.username === value.username && user.password === value.password) {
-			return {
-				isSuccess: true,
-				errorMessage: '',
-			};
-		}
-	});
-
+	const filteredList = users
+		.map(
+			(value) =>
+				user.username === value.username && user.password === value.password
+		)
+		.filter((val: boolean) => val);
 	return {
-		isSuccess: false,
+		isSuccess: filteredList.length > 0,
 		errorMessage: 'Username or password invalid.',
 	};
 };
