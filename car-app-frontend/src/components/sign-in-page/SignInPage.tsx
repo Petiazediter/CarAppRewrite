@@ -8,12 +8,14 @@ import {
 } from '../register-page/RegisterPage.styled';
 import { useDatabaseContext } from '../../context/DatabaseContext';
 import useLocalStorage from '../../customHooks/useLocalStorage';
+import { UserContext } from '../../context/UserContext';
 
 export const SignInPage: FunctionComponent = () => {
 	const database = useDatabaseContext();
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const [username, setUsername] = useLocalStorage('username', '');
 	const [passwordValue, setPasswordValue] = useLocalStorage('password', '');
+	const { user, setUser } = useContext(UserContext);
 
 	const onFinish = (values: { username: string; password: string }) => {
 		setIsLoading(true);
@@ -30,6 +32,13 @@ export const SignInPage: FunctionComponent = () => {
 					// Login here
 					setUsername(values.username);
 					setPasswordValue(values.password);
+					setUser({
+						username: values.username,
+						password: values.password,
+						emailAddress: 'emailAddress',
+						id: 0,
+						phone: '',
+					});
 					window.location.href = '/';
 				} else {
 					message.error(value.errorMessage);

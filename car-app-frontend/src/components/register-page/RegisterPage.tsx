@@ -1,10 +1,11 @@
-import { FunctionComponent, useState } from 'react';
+import { FunctionComponent, useContext, useState } from 'react';
 import { FormButton, RegisterContainerSection } from './RegisterPage.styled';
 
 import { Form, Input, message, Select } from 'antd';
 import { InfoCircleOutlined } from '@ant-design/icons';
 import { RuleObject } from 'antd/lib/form';
 import { useDatabaseContext } from '../../context/DatabaseContext';
+import { UserContext } from '../../context/UserContext';
 
 const { Option } = Select;
 
@@ -43,6 +44,7 @@ type FormValues = {
 const RegisterPage: FunctionComponent = () => {
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const databaseContext = useDatabaseContext();
+	const { user, setUser } = useContext(UserContext);
 
 	const onSubmit = async (values: FormValues) => {
 		setIsLoading(true);
@@ -54,9 +56,14 @@ const RegisterPage: FunctionComponent = () => {
 		});
 		if (success) {
 			message.success('You registered successfully!');
-			//window.location.href = '/';
-			// Add data to cookie
-			// Add username and password to local storage.
+			setUser({
+				username: values.username,
+				password: values.password,
+				emailAddress: values.email,
+				id: 0,
+				phone: values.phone,
+			});
+			window.location.href = '/';
 		} else {
 			message.error('Something went wrong!');
 		}
