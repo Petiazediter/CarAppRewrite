@@ -1,14 +1,33 @@
-import { FunctionComponent } from 'react';
-import { Button, Checkbox, Form, Input } from 'antd';
+import { FunctionComponent, useState } from 'react';
+import { Button, Checkbox, Form, Input, message } from 'antd';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
-import { RuleObject } from 'antd/lib/form';
-import { StoreValue } from 'antd/lib/form/interface';
 import { RegisterContainerSection } from '../register-page/RegisterPage.styled';
+import { useDatabaseContext } from '../../context/DatabaseContext';
 
 export const SignInPage: FunctionComponent = () => {
+	const database = useDatabaseContext();
+	const [isLoading, setIsLoading] = useState<boolean>(false);
+
 	const onFinish = (values: { username: string; password: string }) => {
-		console.log(values.username);
+		setIsLoading(true);
+		const returnValue = database.login({
+			username: values.username,
+			password: values.password,
+			emailAddress: '',
+			phone: undefined,
+		});
+
+		returnValue
+			.then((value) => {
+				if (value.isSuccess) {
+					// Login here
+					console.log('You logged in.');
+				} else {
+					message.error(value.errorMessage);
+				}
+			})
+			.finally(() => setIsLoading(false));
 	};
 
 	return (
@@ -48,6 +67,7 @@ export const SignInPage: FunctionComponent = () => {
 				</Form.Item>
 				<Form.Item>
 					<Button
+						loading={isLoading}
 						style={{ width: '100%', marginTop: '10px' }}
 						type={'primary'}
 						htmlType={'submit'}
