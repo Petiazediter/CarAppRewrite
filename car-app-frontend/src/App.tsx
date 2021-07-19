@@ -12,6 +12,8 @@ import { CarPageHOC } from './components/car-page/CarPageHOC';
 import { SignInPage } from './components/sign-in-page/SignInPage';
 import RegisterPage from './components/register-page/RegisterPage';
 import UserContextProvider from './context/UserContext';
+import 'antd/dist/antd.css';
+import './index.css';
 
 const ContentLayout = styled.div`
 	width: 90%;
