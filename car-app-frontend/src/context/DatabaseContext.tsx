@@ -46,6 +46,16 @@ const users: User[] = [
 	},
 ];
 
+const getUserById = async (id: number): Promise<SuccessOrError> => {
+	const userTable = await getUsers();
+	const user = userTable.find((user) => user.id == id);
+	return {
+		user: user !== undefined ? user : null,
+		isSuccess: user !== undefined,
+		errorMessage: 'User not found.',
+	};
+};
+
 const addUser = async (user: UserForm): Promise<SuccessOrError> => {
 	// If username or email taken return false
 	const usertTable: User[] = await getUsers();
@@ -182,6 +192,7 @@ const initialValues = {
 	getCarBySearchTerm: getCarBySearchTerm,
 	addUser: addUser,
 	login: login,
+	getUserById: getUserById,
 };
 
 export const GetUsersTableContext = React.createContext(initialValues);
