@@ -11,18 +11,6 @@ export const SignInPage: FunctionComponent = () => {
 		console.log(values.username);
 	};
 
-	const validateUsername = () => ({
-		validator(_: RuleObject, value: StoreValue) {
-			if (!value || value.length >= 5) {
-				return Promise.resolve();
-			}
-
-			return Promise.reject(
-				new Error('The two passwords that you entered do not match!')
-			);
-		},
-	});
-
 	return (
 		<RegisterContainerSection>
 			<h1>
@@ -38,10 +26,7 @@ export const SignInPage: FunctionComponent = () => {
 				<Form.Item
 					name="username"
 					label="Username"
-					rules={[
-						{ required: true, message: 'Username is required!' },
-						validateUsername,
-					]}
+					rules={[{ required: true, message: 'Username is required!' }]}
 				>
 					<Input
 						prefix={<UserOutlined className="site-form-item-icon" />}
