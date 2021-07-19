@@ -4,10 +4,13 @@ import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import { RegisterContainerSection } from '../register-page/RegisterPage.styled';
 import { useDatabaseContext } from '../../context/DatabaseContext';
+import useLocalStorage from '../../customHooks/useLocalStorage';
 
 export const SignInPage: FunctionComponent = () => {
 	const database = useDatabaseContext();
 	const [isLoading, setIsLoading] = useState<boolean>(false);
+	const [username, setUsername] = useLocalStorage('username', '');
+	const [passwordValue, setPasswordValue] = useLocalStorage('password', '');
 
 	const onFinish = (values: { username: string; password: string }) => {
 		setIsLoading(true);
@@ -22,6 +25,8 @@ export const SignInPage: FunctionComponent = () => {
 			.then((value) => {
 				if (value.isSuccess) {
 					// Login here
+					setUsername(values.username);
+					setPasswordValue(values.password);
 					console.log('You logged in.');
 				} else {
 					message.error(value.errorMessage);
@@ -48,6 +53,7 @@ export const SignInPage: FunctionComponent = () => {
 					rules={[{ required: true, message: 'Username is required!' }]}
 				>
 					<Input
+						value={username}
 						prefix={<UserOutlined className="site-form-item-icon" />}
 						placeholder={'Username'}
 					/>
@@ -58,6 +64,7 @@ export const SignInPage: FunctionComponent = () => {
 					rules={[{ required: true, message: 'Password is required' }]}
 				>
 					<Input.Password
+						value={passwordValue}
 						placeholder="Password"
 						prefix={<LockOutlined className="site-form-item-icon" />}
 					/>
