@@ -29,6 +29,7 @@ export const SignInPage: FunctionComponent = () => {
 				Sign in to your <b>CarBidApp</b> user
 			</h1>
 			<Form
+				layout="vertical"
 				name="login_form"
 				className="login-form"
 				initialValues={{ remember: true }}
@@ -36,6 +37,7 @@ export const SignInPage: FunctionComponent = () => {
 			>
 				<Form.Item
 					name="username"
+					label="Username"
 					rules={[
 						{ required: true, message: 'Username is required!' },
 						validateUsername,
@@ -47,6 +49,7 @@ export const SignInPage: FunctionComponent = () => {
 					/>
 				</Form.Item>
 				<Form.Item
+					label="Password"
 					name="password"
 					rules={[{ required: true, message: 'Password is required' }]}
 				>
