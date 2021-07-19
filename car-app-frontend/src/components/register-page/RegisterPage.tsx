@@ -44,7 +44,7 @@ type FormValues = {
 const RegisterPage: FunctionComponent = () => {
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const databaseContext = useDatabaseContext();
-	const { user, setUser } = useContext(UserContext);
+	const { setUser } = useContext(UserContext);
 
 	const onSubmit = async (values: FormValues) => {
 		setIsLoading(true);

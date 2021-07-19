@@ -15,7 +15,7 @@ export const SignInPage: FunctionComponent = () => {
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const [username, setUsername] = useLocalStorage('username', '');
 	const [passwordValue, setPasswordValue] = useLocalStorage('password', '');
-	const { user, setUser } = useContext(UserContext);
+	const { setUser } = useContext(UserContext);
 
 	const onFinish = (values: { username: string; password: string }) => {
 		setIsLoading(true);

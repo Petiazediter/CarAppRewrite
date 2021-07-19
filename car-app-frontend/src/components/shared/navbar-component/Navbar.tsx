@@ -14,6 +14,7 @@ import { FunctionComponent, useContext, useState } from 'react';
 import { useDatabaseContext } from '../../../context/DatabaseContext';
 import { Car } from '../../../models/Car';
 import { MyThemeContext } from '../../../context/ThemeContext';
+import { UserContext } from '../../../context/UserContext';
 
 const { Search } = Input;
 
@@ -106,6 +107,8 @@ export const Navbar: FunctionComponent = () => {
 	const getCarFromDatabase = useDatabaseContext().getCarBySearchTerm;
 	const { toggleTheme } = useContext(MyThemeContext);
 
+	const { user } = useContext(UserContext);
+
 	const onSearchChange = (value: string) => {
 		setSearchTerm(value);
 		setOptions(getOptionsBySearch(searchTerm, filterCars));
@@ -150,7 +153,7 @@ export const Navbar: FunctionComponent = () => {
 				</NavbarMenuCol>
 				<NavbarMenuCol highlight={IS_HIGHLIGHTED} flex={1}>
 					<NavbarLink highlight={IS_HIGHLIGHTED} to="/sign-in">
-						Sign in
+						{user === undefined ? 'Sign in' : 'Profile'}
 					</NavbarLink>
 				</NavbarMenuCol>
 				<NavbarMenuCol style={{ padding: '1em' }}>
