@@ -19,4 +19,8 @@ export const FormButton = styled(Button)({
 		background: '#ff3030',
 		borderColor: '#ff4040',
 	},
+	'&:focus': {
+		background: '#ff3030',
+		borderColor: '#ff4040',
+	},
 });
