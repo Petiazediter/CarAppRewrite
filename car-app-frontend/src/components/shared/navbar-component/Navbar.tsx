@@ -1,6 +1,6 @@
 import { AutoComplete, Dropdown, Input, Menu, Row } from 'antd';
 import { Link } from 'react-router-dom';
-import useWindowDimensions from '../../../utils/WindowSize';
+import useWindowDimensions from '../../../customHooks/useWindowDimensions';
 import { MenuOutlined, SwitcherOutlined } from '@ant-design/icons';
 import {
 	IS_HIGHLIGHTED,
