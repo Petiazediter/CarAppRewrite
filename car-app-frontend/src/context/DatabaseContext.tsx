@@ -128,23 +128,19 @@ export function useDatabaseContext() {
 	return useContext(GetUsersTableContext);
 }
 
-export const GetUsersTableContext = React.createContext({
+const initialValues = {
 	getCarsTable: getCarsTable,
 	getCarById: getCarById,
 	getCarBySearchTerm: getCarBySearchTerm,
 	addUser: addUser,
-});
+	login: login,
+};
+
+export const GetUsersTableContext = React.createContext(initialValues);
 
 export function DatabaseProvider({ children }: { children: ReactElement }) {
 	return (
-		<GetUsersTableContext.Provider
-			value={{
-				getCarsTable: getCarsTable,
-				getCarById: getCarById,
-				getCarBySearchTerm: getCarBySearchTerm,
-				addUser: addUser,
-			}}
-		>
+		<GetUsersTableContext.Provider value={initialValues}>
 			{children}
 		</GetUsersTableContext.Provider>
 	);
