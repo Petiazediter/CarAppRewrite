@@ -63,14 +63,15 @@ export const SignInPage: FunctionComponent = () => {
 				</Form.Item>
 				<Form.Item>
 					<Button
+						style={{ width: '100%', marginTop: '10px' }}
 						type={'primary'}
 						htmlType={'submit'}
 						className={'login-form-button'}
 					>
 						Log in
 					</Button>
-					Or <Link to={'/register'}>register now</Link>
 				</Form.Item>
+				Or <Link to={'/register'}>register now</Link>
 			</Form>
 		</RegisterContainerSection>
 	);

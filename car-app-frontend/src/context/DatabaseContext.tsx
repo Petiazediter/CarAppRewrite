@@ -28,6 +28,11 @@ export type User = {
 	phone: string | undefined;
 };
 
+export type SuccessOrError = {
+	isSuccess: boolean;
+	errorMessage: string;
+};
+
 const users: User[] = [
 	{
 		id: 0,
@@ -59,6 +64,18 @@ const addUser = async (user: UserForm): Promise<boolean> => {
 	});
 
 	return true;
+};
+
+const login = async (user: UserForm): Promise<SuccessOrError> => {
+	const filteredList = users.filter((value) => {
+		if (value.username === user.username && value.password === user.password) {
+			return value;
+		}
+	});
+	return {
+		isSuccess: filteredList.length > 0,
+		errorMessage: 'Username or password invalid.',
+	};
 };
 
 const getCarsTable = (filters: CarFilters): Car[] => {
