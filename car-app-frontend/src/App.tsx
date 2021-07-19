@@ -11,7 +11,6 @@ import { CarPage } from './components/car-page/CarPage';
 import { CarPageHOC } from './components/car-page/CarPageHOC';
 import { SignInPage } from './components/sign-in-page/SignInPage';
 import RegisterPage from './components/register-page/RegisterPage';
-import UserContextProvider from './context/UserContext';
 
 const ContentLayout = styled.div`
 	width: 90%;
@@ -29,27 +28,25 @@ const ContentLayout = styled.div`
 
 function App() {
 	return (
-		<UserContextProvider>
-			<ThemeContextProviderComponent>
-				<DatabaseProvider>
-					<BrowserRouter>
-						<ContentLayout>
-							<Route path="/" exact>
-								<Auctions />
-							</Route>
-							<Route path="/about">
-								<About />
-							</Route>
-							<Navbar />
-							<Route path="/car/:carId" component={CarPageHOC(CarPage)} />
-							<Route path={'/sign-in'} component={SignInPage} />
-							<Route path={'/register'} component={RegisterPage} />
-						</ContentLayout>
-						<Footer />
-					</BrowserRouter>
-				</DatabaseProvider>
-			</ThemeContextProviderComponent>
-		</UserContextProvider>
+		<ThemeContextProviderComponent>
+			<DatabaseProvider>
+				<BrowserRouter>
+					<ContentLayout>
+						<Route path="/" exact>
+							<Auctions />
+						</Route>
+						<Route path="/about">
+							<About />
+						</Route>
+						<Navbar />
+						<Route path="/car/:carId" component={CarPageHOC(CarPage)} />
+						<Route path={'/sign-in'} component={SignInPage} />
+						<Route path={'/register'} component={RegisterPage} />
+					</ContentLayout>
+					<Footer />
+				</BrowserRouter>
+			</DatabaseProvider>
+		</ThemeContextProviderComponent>
 	);
 }
 
