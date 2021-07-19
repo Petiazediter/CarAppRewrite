@@ -48,7 +48,7 @@ const users: User[] = [
 
 const getUserById = async (id: number): Promise<SuccessOrError> => {
 	const userTable = await getUsers();
-	const user = userTable.find((user) => user.id == id);
+	const user = userTable.find((user) => user.id === id);
 	return {
 		user: user !== undefined ? user : null,
 		isSuccess: user !== undefined,
