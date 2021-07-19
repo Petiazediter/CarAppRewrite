@@ -1,7 +1,7 @@
 import { FunctionComponent, useState } from 'react';
-import { RegisterContainerSection } from './RegisterPage.styled';
+import { FormButton, RegisterContainerSection } from './RegisterPage.styled';
 
-import { Button, Form, Input, message, Select } from 'antd';
+import { Form, Input, message, Select } from 'antd';
 import { InfoCircleOutlined } from '@ant-design/icons';
 import { RuleObject } from 'antd/lib/form';
 import { useDatabaseContext } from '../../context/DatabaseContext';
@@ -46,8 +46,6 @@ const RegisterPage: FunctionComponent = () => {
 
 	const onSubmit = async (values: FormValues) => {
 		setIsLoading(true);
-		console.log(values.username);
-		console.log(values);
 		const success = await databaseContext.addUser({
 			username: values.username,
 			password: values.password,
@@ -206,14 +204,14 @@ const RegisterPage: FunctionComponent = () => {
 					/>
 				</Form.Item>
 				<Form.Item name="submitButton">
-					<Button
+					<FormButton
 						style={{ width: '100%' }}
 						type="primary"
 						htmlType="submit"
 						loading={isLoading}
 					>
 						{isLoading ? 'Processing' : 'Register'}
-					</Button>
+					</FormButton>
 				</Form.Item>
 			</Form>
 		</RegisterContainerSection>

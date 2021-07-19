@@ -1,8 +1,11 @@
 import { FunctionComponent, useState } from 'react';
-import { Button, Checkbox, Form, Input, message } from 'antd';
+import { Checkbox, Form, Input, message } from 'antd';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
-import { RegisterContainerSection } from '../register-page/RegisterPage.styled';
+import {
+	FormButton,
+	RegisterContainerSection,
+} from '../register-page/RegisterPage.styled';
 import { useDatabaseContext } from '../../context/DatabaseContext';
 import useLocalStorage from '../../customHooks/useLocalStorage';
 
@@ -44,7 +47,11 @@ export const SignInPage: FunctionComponent = () => {
 				layout="vertical"
 				name="login_form"
 				className="login-form"
-				initialValues={{ remember: true }}
+				initialValues={{
+					remember: true,
+					username: username,
+					password: passwordValue,
+				}}
 				onFinish={onFinish}
 			>
 				<Form.Item
@@ -53,7 +60,6 @@ export const SignInPage: FunctionComponent = () => {
 					rules={[{ required: true, message: 'Username is required!' }]}
 				>
 					<Input
-						value={username}
 						prefix={<UserOutlined className="site-form-item-icon" />}
 						placeholder={'Username'}
 					/>
@@ -64,7 +70,6 @@ export const SignInPage: FunctionComponent = () => {
 					rules={[{ required: true, message: 'Password is required' }]}
 				>
 					<Input.Password
-						value={passwordValue}
 						placeholder="Password"
 						prefix={<LockOutlined className="site-form-item-icon" />}
 					/>
@@ -73,7 +78,7 @@ export const SignInPage: FunctionComponent = () => {
 					<Checkbox>Remember me</Checkbox>
 				</Form.Item>
 				<Form.Item>
-					<Button
+					<FormButton
 						loading={isLoading}
 						style={{ width: '100%', marginTop: '10px' }}
 						type={'primary'}
@@ -81,7 +86,7 @@ export const SignInPage: FunctionComponent = () => {
 						className={'login-form-button'}
 					>
 						Log in
-					</Button>
+					</FormButton>
 				</Form.Item>
 				Or <Link to={'/register'}>register now</Link>
 			</Form>
