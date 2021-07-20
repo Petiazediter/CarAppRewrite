@@ -13,15 +13,19 @@ export const MyThemeContext = React.createContext<ThemeContextType>({
 export const ThemeContextProviderComponent: FunctionComponent<{
 	children: ReactElement;
 }> = ({ children }) => {
-	const [isDark, setIsDark] = useState<boolean>(false);
+	const [isDark, setIsDark] = useState<boolean>(true);
 	const toggleTheme = (): void => {
 		setIsDark(!isDark);
+		console.log(isDark);
+	};
+
+	const value = {
+		isDark: isDark,
+		toggleTheme: toggleTheme,
 	};
 
 	return (
-		<MyThemeContext.Provider value={{ isDark, toggleTheme }}>
-			{children}
-		</MyThemeContext.Provider>
+		<MyThemeContext.Provider value={value}>{children}</MyThemeContext.Provider>
 	);
 };
 

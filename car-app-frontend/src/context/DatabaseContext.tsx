@@ -93,10 +93,7 @@ async function addUserToPantry(user: User) {
 	)
 		.then((data) => data.json())
 		.then(
-			(result) => {
-				console.log('RESULT: ');
-				console.log(result);
-			},
+			(result) => {},
 			(error) => console.error(error)
 		);
 }

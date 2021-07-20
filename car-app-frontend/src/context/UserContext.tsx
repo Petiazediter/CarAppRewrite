@@ -24,10 +24,7 @@ export default function UserContextProvider({
 	const [user, setUser] = useState<User>();
 	const value = { user, setUser };
 
-	useEffect(() => {
-		console.log('User changed: ');
-		console.log(user);
-	}, [user]);
+	useEffect(() => {}, [user]);
 
 	return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
 }

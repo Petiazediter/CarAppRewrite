@@ -1,4 +1,4 @@
-import { Component, ReactElement } from 'react';
+import { Component } from 'react';
 import { IconElement } from './IconComponent.styled';
 
 export type IconComponentProps = {
@@ -13,10 +13,6 @@ export default class IconComponent extends Component<
 	IconComponentProps,
 	IconComponentState
 > {
-	constructor(props: IconComponentProps) {
-		super(props);
-	}
-
 	render() {
 		return (
 			<IconElement>

@@ -36,9 +36,7 @@ const menu = (
 	</Menu>
 );
 
-const onSearch = (term: string) => {
-	console.log(term);
-};
+const onSearch = (term: string) => {};
 
 const searchStyle = {
 	width: '100%',

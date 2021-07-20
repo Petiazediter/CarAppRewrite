@@ -1,0 +1,52 @@
+import styled from '@emotion/styled';
+import { useContext } from 'react';
+import { Route } from 'react-router-dom';
+import { About } from './components/about-page/About';
+import { Auctions } from './components/auctions-page/Auctions';
+import { CarPage } from './components/car-page/CarPage';
+import { CarPageHOC } from './components/car-page/CarPageHOC';
+import RegisterPage from './components/register-page/RegisterPage';
+import { Navbar } from './components/shared/navbar-component/Navbar';
+import { navbarHeight } from './components/shared/navbar-component/Navbar.styled';
+import { SignInPage } from './components/sign-in-page/SignInPage';
+import { MyThemeContext } from './context/ThemeContext';
+
+type ContentLayoutProps = {
+	isDark: boolean;
+};
+
+const ContentLayout = styled.div<ContentLayoutProps>((props) => ({
+	width: '90%',
+	background: props.isDark ? 'blue' : 'red',
+	minHeight: '100vh',
+	margin: 'auto',
+	paddingTop: `calc(${navbarHeight} + 1em)`,
+	boxSizing: 'border-box',
+	'@media only screen and (min-width: 800px)': {
+		width: '90%',
+	},
+	'@media only screen and (min-width: 1500px)': {
+		width: '70%',
+	},
+}));
+
+export const RouterComponent = () => {
+	const { isDark } = useContext(MyThemeContext);
+
+	return (
+		<ContentLayout isDark={isDark}>
+			<Route path="/" exact>
+				<Auctions />
+			</Route>
+			<Route path="/about">
+				<About />
+			</Route>
+			<Navbar />
+			<Route path="/car/:carId" component={CarPageHOC(CarPage)} />
+			<Route path={'/sign-in'} component={SignInPage} />
+			<Route path={'/register'} component={RegisterPage} />
+		</ContentLayout>
+	);
+};
+
+export default RouterComponent;
