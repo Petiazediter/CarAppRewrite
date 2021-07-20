@@ -1,9 +1,10 @@
-import React, { Component, ReactElement } from 'react';
+import { Component, ReactElement } from 'react';
+import { IconElement } from './IconComponent.styled';
 
 export type IconComponentProps = {
 	title: string;
 	description: string;
-	icon: ReactElement;
+	icon: any;
 };
 
 type IconComponentState = {};
@@ -18,11 +19,11 @@ export default class IconComponent extends Component<
 
 	render() {
 		return (
-			<div>
+			<IconElement>
 				{this.props.icon}
 				<h2>{this.props.title}</h2>
 				<p>{this.props.description}</p>
-			</div>
+			</IconElement>
 		);
 	}
 }
