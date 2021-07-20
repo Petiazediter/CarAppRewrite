@@ -64,6 +64,7 @@ const addUser = async (user: UserForm): Promise<SuccessOrError> => {
 			value.username === user.username ||
 			value.emailAddress === user.emailAddress
 	);
+	console.log(dbUser);
 	// Add user to database
 	const newUser: User = {
 		id: users.length,
@@ -73,7 +74,9 @@ const addUser = async (user: UserForm): Promise<SuccessOrError> => {
 		phone: user.phone,
 	};
 
-	addUserToPantry(newUser);
+	if (dbUser === undefined) {
+		addUserToPantry(newUser);
+	}
 	return {
 		isSuccess: dbUser === undefined,
 		errorMessage: 'Username or email has been already taken.',
