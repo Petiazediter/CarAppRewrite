@@ -7,14 +7,27 @@ import {
 	ContainerOutlined,
 } from '@ant-design/icons';
 
+export const IconComponentContainer = styled.section({
+	display: 'flex',
+	width: '70%',
+	flexWrap: 'wrap',
+	flexBasis: '50%',
+});
+
 export const IconElement = styled.div({
+	padding: '1em',
+	margin: '1em',
 	background: '#fff',
-	width: '300px',
+	width: '45%',
+	boxSizing: 'border-box',
 	h2: {
 		maxWidth: 'fit-content',
 		paddingRight: '1em',
 		borderBottom: '5px solid #ff4848',
 		borderRadius: '2px',
+	},
+	p: {
+		fontWeight: 600,
 	},
 });
 
