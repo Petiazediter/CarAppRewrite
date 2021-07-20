@@ -134,22 +134,28 @@ export class CarPage extends React.Component<
 						</FlexContainer>
 					</Category>
 				</CategoriesContainer>
-				<ImageDisplay autoplay={true}>
-					{this.state.imageType === ImageType.PAPERS ? (
-						this.state.car?.paperImages.map((imgLink: string) => (
-							<Image key={imgLink} alt="Image of car" src={imgLink} />
-						))
-					) : this.state.imageType === ImageType.EXTERIOR ? (
-						this.state.car?.exteriorImages.map((imgLink: string) => (
-							<Image alt="Car exterior" src={imgLink} />
-						))
-					) : this.state.imageType === ImageType.INTERIOR ? (
-						this.state.car?.interiorImages.map((imgLink: string) => (
-							<Image alt="Image of car" src={imgLink} />
-						))
-					) : (
-						<h2>Video format not supported yet</h2>
-					)}
+				<ImageDisplay autoplay={this.state.imageType !== ImageType.VIDEOS}>
+					{this.state.imageType === ImageType.PAPERS
+						? this.state.car?.paperImages.map((imgLink: string) => (
+								<Image key={imgLink} alt="Image of car" src={imgLink} />
+						  ))
+						: this.state.imageType === ImageType.EXTERIOR
+						? this.state.car?.exteriorImages.map((imgLink: string) => (
+								<Image alt="Car exterior" src={imgLink} />
+						  ))
+						: this.state.imageType === ImageType.INTERIOR
+						? this.state.car?.interiorImages.map((imgLink: string) => (
+								<Image alt="Image of car" src={imgLink} />
+						  ))
+						: this.state.car?.videos.map((videoLink: string) => (
+								<iframe
+									allowFullScreen={true}
+									frameBorder="0"
+									height="315"
+									src={videoLink}
+									width="420"
+								></iframe>
+						  ))}
 				</ImageDisplay>
 
 				{this.state.car != null ? (
