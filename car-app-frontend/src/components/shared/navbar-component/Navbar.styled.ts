@@ -7,12 +7,23 @@ export const navbarHeight: string = '60px';
 
 interface NavbarMenuColProps {
 	highlight?: string;
+	isDark: boolean;
 }
+
+export type DarkModeProp = {
+	isDark: boolean;
+};
 
 export const NavbarMenuCol = styled(Col)<NavbarMenuColProps>(
 	(props: NavbarMenuColProps) => ({
 		background: `${props.highlight === IS_HIGHLIGHTED ? '#fc5c65' : 'none'}`,
-		color: `${props.highlight === IS_HIGHLIGHTED ? 'white' : 'black'}`,
+		color: `${
+			props.highlight === IS_HIGHLIGHTED
+				? 'white'
+				: props.isDark
+				? 'white'
+				: 'black'
+		}`,
 		fontWeight: 'bolder',
 		textAlign: 'center',
 		display: 'flex',
@@ -25,12 +36,12 @@ export const NavbarMenuCol = styled(Col)<NavbarMenuColProps>(
 	})
 );
 
-export const StyledNav = styled.nav({
+export const StyledNav = styled.nav<DarkModeProp>((props) => ({
 	zIndex: 10,
 	boxShadow: '0 1px 0 0 rgba(100,100,100,.2)',
 	height: navbarHeight,
 	position: 'fixed',
-	background: 'white',
+	background: props.isDark ? 'black' : 'white',
 	width: '100%',
 	left: 0,
 	top: 0,
@@ -44,13 +55,14 @@ export const StyledNav = styled.nav({
 	'@media only screen and (min-width: 1500px)': {
 		width: '70.1%',
 	},
-});
+}));
 
 export const NavbarLink = styled(Link)<NavbarMenuColProps>(
 	(props: NavbarMenuColProps) => ({
 		color: props.highlight === IS_HIGHLIGHTED ? '#eeeeee' : 'grey',
 		'&:hover': {
-			color: props.highlight === IS_HIGHLIGHTED ? 'white' : 'black',
+			color:
+				props.highlight === IS_HIGHLIGHTED || props.isDark ? 'white' : 'black',
 		},
 	})
 );

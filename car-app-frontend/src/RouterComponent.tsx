@@ -17,7 +17,8 @@ type ContentLayoutProps = {
 
 const ContentLayout = styled.div<ContentLayoutProps>((props) => ({
 	width: '90%',
-	background: props.isDark ? 'blue' : 'red',
+	background: props.isDark ? '#2E2E2E' : 'initial',
+	color: props.isDark ? 'white' : 'black',
 	minHeight: '100vh',
 	margin: 'auto',
 	paddingTop: `calc(${navbarHeight} + 1em)`,
