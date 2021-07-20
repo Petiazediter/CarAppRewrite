@@ -19,7 +19,9 @@ export default class IconComponent extends Component<
 	render() {
 		return (
 			<div>
-				<h1>{this.props.title}</h1>
+				{this.props.icon}
+				<h2>{this.props.title}</h2>
+				<p>{this.props.description}</p>
 			</div>
 		);
 	}
