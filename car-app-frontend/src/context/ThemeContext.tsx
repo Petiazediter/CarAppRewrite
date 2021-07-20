@@ -1,4 +1,5 @@
 import React, { FunctionComponent, ReactElement, useState } from 'react';
+import useLocalStorage from '../customHooks/useLocalStorage';
 
 export type ThemeContextType = {
 	isDark: boolean;
@@ -13,10 +14,11 @@ export const MyThemeContext = React.createContext<ThemeContextType>({
 export const ThemeContextProviderComponent: FunctionComponent<{
 	children: ReactElement;
 }> = ({ children }) => {
-	const [isDark, setIsDark] = useState<boolean>(true);
+	const [theme, setTheme] = useLocalStorage('theme', 'light');
+	const [isDark, setIsDark] = useState<boolean>(theme === 'light');
 	const toggleTheme = (): void => {
 		setIsDark(!isDark);
-		console.log(isDark);
+		setTheme(isDark ? 'dark' : 'light');
 	};
 
 	const value = {
