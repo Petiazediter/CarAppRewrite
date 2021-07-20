@@ -32,8 +32,11 @@ export const IconElement = styled.div({
 });
 
 const DynamicIconStyle = css({
-	color: '#ff4848',
-	fontSize: '3em',
+	color: '#fcfcfc',
+	fontSize: '2.5em',
+	background: '#ff4848',
+	padding: '8px',
+	borderRadius: '8px',
 });
 
 export const Arrow = styled(ArrowDownOutlined)`
