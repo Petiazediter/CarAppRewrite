@@ -8,12 +8,18 @@ import {
 } from '@ant-design/icons';
 
 export const IconElement = styled.div({
-	background: '#08c',
+	background: '#fff',
 	width: '300px',
+	h2: {
+		maxWidth: 'fit-content',
+		paddingRight: '1em',
+		borderBottom: '5px solid #ff4848',
+		borderRadius: '2px',
+	},
 });
 
 const DynamicIconStyle = css({
-	background: '#08c',
+	color: '#ff4848',
 	fontSize: '3em',
 });
 
