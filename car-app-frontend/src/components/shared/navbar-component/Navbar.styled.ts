@@ -3,15 +3,16 @@ import { Col } from 'antd';
 import { Link } from 'react-router-dom';
 
 export const IS_HIGHLIGHTED = 'ishighlighted';
+export const IS_DARK = 'isdark';
 export const navbarHeight: string = '60px';
 
 interface NavbarMenuColProps {
 	highlight?: string;
-	isDark: boolean;
+	isdark: string;
 }
 
 export type DarkModeProp = {
-	isDark: boolean;
+	isdark: string;
 };
 
 export const NavbarMenuCol = styled(Col)<NavbarMenuColProps>(
@@ -20,7 +21,7 @@ export const NavbarMenuCol = styled(Col)<NavbarMenuColProps>(
 		color: `${
 			props.highlight === IS_HIGHLIGHTED
 				? 'white'
-				: props.isDark
+				: props.isdark === IS_DARK
 				? 'white'
 				: 'black'
 		}`,
@@ -41,7 +42,7 @@ export const StyledNav = styled.nav<DarkModeProp>((props) => ({
 	boxShadow: '0 1px 0 0 rgba(100,100,100,.2)',
 	height: navbarHeight,
 	position: 'fixed',
-	background: props.isDark ? 'black' : 'white',
+	background: props.isdark === IS_DARK ? 'black' : 'white',
 	width: '100%',
 	left: 0,
 	top: 0,
@@ -62,7 +63,9 @@ export const NavbarLink = styled(Link)<NavbarMenuColProps>(
 		color: props.highlight === IS_HIGHLIGHTED ? '#eeeeee' : 'grey',
 		'&:hover': {
 			color:
-				props.highlight === IS_HIGHLIGHTED || props.isDark ? 'white' : 'black',
+				props.highlight === IS_HIGHLIGHTED || props.isdark === IS_DARK
+					? 'white'
+					: 'black',
 		},
 	})
 );

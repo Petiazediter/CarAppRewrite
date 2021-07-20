@@ -149,6 +149,7 @@ export class CarPage extends React.Component<
 						  ))
 						: this.state.car?.videos.map((videoLink: string) => (
 								<iframe
+									title="video about the car"
 									allowFullScreen={true}
 									frameBorder="0"
 									height="315"

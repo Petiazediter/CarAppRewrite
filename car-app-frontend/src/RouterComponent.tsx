@@ -7,18 +7,21 @@ import { CarPage } from './components/car-page/CarPage';
 import { CarPageHOC } from './components/car-page/CarPageHOC';
 import RegisterPage from './components/register-page/RegisterPage';
 import { Navbar } from './components/shared/navbar-component/Navbar';
-import { navbarHeight } from './components/shared/navbar-component/Navbar.styled';
+import {
+	IS_DARK,
+	navbarHeight,
+} from './components/shared/navbar-component/Navbar.styled';
 import { SignInPage } from './components/sign-in-page/SignInPage';
 import { MyThemeContext } from './context/ThemeContext';
 
 type ContentLayoutProps = {
-	isDark: boolean;
+	isdark: string;
 };
 
 const ContentLayout = styled.div<ContentLayoutProps>((props) => ({
 	width: '90%',
-	background: props.isDark ? '#2E2E2E' : 'initial',
-	color: props.isDark ? 'white' : 'black',
+	background: props.isdark === IS_DARK ? '#2E2E2E' : 'initial',
+	color: props.isdark === IS_DARK ? 'white' : 'black',
 	minHeight: '100vh',
 	margin: 'auto',
 	paddingTop: `calc(${navbarHeight} + 1em)`,
@@ -35,7 +38,7 @@ export const RouterComponent = () => {
 	const { isDark } = useContext(MyThemeContext);
 
 	return (
-		<ContentLayout isDark={isDark}>
+		<ContentLayout isdark={isDark ? IS_DARK : ''}>
 			<Route path="/" exact>
 				<Auctions />
 			</Route>

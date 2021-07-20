@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import useWindowDimensions from '../../../customHooks/useWindowDimensions';
 import { MenuOutlined, SwitcherOutlined } from '@ant-design/icons';
 import {
+	IS_DARK,
 	IS_HIGHLIGHTED,
 	LeftAlignedH1,
 	NavbarLink,
@@ -114,29 +115,37 @@ export const Navbar: FunctionComponent = () => {
 	};
 
 	return width >= 800 ? (
-		<StyledNav isDark={isDark}>
+		<StyledNav isdark={isDark ? IS_DARK : ''}>
 			<Row>
-				<NavbarMenuCol isDark={isDark} flex={1}>
+				<NavbarMenuCol isdark={isDark ? IS_DARK : ''} flex={1}>
 					<TitleLink to="/">
 						<LeftAlignedH1>CarBidApp</LeftAlignedH1>
 					</TitleLink>
 				</NavbarMenuCol>
-				<NavbarMenuCol isDark={isDark} flex={1}>
-					<NavbarLink isDark={isDark} to="/">
+				<NavbarMenuCol isdark={isDark ? IS_DARK : ''} flex={1}>
+					<NavbarLink isdark={isDark ? IS_DARK : ''} to="/">
 						Auctions
 					</NavbarLink>
 				</NavbarMenuCol>
-				<NavbarMenuCol isDark={isDark} highlight={IS_HIGHLIGHTED} flex={1}>
-					<NavbarLink isDark={isDark} highlight={IS_HIGHLIGHTED} to="/sell">
+				<NavbarMenuCol
+					isdark={isDark ? IS_DARK : ''}
+					highlight={IS_HIGHLIGHTED}
+					flex={1}
+				>
+					<NavbarLink
+						isdark={isDark ? IS_DARK : ''}
+						highlight={IS_HIGHLIGHTED}
+						to="/sell"
+					>
 						Sell a car
 					</NavbarLink>
 				</NavbarMenuCol>
-				<NavbarMenuCol isDark={isDark} flex={1}>
-					<NavbarLink isDark={isDark} to="/about">
+				<NavbarMenuCol isdark={isDark ? IS_DARK : ''} flex={1}>
+					<NavbarLink isdark={isDark ? IS_DARK : ''} to="/about">
 						About us
 					</NavbarLink>
 				</NavbarMenuCol>
-				<NavbarMenuCol isDark={isDark} flex={4}>
+				<NavbarMenuCol isdark={isDark ? IS_DARK : ''} flex={4}>
 					<AutoComplete
 						className="full-width"
 						dropdownClassName="certain-category-search-dropdown"
@@ -153,12 +162,23 @@ export const Navbar: FunctionComponent = () => {
 						/>
 					</AutoComplete>
 				</NavbarMenuCol>
-				<NavbarMenuCol isDark={isDark} highlight={IS_HIGHLIGHTED} flex={1}>
-					<NavbarLink isDark={isDark} highlight={IS_HIGHLIGHTED} to="/sign-in">
+				<NavbarMenuCol
+					isdark={isDark ? IS_DARK : ''}
+					highlight={IS_HIGHLIGHTED}
+					flex={1}
+				>
+					<NavbarLink
+						isdark={isDark ? IS_DARK : ''}
+						highlight={IS_HIGHLIGHTED}
+						to="/sign-in"
+					>
 						{user === undefined ? 'Sign in' : 'Profile'}
 					</NavbarLink>
 				</NavbarMenuCol>
-				<NavbarMenuCol isDark={isDark} style={{ padding: '1em' }}>
+				<NavbarMenuCol
+					isdark={isDark ? IS_DARK : ''}
+					style={{ padding: '1em' }}
+				>
 					<SwitcherOutlined
 						color={isDark ? 'white' : 'black'}
 						onClick={toggleTheme}
@@ -167,21 +187,21 @@ export const Navbar: FunctionComponent = () => {
 			</Row>
 		</StyledNav>
 	) : (
-		<StyledNav isDark={isDark}>
+		<StyledNav isdark={isDark ? IS_DARK : ''}>
 			<Row>
-				<NavbarMenuCol isDark={isDark} flex={1}>
+				<NavbarMenuCol isdark={isDark ? IS_DARK : ''} flex={1}>
 					<TitleLink to="/">
 						<LeftAlignedH1>CarBidApp</LeftAlignedH1>
 					</TitleLink>
 				</NavbarMenuCol>
-				<NavbarMenuCol isDark={isDark} flex={3}>
+				<NavbarMenuCol isdark={isDark ? IS_DARK : ''} flex={3}>
 					<Search
 						placeholder="Search for cars"
 						onSearch={onSearch}
 						style={searchStyle}
 					/>
 				</NavbarMenuCol>
-				<NavbarMenuCol isDark={isDark} flex={1}>
+				<NavbarMenuCol isdark={isDark ? IS_DARK : ''} flex={1}>
 					<Dropdown overlay={menu} trigger={['click']}>
 						<MenuOutlined onClick={(e) => e.preventDefault()} />
 					</Dropdown>
