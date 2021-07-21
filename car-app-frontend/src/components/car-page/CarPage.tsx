@@ -22,7 +22,7 @@ import {
 import { CarDataTable } from './CarDataTable';
 import { TimerDisplayFormat, TimerText } from '../auctions-page/TimerText';
 import ExtrasTableComponent from './ExtrasTableComponent';
-import BidComponent from './BidComponent';
+import { BidComponentHOC } from './HigherOrderComponents';
 
 interface IUrlProps {
 	carId: string | undefined;
@@ -95,7 +95,7 @@ export class CarPage extends React.Component<
 								formatType={TimerDisplayFormat.TRADITIONAL_FORMATTED}
 							/>
 						</NoMarginSubTitle>
-						<BidComponent car={this.state.car} />
+						<BidComponentHOC car={this.state.car} />
 						<CategoriesContainer>
 							<Category
 								background={

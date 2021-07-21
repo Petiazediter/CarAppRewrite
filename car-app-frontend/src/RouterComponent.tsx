@@ -4,7 +4,7 @@ import { Route } from 'react-router-dom';
 import { About } from './components/about-page/About';
 import { Auctions } from './components/auctions-page/Auctions';
 import { CarPage } from './components/car-page/CarPage';
-import { CarPageHOC } from './components/car-page/CarPageHOC';
+import { CarPageHOC } from './components/car-page/HigherOrderComponents';
 import RegisterPage from './components/register-page/RegisterPage';
 import { Navbar } from './components/shared/navbar-component/Navbar';
 import {
