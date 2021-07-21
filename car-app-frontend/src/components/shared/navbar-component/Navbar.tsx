@@ -116,10 +116,13 @@ export const Navbar: FunctionComponent = () => {
 
 	return width >= 800 ? (
 		<StyledNav isdark={isDark ? IS_DARK : ''}>
+			<h1>{isDark}</h1>
 			<Row>
 				<NavbarMenuCol isdark={isDark ? IS_DARK : ''} flex={1}>
 					<TitleLink to="/">
-						<LeftAlignedH1>CarBidApp</LeftAlignedH1>
+						<LeftAlignedH1 isdark={isDark ? IS_DARK : ''}>
+							CarBidApp
+						</LeftAlignedH1>
 					</TitleLink>
 				</NavbarMenuCol>
 				<NavbarMenuCol isdark={isDark ? IS_DARK : ''} flex={1}>
@@ -191,7 +194,9 @@ export const Navbar: FunctionComponent = () => {
 			<Row>
 				<NavbarMenuCol isdark={isDark ? IS_DARK : ''} flex={1}>
 					<TitleLink to="/">
-						<LeftAlignedH1>CarBidApp</LeftAlignedH1>
+						<LeftAlignedH1 isdark={isDark ? IS_DARK : ''}>
+							CarBidApp
+						</LeftAlignedH1>
 					</TitleLink>
 				</NavbarMenuCol>
 				<NavbarMenuCol isdark={isDark ? IS_DARK : ''} flex={3}>

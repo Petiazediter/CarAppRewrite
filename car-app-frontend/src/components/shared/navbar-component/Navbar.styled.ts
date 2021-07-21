@@ -17,7 +17,11 @@ export type DarkModeProp = {
 
 export const NavbarMenuCol = styled(Col)<NavbarMenuColProps>(
 	(props: NavbarMenuColProps) => ({
-		background: `${props.highlight === IS_HIGHLIGHTED ? '#fc5c65' : 'none'}`,
+		background: `${
+			props.highlight === IS_HIGHLIGHTED
+				? 'linear-gradient(to right, #FF416C 0%, #FC6767 100%)'
+				: 'none'
+		}`,
 		color: `${
 			props.highlight === IS_HIGHLIGHTED
 				? 'white'
@@ -27,12 +31,16 @@ export const NavbarMenuCol = styled(Col)<NavbarMenuColProps>(
 		}`,
 		fontWeight: 'bolder',
 		textAlign: 'center',
+		borderRadius: '22px',
 		display: 'flex',
 		alignItems: 'center',
 		justifyContent: 'center',
 		position: 'relative',
 		'&:hover': {
-			background: props.highlight === IS_HIGHLIGHTED ? '#eb3b5a' : 'none',
+			background:
+				props.highlight === IS_HIGHLIGHTED
+					? 'linear-gradient(to right, #FF416C 0%, #FC6767 80%)'
+					: 'none',
 		},
 	})
 );
@@ -41,13 +49,16 @@ export const StyledNav = styled.nav<DarkModeProp>((props) => ({
 	zIndex: 10,
 	boxShadow: '0 1px 0 0 rgba(100,100,100,.2)',
 	height: navbarHeight,
+	borderRadius: '22px',
+	padding: 0,
+	paddingLeft: '1em',
+	paddingRight: '1em',
 	position: 'fixed',
 	background: props.isdark === IS_DARK ? 'black' : 'white',
 	width: '100%',
 	left: 0,
 	top: 0,
 	margin: 0,
-	paddingTop: '.5em',
 	'@media only screen and (min-width: 800px)': {
 		left: '50%',
 		transform: 'translateX(-50%)',
@@ -78,10 +89,11 @@ export const TitleLink = styled(Link)({
 	justifyContent: 'center',
 });
 
-export const LeftAlignedH1 = styled.h1({
+export const LeftAlignedH1 = styled.h1<DarkModeProp>((props) => ({
 	position: 'relative',
 	width: '100%',
 	padding: 0,
 	margin: 0,
 	textAlign: 'left',
-});
+	color: props.isdark === IS_DARK ? 'white' : 'black',
+}));
