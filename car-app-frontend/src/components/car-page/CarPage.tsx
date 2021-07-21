@@ -177,15 +177,23 @@ export class CarPage extends React.Component<
 							<CarDataTable car={this.state.car} />
 						</TopSection>
 						<section>
-							<Divider orientation="left">Highlights</Divider>
+							<Divider orientation="left">
+								<h1>Highlights</h1>
+							</Divider>
 							<HighlightTitle>{this.state.car.highlightsTitle}</HighlightTitle>
 							<ExtrasTableComponent items={this.state.car.highLightsItems} />
-							<Divider orientation="left">Equipment</Divider>
+							<Divider orientation="left">
+								<h1>Equipment</h1>
+							</Divider>
 							<HighlightTitle>{this.state.car.equipmentTitle}</HighlightTitle>
 							<ExtrasTableComponent items={this.state.car.equipmentItems} />
-							<Divider orientation="left">Flaws</Divider>
+							<Divider orientation="left">
+								<h1>Flaws</h1>
+							</Divider>
 							<ExtrasTableComponent items={this.state.car.flaws} />
-							<Divider orientation="left">Service history</Divider>
+							<Divider orientation="left">
+								<h1>Service history</h1>
+							</Divider>
 							<HighlightTitle>{this.state.car.serviceHistory}</HighlightTitle>
 							<Divider orientation="left">Extra items</Divider>
 							<ExtrasTableComponent items={this.state.car.extraItems} />
