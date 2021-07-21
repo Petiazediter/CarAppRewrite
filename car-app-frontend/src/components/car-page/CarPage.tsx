@@ -155,14 +155,15 @@ export class CarPage extends React.Component<
 									  ))
 									: this.state.imageType === ImageType.EXTERIOR
 									? this.state.car?.exteriorImages.map((imgLink: string) => (
-											<Image alt="Car exterior" src={imgLink} />
+											<Image key={imgLink} alt="Car exterior" src={imgLink} />
 									  ))
 									: this.state.imageType === ImageType.INTERIOR
 									? this.state.car?.interiorImages.map((imgLink: string) => (
-											<Image alt="Image of car" src={imgLink} />
+											<Image key={imgLink} alt="Image of car" src={imgLink} />
 									  ))
 									: this.state.car?.videos.map((videoLink: string) => (
 											<iframe
+												key={videoLink}
 												title="video about the car"
 												allowFullScreen={true}
 												frameBorder="0"

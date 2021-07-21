@@ -114,7 +114,7 @@ const RegisterPage: FunctionComponent = () => {
 									}
 									return Promise.reject(
 										new Error(
-											'Minimum 8 characters. 1 uppercase 1 lowercase 1 number 1 special character.'
+											'Minimum 8 characters. 1 uppercase 1 lowercase 1 number.'
 										)
 									);
 								}
