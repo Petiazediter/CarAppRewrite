@@ -22,11 +22,12 @@ export const NewsCol = styled(Col)({
 });
 
 export const PrimaryButton = styled(Button)({
-	background: '#fc5c65',
+	background: 'linear-gradient(to right, #FF416C 0%, #FC6767 100%)',
+	borderRadius: '22px',
+	border: 'none',
 	color: 'white',
 	'&:hover, &:active, &:focus': {
-		background: '#eb3b5a',
-		borderColor: '#eb3b5a',
+		background: 'linear-gradient(to right, #FF416C 0%, #FC6767 100%)',
 		color: 'white',
 	},
 });
