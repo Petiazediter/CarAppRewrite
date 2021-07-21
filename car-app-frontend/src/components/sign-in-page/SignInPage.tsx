@@ -79,9 +79,6 @@ export const SignInPage: FunctionComponent = () => {
 						prefix={<LockOutlined className="site-form-item-icon" />}
 					/>
 				</Form.Item>
-				<Form.Item name="remember-me" valuePropName={'checked'} noStyle>
-					<Checkbox>Remember me</Checkbox>
-				</Form.Item>
 				<Form.Item>
 					<FormButton
 						loading={isLoading}

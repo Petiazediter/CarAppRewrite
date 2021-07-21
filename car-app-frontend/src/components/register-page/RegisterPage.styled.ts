@@ -11,16 +11,15 @@ export const RegisterContainerSection = styled.section({
 });
 
 export const FormButton = styled(Button)({
-	background: '#ff4040',
-	borderColor: '#ff4040',
+	background: 'linear-gradient(to right, #FF416C 0%, #FC6767 100%)',
+	border: 'none',
+	borderRadius: '22px',
 	fontFamily: 'sans-serif',
 	fontWeight: 'bold',
 	'&:hover': {
-		background: '#ff3030',
-		borderColor: '#ff4040',
+		background: 'linear-gradient(to right, #FF416C 0%, #FC6767 100%)',
 	},
 	'&:focus': {
-		background: '#ff3030',
-		borderColor: '#ff4040',
+		background: 'linear-gradient(to right, #FF416C 0%, #FC6767 100%)',
 	},
 });
