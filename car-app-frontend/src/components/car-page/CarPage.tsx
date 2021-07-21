@@ -22,6 +22,7 @@ import {
 import { CarDataTable } from './CarDataTable';
 import { TimerDisplayFormat, TimerText } from '../auctions-page/TimerText';
 import ExtrasTableComponent from './ExtrasTableComponent';
+import BidComponent from './BidComponent';
 
 interface IUrlProps {
 	carId: string | undefined;
@@ -87,17 +88,14 @@ export class CarPage extends React.Component<
 						<NoMarginSubTitle>
 							Expiration day: {this.state.car.endDate}
 						</NoMarginSubTitle>
-						{this.state.car != null ? (
-							<NoMarginSubTitle>
-								Remaining time:
-								<TimerText
-									fromDate={this.state.car.endDate}
-									formatType={TimerDisplayFormat.TRADITIONAL_FORMATTED}
-								/>
-							</NoMarginSubTitle>
-						) : (
-							<></>
-						)}
+						<NoMarginSubTitle>
+							Remaining time:
+							<TimerText
+								fromDate={this.state.car.endDate}
+								formatType={TimerDisplayFormat.TRADITIONAL_FORMATTED}
+							/>
+						</NoMarginSubTitle>
+						<BidComponent car={this.state.car} />
 						<CategoriesContainer>
 							<Category
 								background={
