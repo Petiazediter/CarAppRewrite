@@ -59,9 +59,10 @@ export const HighlightTitle = styled.h1({
 	width: '100%',
 	padding: '1em',
 	boxSizing: 'border-box',
-	background: '#fc5c65',
+	background: 'linear-gradient(to right, #FF416C 0%, #FC6767 100%)',
 	color: 'white',
-	fontStyle: 'italic',
+	fontWeight: 'bold',
+	borderRadius: '22px',
 });
 
 export const TopSection = styled.section({
