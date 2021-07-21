@@ -14,7 +14,6 @@ const passwordRegex = new RegExp('^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,32}$');
 const prefixSelector = (
 	<Form.Item name="prefix" noStyle>
 		<Select
-			defaultValue="36"
 			style={{
 				width: 70,
 			}}
@@ -26,7 +25,7 @@ const prefixSelector = (
 
 const emailSuffix = (
 	<Form.Item name="emailtype" noStyle>
-		<Select defaultValue="gmail" style={{ width: 'auto' }}>
+		<Select style={{ width: 'auto' }}>
 			<Option value="gmail">@gmail.com</Option>
 		</Select>
 	</Form.Item>
@@ -73,6 +72,10 @@ const RegisterPage: FunctionComponent = () => {
 			</h1>
 			<Form
 				layout="vertical"
+				initialValues={{
+					prefix: 36,
+					emailtype: 'gmail',
+				}}
 				onFinish={(values: FormValues) => onSubmit(values)}
 			>
 				<Form.Item

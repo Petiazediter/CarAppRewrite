@@ -36,16 +36,6 @@ export type SuccessOrError = {
 	user: User | null;
 };
 
-const users: User[] = [
-	{
-		id: 0,
-		username: 'username',
-		password: 'password',
-		emailAddress: 'pverebes74@gmail.com',
-		phone: undefined,
-	},
-];
-
 const getUserById = async (id: number): Promise<SuccessOrError> => {
 	const userTable = await getUsers();
 	const user = userTable.find((user) => user.id === id);
