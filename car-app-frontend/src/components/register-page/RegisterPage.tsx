@@ -58,7 +58,6 @@ const RegisterPage: FunctionComponent = () => {
 			if (result.user != null) {
 				setUser(result.user);
 			}
-			//window.location.href = '/';
 		} else {
 			message.error(result.errorMessage);
 		}
