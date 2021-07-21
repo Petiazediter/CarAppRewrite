@@ -34,7 +34,7 @@ export const IconElement = styled.div({
 const DynamicIconStyle = css({
 	color: '#fcfcfc',
 	fontSize: '2.5em',
-	background: '#ff4848',
+	background: 'linear-gradient(to right, #FF416C 0%, #FC6767 100%)',
 	padding: '8px',
 	borderRadius: '8px',
 });
