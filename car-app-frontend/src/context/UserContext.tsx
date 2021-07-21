@@ -6,7 +6,7 @@ import {
 	useState,
 	useEffect,
 } from 'react';
-import { User } from './DatabaseContext';
+import { useDatabaseContext, User } from './DatabaseContext';
 import useLocalStorage from '../customHooks/useLocalStorage';
 
 export const UserContext = createContext<{
@@ -22,19 +22,22 @@ export default function UserContextProvider({
 }: {
 	children: ReactElement;
 }) {
-	const [, setUserId] = useLocalStorage('userId', '0');
+	const [userId] = useLocalStorage('userId', '');
 	const [user, setUser] = useState<User>();
 	const value = { user, setUser };
+	const databaseContext = useDatabaseContext();
 
 	useEffect(() => {
-		return () => {
-			if (user === undefined) {
-				setUserId(''); // Remove
-			} else {
-				setUserId(`${user?.id}`);
+		function getUser(uId: string | undefined): void {
+			if (uId !== undefined) {
+				const userIdAsNumber: number = +uId;
+				databaseContext
+					.getUserById(userIdAsNumber)
+					.then((data) => setUser(data.user ? data.user : undefined));
 			}
-		};
-	}, [user, setUserId]);
+		}
+		getUser(userId);
+	}, [userId, databaseContext]);
 
 	return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
 }
