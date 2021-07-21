@@ -54,7 +54,7 @@ export const StyledNav = styled.nav<DarkModeProp>((props) => ({
 	paddingLeft: '1em',
 	paddingRight: '1em',
 	position: 'fixed',
-	background: props.isdark === IS_DARK ? 'black' : 'white',
+	background: props.isdark === IS_DARK ? '#393E46' : 'white',
 	width: '100%',
 	left: 0,
 	top: 0,

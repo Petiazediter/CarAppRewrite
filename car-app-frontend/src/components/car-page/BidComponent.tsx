@@ -21,11 +21,14 @@ const BidContainer = styled.div({
 });
 
 const Bid = styled.section<DarkModeProp>((props) => ({
-	background: props.isdark === IS_DARK ? 'darkgrey' : 'white',
+	background: props.isdark === IS_DARK ? '#393E46' : 'white',
 	width: '400px',
 	padding: '1em',
 	borderRadius: '22px',
-	boxShadow: '0 0 4px 4px rgba(0, 0, 255, .2);',
+	boxShadow:
+		props.isdark === IS_DARK
+			? '0 0 4px 4px rgba(0, 0, 0, .2);'
+			: '0 0 4px 4px rgba(0, 0, 255, .2);',
 }));
 
 const BidDetails = styled.section<DarkModeProp>((props) => ({
