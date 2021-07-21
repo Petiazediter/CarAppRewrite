@@ -28,6 +28,7 @@ export const Category = styled.section<ICategoryProps>(
 		cursor: 'pointer',
 		margin: '1em',
 		width: '80px',
+		borderRadius: '50%',
 		aspectRatio: '1/1',
 		display: 'flex',
 		justifyContent: 'center',
