@@ -7,6 +7,7 @@ import {
 	useEffect,
 } from 'react';
 import { User } from './DatabaseContext';
+import useLocalStorage from '../customHooks/useLocalStorage';
 
 export const UserContext = createContext<{
 	user: User | undefined;
@@ -21,10 +22,17 @@ export default function UserContextProvider({
 }: {
 	children: ReactElement;
 }) {
+	const [userId, setUserId] = useLocalStorage('userId', '0');
 	const [user, setUser] = useState<User>();
 	const value = { user, setUser };
 
-	useEffect(() => {}, [user]);
+	useEffect(() => {
+		if (user === undefined) {
+			setUserId(''); // Remove
+		} else {
+			setUserId(`${user?.id}`);
+		}
+	}, [user]);
 
 	return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
 }

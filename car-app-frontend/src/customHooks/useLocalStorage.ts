@@ -16,8 +16,14 @@ export default function useLocalStorage(
 		useState<string>(() => {
 			return getValueFromLocalStorage(key, initialValue);
 		});
+
 	useEffect(() => {
+		if (value === '') {
+			localStorage.removeItem(key);
+			return;
+		}
 		localStorage.setItem(key, JSON.stringify(value));
 	}, [key, value]);
+
 	return [value, setValue];
 }
