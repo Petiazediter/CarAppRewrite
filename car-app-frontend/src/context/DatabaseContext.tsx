@@ -58,16 +58,15 @@ const getUserById = async (id: number): Promise<SuccessOrError> => {
 
 const addUser = async (user: UserForm): Promise<SuccessOrError> => {
 	// If username or email taken return false
-	const usertTable: User[] = await getUsers();
-	const dbUser = usertTable.find(
+	const userTable: User[] = await getUsers();
+	const dbUser = userTable.find(
 		(value) =>
 			value.username === user.username ||
 			value.emailAddress === user.emailAddress
 	);
-	console.log(dbUser);
 	// Add user to database
 	const newUser: User = {
-		id: users.length,
+		id: userTable.length,
 		username: user.username,
 		password: user.password,
 		emailAddress: user.emailAddress,
@@ -93,12 +92,7 @@ async function addUserToPantry(user: User) {
 	fetch(
 		`https://getpantry.cloud/apiv1/pantry/${PANTRY_ID}/basket/users`,
 		header
-	)
-		.then((data) => data.json())
-		.then(
-			(result) => {},
-			(error) => console.error(error)
-		);
+	);
 }
 
 async function getUsers(): Promise<User[]> {
