@@ -22,17 +22,19 @@ export default function UserContextProvider({
 }: {
 	children: ReactElement;
 }) {
-	const [userId, setUserId] = useLocalStorage('userId', '0');
+	const [, setUserId] = useLocalStorage('userId', '0');
 	const [user, setUser] = useState<User>();
 	const value = { user, setUser };
 
 	useEffect(() => {
-		if (user === undefined) {
-			setUserId(''); // Remove
-		} else {
-			setUserId(`${user?.id}`);
-		}
-	}, [user]);
+		return () => {
+			if (user === undefined) {
+				setUserId(''); // Remove
+			} else {
+				setUserId(`${user?.id}`);
+			}
+		};
+	}, [user, setUserId]);
 
 	return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
 }
