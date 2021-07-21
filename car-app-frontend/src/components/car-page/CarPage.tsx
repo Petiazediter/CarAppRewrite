@@ -100,7 +100,9 @@ export class CarPage extends React.Component<
 						)}
 						<CategoriesContainer>
 							<Category
-								background={'red'}
+								background={
+									'linear-gradient(to right, #FF416C 0%, #FC6767 100%)'
+								}
 								onClick={() => this.setImageType(ImageType.PAPERS)}
 							>
 								<FlexContainer>
@@ -110,7 +112,9 @@ export class CarPage extends React.Component<
 							</Category>
 
 							<Category
-								background={'orange'}
+								background={
+									'linear-gradient(to right, #EC008C 0%, #FC6767 100%)'
+								}
 								onClick={() => this.setImageType(ImageType.EXTERIOR)}
 							>
 								<FlexContainer>
@@ -120,7 +124,9 @@ export class CarPage extends React.Component<
 							</Category>
 
 							<Category
-								background={'green'}
+								background={
+									'linear-gradient(to right, #12C2E9 0%, #C471ED 100%)'
+								}
 								onClick={() => this.setImageType(ImageType.INTERIOR)}
 							>
 								<FlexContainer>
@@ -130,7 +136,9 @@ export class CarPage extends React.Component<
 							</Category>
 
 							<Category
-								background={'blue'}
+								background={
+									'linear-gradient(to right, #52A0FD 0%, #00E2FA 80%, #00E2FA 100%)'
+								}
 								onClick={() => this.setImageType(ImageType.VIDEOS)}
 							>
 								<FlexContainer>
