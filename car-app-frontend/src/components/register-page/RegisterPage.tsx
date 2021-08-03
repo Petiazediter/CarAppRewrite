@@ -107,21 +107,14 @@ const RegisterPage: FunctionComponent = () => {
 						},
 						({ getFieldValue }) => ({
 							validator(rule: RuleObject, value: string) {
-								if (!value || value === getFieldValue('password2')) {
-									if (passwordRegex.test(value)) {
-										return Promise.resolve();
-									}
+								if (!value || !passwordRegex.test(value)) {
 									return Promise.reject(
 										new Error(
 											'Minimum 8 characters. 1 uppercase 1 lowercase 1 number.'
 										)
 									);
 								}
-								return Promise.reject(
-									new Error(
-										'Input the same password to password validation field.'
-									)
-								);
+								return Promise.resolve();
 							},
 						}),
 					]}
@@ -143,6 +136,16 @@ const RegisterPage: FunctionComponent = () => {
 							required: true,
 							message: 'Please verify your password!',
 						},
+						({ getFieldValue }) => ({
+							validator(rule: RuleObject, value: string) {
+								if (value && value !== getFieldValue('password')) {
+									return Promise.reject(
+										new Error('Verify your password please!')
+									);
+								}
+								return Promise.resolve();
+							},
+						}),
 					]}
 				>
 					<Input.Password

@@ -12,10 +12,9 @@ export default function useLocalStorage(
 	key: string,
 	initialValue: string
 ): [string, Dispatch<SetStateAction<string>>] {
-	const [value, setValue]: [string, Dispatch<SetStateAction<string>>] =
-		useState<string>(() => {
-			return getValueFromLocalStorage(key, initialValue);
-		});
+	const [value, setValue] = useState<string>(() => {
+		return getValueFromLocalStorage(key, initialValue);
+	});
 
 	useEffect(() => {
 		if (value === '') {
