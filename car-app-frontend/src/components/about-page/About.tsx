@@ -1,3 +1,4 @@
+import { FunctionComponent } from 'react';
 import IconComponent from './IconComponent';
 import {
 	Arrow,
@@ -7,7 +8,7 @@ import {
 	IconComponentContainer,
 } from './IconComponent.styled';
 
-export function About() {
+export const About: FunctionComponent = () => {
 	return (
 		<div>
 			<h1>What's CarBidApp?</h1>
@@ -35,4 +36,4 @@ export function About() {
 			</IconComponentContainer>
 		</div>
 	);
-}
+};

@@ -28,14 +28,14 @@ export default function UserContextProvider({
 	const databaseContext = useDatabaseContext();
 
 	useEffect(() => {
-		function getUser(uId: string | undefined): void {
+		const getUser = (uId: string | undefined): void => {
 			if (uId !== undefined) {
 				const userIdAsNumber: number = +uId;
 				databaseContext
 					.getUserById(userIdAsNumber)
 					.then((data) => setUser(data.user ? data.user : undefined));
 			}
-		}
+		};
 		getUser(userId);
 	}, [userId, databaseContext]);
 

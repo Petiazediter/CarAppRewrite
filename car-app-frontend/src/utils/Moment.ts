@@ -1,13 +1,13 @@
 import moment from 'moment';
 
-export function isValidDate(urlDate: string, carDate: string): boolean {
+export const isValidDate = (urlDate: string, carDate: string): boolean => {
 	const moment1 = convertToMoment(urlDate);
 	const moment2 = convertToMoment(carDate);
 	// IF the date from the URL is before the expire date then return true
 	return moment.min([moment2, moment1]) === moment2;
-}
+};
 
-export function convertToMoment(dateInString: string): moment.Moment {
+export const convertToMoment = (dateInString: string): moment.Moment => {
 	// Split the date by the separator
 	// Then format the string to Moment type.
 	const array = dateInString.split('-');
@@ -21,4 +21,4 @@ export function convertToMoment(dateInString: string): moment.Moment {
 		millisecond: 0,
 	};
 	return moment(formattedDate);
-}
+};

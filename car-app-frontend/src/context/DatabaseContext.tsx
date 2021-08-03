@@ -73,7 +73,7 @@ const addUser = async (user: UserForm): Promise<SuccessOrError> => {
 	};
 };
 
-async function addUserToPantry(user: User) {
+const addUserToPantry = async (user: User) => {
 	const header = {
 		method: 'PUT',
 		headers: { 'Content-Type': 'application/json' },
@@ -83,9 +83,9 @@ async function addUserToPantry(user: User) {
 		`https://getpantry.cloud/apiv1/pantry/${PANTRY_ID}/basket/users`,
 		header
 	);
-}
+};
 
-async function getUsers(): Promise<User[]> {
+const getUsers = async (): Promise<User[]> => {
 	const result = await fetch(
 		`https://getpantry.cloud/apiv1/pantry/${PANTRY_ID}/basket/users`
 	)
@@ -105,7 +105,7 @@ async function getUsers(): Promise<User[]> {
 		}
 	}
 	return userTable;
-}
+};
 
 const login = async (user: UserForm): Promise<SuccessOrError> => {
 	const users = await getUsers();
@@ -166,9 +166,9 @@ const getCarBySearchTerm = (term: string): Car[] => {
 	);
 };
 
-export function useDatabaseContext() {
+export const useDatabaseContext = () => {
 	return useContext(GetUsersTableContext);
-}
+};
 
 const initialValues = {
 	getCarsTable: getCarsTable,
@@ -181,10 +181,10 @@ const initialValues = {
 
 export const GetUsersTableContext = React.createContext(initialValues);
 
-export function DatabaseProvider({ children }: { children: ReactElement }) {
+export const DatabaseProvider = ({ children }: { children: ReactElement }) => {
 	return (
 		<GetUsersTableContext.Provider value={initialValues}>
 			{children}
 		</GetUsersTableContext.Provider>
 	);
-}
+};

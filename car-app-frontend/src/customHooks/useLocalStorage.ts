@@ -1,17 +1,20 @@
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 
-function getValueFromLocalStorage(key: string, initialValue: string): string {
+const getValueFromLocalStorage = (
+	key: string,
+	initialValue: string
+): string => {
 	const value = localStorage.getItem(key);
 	if (value != null) {
 		return JSON.parse(value);
 	}
 	return initialValue;
-}
+};
 
-export default function useLocalStorage(
+const useLocalStorage = (
 	key: string,
 	initialValue: string
-): [string, Dispatch<SetStateAction<string>>] {
+): [string, Dispatch<SetStateAction<string>>] => {
 	const [value, setValue] = useState<string>(() => {
 		return getValueFromLocalStorage(key, initialValue);
 	});
@@ -25,4 +28,6 @@ export default function useLocalStorage(
 	}, [key, value]);
 
 	return [value, setValue];
-}
+};
+
+export default useLocalStorage;

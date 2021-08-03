@@ -6,8 +6,9 @@ import UserContextProvider from './context/UserContext';
 import 'antd/dist/antd.css';
 import './index.css';
 import RouterComponent from './RouterComponent';
+import { FunctionComponent } from 'react';
 
-function App() {
+const App: FunctionComponent = () => {
 	return (
 		<UserContextProvider>
 			<ThemeContextProviderComponent>
@@ -20,6 +21,6 @@ function App() {
 			</ThemeContextProviderComponent>
 		</UserContextProvider>
 	);
-}
+};
 
 export default App;
