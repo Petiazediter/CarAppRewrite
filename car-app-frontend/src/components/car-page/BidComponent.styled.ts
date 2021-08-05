@@ -1,12 +1,6 @@
 import styled from '@emotion/styled';
-import { Car } from '../../models/Car';
 import { PrimaryButton } from '../auctions-page/Auctions.styled';
 import { IS_DARK } from '../shared/navbar-component/Navbar.styled';
-
-export type BidComponentProps = {
-	car: Car;
-	isDark: boolean;
-};
 
 export type DarkModeProp = {
 	isdark: string;

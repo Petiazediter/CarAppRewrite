@@ -1,4 +1,5 @@
 import React from 'react';
+import { Car } from '../../models/Car';
 import { IS_DARK } from '../shared/navbar-component/Navbar.styled';
 import {
 	Bid,
@@ -6,6 +7,11 @@ import {
 	BidContainer,
 	BidDetails,
 } from './BidComponent.styled';
+
+export type BidComponentProps = {
+	car: Car;
+	isDark: boolean;
+};
 
 export default class BidComponent extends React.Component<BidComponentProps> {
 	render() {
