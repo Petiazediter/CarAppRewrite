@@ -1,12 +1,11 @@
 import { Row, Col, Slider, DatePicker, Select } from 'antd';
 import { ClearOutlined } from '@ant-design/icons';
-import { CarDisplay } from './car-display-component/CarDisplay';
-import { Car } from '../../models/Car';
-import { useDatabaseContext, CarFilters } from '../../context/DatabaseContext';
+import { CarFilters } from '../../context/DatabaseContext';
 import { SortRow, PrimaryButton, NewsCol, FlexCol } from './Auctions.styled';
-import { FunctionComponent, useCallback, useEffect, useState } from 'react';
+import { FunctionComponent, useState } from 'react';
 import { addParameterToURL } from '../../utils/URLHandler';
 import moment from 'moment';
+import CarList from './car-display-component/CarList';
 
 const { Option } = Select;
 
@@ -22,9 +21,14 @@ enum Filter {
 }
 
 export const Auctions: FunctionComponent = () => {
-	const cars = useDatabaseContext().getCarsTable;
-	const initialCars: Car[] = [];
-	const [carsList, setCarsList] = useState(initialCars);
+	const [filters, setFilters] = useState<CarFilters>({
+		bodyStyle: 0,
+		transmission: 0,
+		country: '',
+		maxPrice: 0,
+		minPrice: 0,
+		endDate: '',
+	});
 
 	// Get parameter from URL by key, with a filter's value.
 	const getParamFromUrl = (filter: Filter, defaultValue: string): string => {
@@ -53,7 +57,7 @@ export const Auctions: FunctionComponent = () => {
 	};
 
 	// Callback function when new there are new URL params.
-	const onFilterChange = useCallback((): void => {
+	const onFilterChange = (): void => {
 		let parameters: CarFilters = {
 			bodyStyle: 0,
 			transmission: 0,
@@ -85,12 +89,8 @@ export const Auctions: FunctionComponent = () => {
 					break;
 			}
 		});
-		setCarsList(cars(parameters));
-	}, [cars]);
-
-	useEffect(() => {
-		onFilterChange();
-	}, [onFilterChange]);
+		setFilters(parameters);
+	};
 
 	return (
 		<>
@@ -138,12 +138,7 @@ export const Auctions: FunctionComponent = () => {
 			</Row>
 			<Row style={{ marginTop: '1em' }}>
 				<FlexCol flex={9}>
-					{carsList.length === 0 && (
-						<h1>Sadly, none of the cars met the requirements.</h1>
-					)}
-					{carsList.map((car: Car) => (
-						<CarDisplay key={car.id} car={car} />
-					))}
+					<CarList filters={filters} />
 				</FlexCol>
 				<NewsCol flex={1}>
 					<h2>Advanced filters</h2>
