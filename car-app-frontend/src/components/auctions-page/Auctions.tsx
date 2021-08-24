@@ -141,8 +141,8 @@ export const Auctions: FunctionComponent = () => {
 					{carsList.length === 0 && (
 						<h1>Sadly, none of the cars met the requirements.</h1>
 					)}
-					{carsList.map((item: Car) => (
-						<CarDisplay key={item.id} car={item} />
+					{carsList.map((car: Car) => (
+						<CarDisplay key={car.id} car={car} />
 					))}
 				</FlexCol>
 				<NewsCol flex={1}>
