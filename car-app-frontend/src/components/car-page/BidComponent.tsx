@@ -22,17 +22,12 @@ export default class BidComponent extends React.Component<
 	BidComponentProps,
 	BidComponentState
 > {
-	state = {
-		isDark: '',
-		bidsLenght: 0,
-	};
-
 	constructor(props: BidComponentProps) {
 		super(props);
-		this.setState({
-			isDark: props.isDark ? IS_DARK : '',
-			bidsLenght: props.car.bids.length - 1,
-		});
+		this.state = {
+			isDark: '',
+			bidsLenght: 0,
+		};
 	}
 
 	componentDidMount() {
@@ -43,13 +38,13 @@ export default class BidComponent extends React.Component<
 	}
 
 	componentDidUpdate(prevProps: BidComponentProps) {
-		if ((prevProps.isDark ? IS_DARK : '') !== this.state.isDark) {
+		if ((this.props.isDark ? IS_DARK : '') !== this.state.isDark) {
 			this.setState({
 				...this.state,
 				isDark: this.props.isDark ? IS_DARK : '',
 			});
 		}
-		if (prevProps.car.bids.length - 1 !== this.state.bidsLenght) {
+		if (this.props.car.bids.length - 1 !== this.state.bidsLenght) {
 			this.setState({
 				...this.state,
 				bidsLenght: this.props.car.bids.length - 1,
