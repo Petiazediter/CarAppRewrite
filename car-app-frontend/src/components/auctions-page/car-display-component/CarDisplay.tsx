@@ -1,4 +1,4 @@
-import { Carousel } from 'antd';
+import { Carousel, Empty } from 'antd';
 import { Link } from 'react-router-dom';
 import { Car } from '../../../models/Car';
 import {
@@ -19,18 +19,25 @@ export const CarDisplay: FunctionComponent<{ car: CarResult }> = (props) => {
 			<Link to={`/car/${props.car.id}`}>
 				<ImageDiv>
 					<Carousel autoplay>
-						{props.car.exteriorImages.map((item, index) => (
-							<img
-								key={index}
-								style={{
-									width: '100%',
-									borderRadius: '10px',
-									overflow: 'hidden',
-								}}
-								src={item.url}
-								alt="The car"
+						{props.car.exteriorImages.length > 0 ? (
+							props.car.exteriorImages.map((item, index) => (
+								<img
+									key={index}
+									style={{
+										width: '100%',
+										borderRadius: '10px',
+										overflow: 'hidden',
+									}}
+									src={item.url}
+									alt="The car"
+								/>
+							))
+						) : (
+							<Empty
+								imageStyle={{ marginTop: '40px' }}
+								image={Empty.PRESENTED_IMAGE_SIMPLE}
 							/>
-						))}
+						)}
 					</Carousel>
 					<BidSpan>
 						<LabelSpan>Bid: </LabelSpan>${props.car.minBid}
