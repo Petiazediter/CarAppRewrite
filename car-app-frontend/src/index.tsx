@@ -18,7 +18,7 @@ import { getMainDefinition } from '@apollo/client/utilities';
 export const AUTH_TOKEN = 'auth-token';
 
 const wsLink = new WebSocketLink({
-	uri: 'localhost:4000/graphql',
+	uri: 'ws://localhost:4000/graphql',
 	options: {
 		reconnect: true,
 	},
