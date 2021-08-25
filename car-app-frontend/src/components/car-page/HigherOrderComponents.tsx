@@ -32,6 +32,7 @@ const GET_CAR_QUERY = gql`
 			interiorImages {
 				url
 			}
+			model
 			brand
 			km
 			country
@@ -69,6 +70,7 @@ export type CarResult = {
 	interiorImages: {
 		url: string;
 	}[];
+	model: string;
 	brand: string;
 	km: number;
 	country: string;
@@ -78,7 +80,6 @@ export type CarResult = {
 
 export const CarPageHOC = (Component: any) => {
 	return (props: RouteComponentProps<{ carId?: string | undefined }>) => {
-		console.log(props);
 		const id = props.match.params.carId;
 		if (id) {
 			try {
@@ -88,7 +89,6 @@ export const CarPageHOC = (Component: any) => {
 				return <ErrorComponent {...props} />;
 			}
 		}
-		console.log('No id');
 		return <ErrorComponent {...props} />;
 	};
 };

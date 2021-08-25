@@ -8,9 +8,7 @@ export const CarDataTable: FunctionComponent<{ car: CarResult }> = (props) => {
 			<tbody>
 				<tr>
 					<th>Brand</th>
-					<td>
-						{props.car.brand} {props.car.brand}
-					</td>
+					<td>{props.car.brand}</td>
 				</tr>
 				<tr>
 					<th>Engine</th>
@@ -28,7 +26,7 @@ export const CarDataTable: FunctionComponent<{ car: CarResult }> = (props) => {
 				</tr>
 				<tr>
 					<th>Model</th>
-					<td>Unknown</td>
+					<td>{props.car.model}</td>
 				</tr>
 				<tr>
 					<th>VIN</th>

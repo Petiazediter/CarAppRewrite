@@ -1,6 +1,5 @@
 import { Carousel, Empty } from 'antd';
 import { Link } from 'react-router-dom';
-import { Car } from '../../../models/Car';
 import {
 	BidSpan,
 	CarComponentWrapper,
