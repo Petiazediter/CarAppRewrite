@@ -1,12 +1,9 @@
 import React from 'react';
-import { RouteComponentProps } from 'react-router';
-import { Car } from '../../models/Car';
 import {
 	CategoriesContainer,
 	Category,
 	CategoryName,
 	FlexContainer,
-	HighlightTitle,
 	ImageDisplay,
 	NoMarginSubTitle,
 	NoMarginTitle,
@@ -20,17 +17,9 @@ import {
 	VideoCameraFilled,
 } from '@ant-design/icons';
 import { CarDataTable } from './CarDataTable';
-import { TimerDisplayFormat, TimerText } from '../auctions-page/TimerText';
-import ExtrasTableComponent from './ExtrasTableComponent';
-import { BidComponentHOC } from './HigherOrderComponents';
-
-interface IUrlProps {
-	carId: string | undefined;
-}
+import { BidComponentHOC, CarResult } from './HigherOrderComponents';
 
 interface IState {
-	car: Car | null;
-	hook: any;
 	imageType: ImageType;
 }
 
@@ -41,37 +30,16 @@ enum ImageType {
 	VIDEOS,
 }
 
-export class CarPage extends React.Component<
-	RouteComponentProps<IUrlProps>,
-	IState
-> {
-	constructor(props: any) {
+export class CarPage extends React.Component<{ car: CarResult }, IState> {
+	constructor(props: { car: CarResult }) {
 		super(props);
 		this.state = {
-			car: null,
-			hook: props.hook,
 			imageType: ImageType.EXTERIOR,
 		};
 	}
 
-	componentDidMount() {
-		const carId: string | undefined = this.props.match.params.carId;
-		if (carId !== undefined) {
-			try {
-				const car = this.state.hook.getCarById(Number(carId));
-				this.setState({
-					...this.state,
-					car: car,
-				});
-			} catch (e) {
-				console.error('Id is not a number.');
-			}
-		}
-	}
-
 	setImageType(imageType: ImageType) {
 		this.setState({
-			...this.state,
 			imageType: imageType,
 		});
 	}
@@ -79,23 +47,21 @@ export class CarPage extends React.Component<
 	render() {
 		return (
 			<>
-				{this.state.car != null ? (
+				{this.props.car != null ? (
 					<div>
-						<NoMarginTitle>{this.state.car.title}</NoMarginTitle>
+						<NoMarginTitle>{this.props.car.name}</NoMarginTitle>
 						<NoMarginSubTitle>
-							{this.state.car.seller.username}
+							{this.props.car.seller.username}
 						</NoMarginSubTitle>
-						<NoMarginSubTitle>
-							Expiration day: {this.state.car.endDate}
-						</NoMarginSubTitle>
+						<NoMarginSubTitle>Expiration day: in progress</NoMarginSubTitle>
 						<NoMarginSubTitle>
 							Remaining time:
-							<TimerText
+							{/*TimerText
 								fromDate={this.state.car.endDate}
 								formatType={TimerDisplayFormat.TRADITIONAL_FORMATTED}
-							/>
+							*/}
 						</NoMarginSubTitle>
-						<BidComponentHOC car={this.state.car} />
+						<BidComponentHOC car={this.props.car} />
 						<CategoriesContainer>
 							<Category
 								background={
@@ -150,52 +116,58 @@ export class CarPage extends React.Component<
 								autoplay={this.state.imageType !== ImageType.VIDEOS}
 							>
 								{this.state.imageType === ImageType.PAPERS
-									? this.state.car?.paperImages.map((imgLink: string) => (
-											<Image key={imgLink} alt="Image of car" src={imgLink} />
+									? this.props.car.paperImages.map(({ url }, index: number) => (
+											<Image key={index} alt="Image of car" src={url} />
 									  ))
 									: this.state.imageType === ImageType.EXTERIOR
-									? this.state.car?.exteriorImages.map((imgLink: string) => (
-											<Image key={imgLink} alt="Car exterior" src={imgLink} />
-									  ))
+									? this.props.car.exteriorImages.map(
+											({ url }, index: number) => (
+												<Image key={index} alt="Car exterior" src={url} />
+											)
+									  )
 									: this.state.imageType === ImageType.INTERIOR
-									? this.state.car?.interiorImages.map((imgLink: string) => (
-											<Image key={imgLink} alt="Image of car" src={imgLink} />
-									  ))
-									: this.state.car?.videos.map((videoLink: string) => (
+									? this.props.car.interiorImages.map(
+											({ url }, index: number) => (
+												<Image key={index} alt="Image of car" src={url} />
+											)
+									  )
+									: this.props.car?.videos.map(({ url }, index: number) => (
 											<iframe
-												key={videoLink}
+												key={index}
 												title="video about the car"
 												allowFullScreen={true}
 												frameBorder="0"
 												height="315"
-												src={videoLink}
+												src={url}
 												width="420"
 											></iframe>
 									  ))}
 							</ImageDisplay>
-							<CarDataTable car={this.state.car} />
+							<CarDataTable car={this.props.car} />
 						</TopSection>
 						<section>
 							<Divider orientation="left">
 								<h1>Highlights</h1>
 							</Divider>
-							<HighlightTitle>{this.state.car.highlightsTitle}</HighlightTitle>
-							<ExtrasTableComponent items={this.state.car.highLightsItems} />
+							{/*
+							<HighlightTitle>{this.props.car.highLightsTitle}</HighlightTitle>
+							<ExtrasTableComponent items={this.props.car.highLightsItems} />
 							<Divider orientation="left">
 								<h1>Equipment</h1>
 							</Divider>
-							<HighlightTitle>{this.state.car.equipmentTitle}</HighlightTitle>
-							<ExtrasTableComponent items={this.state.car.equipmentItems} />
+							<HighlightTitle>{this.props.car.equipmentTitle}</HighlightTitle>
+							<ExtrasTableComponent items={this.props.car.equipmentItems} />
 							<Divider orientation="left">
 								<h1>Flaws</h1>
 							</Divider>
-							<ExtrasTableComponent items={this.state.car.flaws} />
+							<ExtrasTableComponent items={this.props.car.flaws} />
 							<Divider orientation="left">
 								<h1>Service history</h1>
 							</Divider>
-							<HighlightTitle>{this.state.car.serviceHistory}</HighlightTitle>
+							<HighlightTitle>{this.state.props.serviceHistory}</HighlightTitle>
 							<Divider orientation="left">Extra items</Divider>
-							<ExtrasTableComponent items={this.state.car.extraItems} />
+							<ExtrasTableComponent items={this.state.props.extraItems} />
+							*/}
 						</section>
 					</div>
 				) : (

@@ -1,5 +1,4 @@
 import React from 'react';
-import { Car } from '../../models/Car';
 import { IS_DARK } from '../shared/navbar-component/Navbar.styled';
 import {
 	Bid,
@@ -7,9 +6,10 @@ import {
 	BidContainer,
 	BidDetails,
 } from './BidComponent.styled';
+import { CarResult } from './HigherOrderComponents';
 
 export type BidComponentProps = {
-	car: Car;
+	car: CarResult;
 	isDark: boolean;
 };
 
@@ -60,9 +60,7 @@ export default class BidComponent extends React.Component<
 						<span>
 							Highest bid: ${this.props.car.bids[this.state.bidsLenght].bid}
 						</span>
-						<span>
-							{this.props.car.bids[this.state.bidsLenght].user.username}
-						</span>
+						<span>{this.props.car.bids[this.state.bidsLenght].userId}</span>
 					</BidDetails>
 					<BidButton>Place a bid</BidButton>
 				</Bid>

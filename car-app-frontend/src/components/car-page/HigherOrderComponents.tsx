@@ -1,17 +1,121 @@
+import { useQuery } from '@apollo/client';
 import { FunctionComponent, useContext } from 'react';
-import { useDatabaseContext } from '../../context/DatabaseContext';
 import { MyThemeContext } from '../../context/ThemeContext';
-import { Car } from '../../models/Car';
 import BidComponent from './BidComponent';
+import { gql } from '@apollo/client';
+import { RouteComponentProps } from 'react-router';
+import { CarPage } from './CarPage';
+
+const GET_CAR_QUERY = gql`
+	query Query($carId: Int!) {
+		car(id: $carId) {
+			id
+			name
+			bids {
+				userId
+				bid
+			}
+			seller {
+				id
+				username
+			}
+			paperImages {
+				url
+			}
+			videos {
+				url
+			}
+			exteriorImages {
+				url
+			}
+			interiorImages {
+				url
+			}
+			brand
+			km
+			country
+			city
+			vin
+		}
+	}
+`;
+
+export type GetCarResult = {
+	car: CarResult;
+};
+
+export type CarResult = {
+	id: number;
+	name: string;
+	bids: {
+		userId: number;
+		bid: number;
+	}[];
+	seller: {
+		id: number;
+		username: string;
+	};
+	paperImages: {
+		url: string;
+	}[];
+	videos: {
+		url: string;
+	}[];
+	exteriorImages: {
+		url: string;
+	}[];
+	interiorImages: {
+		url: string;
+	}[];
+	brand: string;
+	km: number;
+	country: string;
+	city: string;
+	vin: string;
+};
 
 export const CarPageHOC = (Component: any) => {
-	const getCarHook = useDatabaseContext();
-	return (props: any) => {
-		return <Component hook={getCarHook} {...props} />;
+	return (props: RouteComponentProps<{ carId?: string | undefined }>) => {
+		console.log(props);
+		const id = props.match.params.carId;
+		if (id) {
+			try {
+				const nId = Number(id);
+				return <CarWrapper {...props} carId={nId} />;
+			} catch {
+				return <ErrorComponent {...props} />;
+			}
+		}
+		console.log('No id');
+		return <ErrorComponent {...props} />;
 	};
 };
 
-export const BidComponentHOC: FunctionComponent<{ car: Car }> = (props) => {
+const ErrorComponent: FunctionComponent<RouteComponentProps> = (props) => {
+	return <div>Error while fetching data...</div>;
+};
+
+const CarWrapper: FunctionComponent<CarWrapperProps> = (props) => {
+	const { data, loading, error } = useQuery<GetCarResult>(GET_CAR_QUERY, {
+		variables: {
+			carId: props.carId,
+		},
+	});
+
+	if (loading) return <div>Loading...</div>;
+	if (error) return <div>{JSON.stringify(error, null, 2)}</div>;
+	if (!data) return <div>No data...</div>;
+
+	return <CarPage car={data.car} />;
+};
+
+interface CarWrapperProps extends RouteComponentProps<{ carId?: string }> {
+	carId: number;
+}
+
+export const BidComponentHOC: FunctionComponent<{ car: CarResult }> = (
+	props
+) => {
 	const { isDark } = useContext(MyThemeContext);
 	return <BidComponent isDark={isDark} car={props.car} />;
 };
