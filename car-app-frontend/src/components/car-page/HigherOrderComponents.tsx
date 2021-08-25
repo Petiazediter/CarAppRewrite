@@ -13,7 +13,9 @@ const GET_CAR_QUERY = gql`
 			name
 			minBid
 			bids {
-				userId
+				buyer {
+					username
+				}
 				bid
 			}
 			seller {
@@ -51,7 +53,9 @@ export type CarResult = {
 	name: string;
 	minBid: number;
 	bids: {
-		userId: number;
+		buyer: {
+			username: string;
+		};
 		bid: number;
 	}[];
 	seller: {

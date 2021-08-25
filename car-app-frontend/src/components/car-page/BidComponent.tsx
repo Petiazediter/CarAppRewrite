@@ -61,7 +61,7 @@ export default class BidComponent extends React.Component<
 						</span>
 						<span>
 							{this.props.car.bids.length > 0
-								? this.props.car.bids[this.bidsLenght].userId
+								? this.props.car.bids[this.bidsLenght].buyer.username
 								: 'No bid yet.'}
 						</span>
 					</BidDetails>
