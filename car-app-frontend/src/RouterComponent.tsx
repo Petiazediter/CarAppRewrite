@@ -20,7 +20,7 @@ type ContentLayoutProps = {
 
 const ContentLayout = styled.div<ContentLayoutProps>((props) => ({
 	width: '90%',
-	background: props.isdark === IS_DARK ? '#222831' : 'initial',
+	background: props.isdark === IS_DARK ? '#222831' : '#eee',
 	color: props.isdark === IS_DARK ? 'white' : 'black',
 	minHeight: '100vh',
 	margin: 'auto',

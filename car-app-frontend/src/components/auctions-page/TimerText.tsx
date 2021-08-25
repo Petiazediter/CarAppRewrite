@@ -11,6 +11,8 @@ export enum TimerDisplayFormat {
 export const TimerText: FunctionComponent<{
 	fromDate: string;
 	formatType: TimerDisplayFormat;
+	textStyle?: any;
+	prefix?: string;
 }> = (props) => {
 	const getTimeLeft = (endDate: string): string => {
 		const now = moment();
@@ -98,5 +100,9 @@ export const TimerText: FunctionComponent<{
 		};
 	}, [currentDate]);
 
-	return <span>{getCurrentDate()}</span>;
+	return (
+		<span style={{ ...props.textStyle }}>
+			{props.prefix ? props.prefix : ''} {getCurrentDate()}
+		</span>
+	);
 };

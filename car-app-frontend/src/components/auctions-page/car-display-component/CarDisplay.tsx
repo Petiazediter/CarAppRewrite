@@ -1,11 +1,11 @@
-import { Carousel, Empty } from 'antd';
+import { Empty } from 'antd';
 import { Link } from 'react-router-dom';
 import {
-	BidSpan,
+	BidDisplay,
+	BidSection,
 	CarComponentWrapper,
+	CarDetails,
 	CarName,
-	ImageDiv,
-	LabelSpan,
 	SellerName,
 } from './CarDisplay.styled';
 import { FunctionComponent } from 'react';
@@ -16,45 +16,63 @@ export const CarDisplay: FunctionComponent<{ car: CarResult }> = (props) => {
 	return (
 		<CarComponentWrapper>
 			<Link to={`/car/${props.car.id}`}>
-				<ImageDiv>
-					<Carousel autoplay>
-						{props.car.exteriorImages.length > 0 ? (
-							props.car.exteriorImages.map((item, index) => (
-								<img
-									key={index}
-									style={{
-										width: '100%',
-										borderRadius: '10px',
-										overflow: 'hidden',
-									}}
-									src={item.url}
-									alt="The car"
-								/>
-							))
-						) : (
-							<Empty
-								imageStyle={{ marginTop: '40px' }}
-								image={Empty.PRESENTED_IMAGE_SIMPLE}
-							/>
-						)}
-					</Carousel>
-					<BidSpan>
-						<LabelSpan>Bid: </LabelSpan>${props.car.minBid}
-						<LabelSpan> | Time: </LabelSpan>
-						<TimerText
-							fromDate={'10-9-2021-10-24-39'}
-							formatType={TimerDisplayFormat.SHORT_NAME}
+				<div
+					style={{
+						position: 'relative',
+						width: '100%',
+						minHeight: '200px',
+						maxHeight: '200px',
+						overflow: 'hidden',
+					}}
+				>
+					{props.car.exteriorImages.length > 0 ? (
+						<img
+							style={{
+								width: '100%',
+								overflow: 'hidden',
+							}}
+							src={props.car.exteriorImages[0].url}
+							alt="The car"
 						/>
-					</BidSpan>
-				</ImageDiv>
-				<CarName>{props.car.name}</CarName>
+					) : (
+						<Empty
+							style={{
+								padding: 0,
+								margin: 0,
+								display: 'flex',
+								justifyContent: 'center',
+								height: '200px',
+								alignItems: 'center',
+							}}
+							image={Empty.PRESENTED_IMAGE_SIMPLE}
+						/>
+					)}
+				</div>
 			</Link>
-			<Link to={`/user/${props.car.seller.id}`}>
-				<SellerName>{props.car.seller.username}</SellerName>
-			</Link>
-			<p>
-				{props.car.city},{props.car.country}
-			</p>
+			<CarDetails>
+				<Link to={`/car/${props.car.id}`}>
+					<CarName>{props.car.name}</CarName>
+				</Link>
+				<span style={{ fontWeight: 'bold' }}>
+					Posted by
+					<Link to={`/user/${props.car.seller.id}`}>
+						<SellerName> {props.car.seller.username}</SellerName>
+					</Link>{' '}
+					| {props.car.city},{props.car.country}
+				</span>
+			</CarDetails>
+			<BidSection>
+				<BidDisplay>Highest Bid: ${props.car.minBid}</BidDisplay>
+				<TimerText
+					textStyle={{
+						color: 'black',
+						textAlign: 'center',
+					}}
+					fromDate={'10-9-2021-10-24-39'}
+					formatType={TimerDisplayFormat.SHORT_NAME}
+					prefix={'Time left:'}
+				/>
+			</BidSection>
 		</CarComponentWrapper>
 	);
 };
