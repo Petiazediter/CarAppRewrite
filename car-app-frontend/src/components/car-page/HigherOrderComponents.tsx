@@ -11,6 +11,7 @@ const GET_CAR_QUERY = gql`
 		car(id: $carId) {
 			id
 			name
+			minBid
 			bids {
 				userId
 				bid
@@ -47,6 +48,7 @@ export type GetCarResult = {
 export type CarResult = {
 	id: number;
 	name: string;
+	minBid: number;
 	bids: {
 		userId: number;
 		bid: number;
@@ -105,7 +107,6 @@ const CarWrapper: FunctionComponent<CarWrapperProps> = (props) => {
 	if (loading) return <div>Loading...</div>;
 	if (error) return <div>{JSON.stringify(error, null, 2)}</div>;
 	if (!data) return <div>No data...</div>;
-
 	return <CarPage car={data.car} />;
 };
 
