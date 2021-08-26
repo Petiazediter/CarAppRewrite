@@ -18,6 +18,7 @@ import {
 } from '@ant-design/icons';
 import { CarDataTable } from './CarDataTable';
 import { BidComponentHOC, CarResult } from './HigherOrderComponents';
+import { TimerDisplayFormat, TimerText } from '../auctions-page/TimerText';
 
 interface IState {
 	imageType: ImageType;
@@ -53,13 +54,15 @@ export class CarPage extends React.Component<{ car: CarResult }, IState> {
 						<NoMarginSubTitle>
 							{this.props.car.seller.username}
 						</NoMarginSubTitle>
-						<NoMarginSubTitle>Expiration day: in progress</NoMarginSubTitle>
+						<NoMarginSubTitle>
+							Expiration day: {this.props.car.endDate}
+						</NoMarginSubTitle>
 						<NoMarginSubTitle>
 							Remaining time:
-							{/*TimerText
-								fromDate={this.state.car.endDate}
+							<TimerText
+								fromDate={this.props.car.endDate}
 								formatType={TimerDisplayFormat.TRADITIONAL_FORMATTED}
-							*/}
+							/>
 						</NoMarginSubTitle>
 						<BidComponentHOC car={this.props.car} />
 						<CategoriesContainer>

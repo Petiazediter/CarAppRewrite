@@ -68,7 +68,7 @@ export const CarDisplay: FunctionComponent<{ car: CarResult }> = (props) => {
 						color: 'black',
 						textAlign: 'center',
 					}}
-					fromDate={'10-9-2021-10-24-39'}
+					fromDate={props.car.endDate}
 					formatType={TimerDisplayFormat.SHORT_NAME}
 					prefix={'Time left:'}
 				/>

@@ -13,6 +13,7 @@ export const CARS_AUCTION_QUERY = gql`
 			id
 			minBid
 			name
+			endDate
 			city
 			country
 			seller {
@@ -45,6 +46,7 @@ export type CarsAuctionQueryResult = {
 export type CarResult = {
 	id: number;
 	name: string;
+	endDate: string;
 	city: string;
 	minBid: number;
 	country: string;

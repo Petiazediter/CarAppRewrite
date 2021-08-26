@@ -11,6 +11,7 @@ const GET_CAR_QUERY = gql`
 		car(id: $carId) {
 			id
 			name
+			endDate
 			minBid
 			bids {
 				buyer {
@@ -51,6 +52,7 @@ export type GetCarResult = {
 export type CarResult = {
 	id: number;
 	name: string;
+	endDate: string;
 	minBid: number;
 	bids: {
 		buyer: {
