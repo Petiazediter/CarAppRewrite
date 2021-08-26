@@ -20,8 +20,7 @@ export const CarDisplay: FunctionComponent<{ car: CarResult }> = (props) => {
 					style={{
 						position: 'relative',
 						width: '100%',
-						minHeight: '200px',
-						maxHeight: '200px',
+						height: '230px',
 						overflow: 'hidden',
 					}}
 				>
@@ -29,6 +28,7 @@ export const CarDisplay: FunctionComponent<{ car: CarResult }> = (props) => {
 						<img
 							style={{
 								width: '100%',
+								height: '230px',
 								overflow: 'hidden',
 							}}
 							src={props.car.exteriorImages[0].url}
@@ -41,7 +41,7 @@ export const CarDisplay: FunctionComponent<{ car: CarResult }> = (props) => {
 								margin: 0,
 								display: 'flex',
 								justifyContent: 'center',
-								height: '200px',
+								height: '230px',
 								alignItems: 'center',
 							}}
 							image={Empty.PRESENTED_IMAGE_SIMPLE}

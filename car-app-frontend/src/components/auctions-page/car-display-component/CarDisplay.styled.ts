@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 
 const CARD_BACKGROUND = '#fff';
-const margin = 2;
+const margin = 10;
 const MARGIN = `${margin}px`;
 const MARGIN_BETWEEN = `${margin * 2}px`;
 
@@ -9,7 +9,7 @@ export const CarComponentWrapper = styled.div({
 	position: 'relative',
 	background: CARD_BACKGROUND,
 	margin: MARGIN,
-	borderRadius: '0',
+	borderRadius: 22,
 	overflow: 'hidden',
 	width: '100%',
 	'@media only screen and (min-width: 800px)': {
