@@ -4,6 +4,7 @@ import {
 	Category,
 	CategoryName,
 	FlexContainer,
+	HighlightTitle,
 	ImageDisplay,
 	NoMarginSubTitle,
 	NoMarginTitle,
@@ -19,6 +20,7 @@ import {
 import { CarDataTable } from './CarDataTable';
 import { BidComponentHOC, CarResult } from './HigherOrderComponents';
 import { TimerDisplayFormat, TimerText } from '../auctions-page/TimerText';
+import ExtrasTableComponent from './ExtrasTableComponent';
 
 interface IState {
 	imageType: ImageType;
@@ -152,25 +154,38 @@ export class CarPage extends React.Component<{ car: CarResult }, IState> {
 							<Divider orientation="left">
 								<h1>Highlights</h1>
 							</Divider>
-							{/*
-							<HighlightTitle>{this.props.car.highLightsTitle}</HighlightTitle>
-							<ExtrasTableComponent items={this.props.car.highLightsItems} />
+
+							<HighlightTitle>{this.props.car.highlightsTitle}</HighlightTitle>
+							<ExtrasTableComponent
+								items={this.props.car.highlightsItems.map(
+									(highlight) => highlight.highlight
+								)}
+							/>
 							<Divider orientation="left">
 								<h1>Equipment</h1>
 							</Divider>
 							<HighlightTitle>{this.props.car.equipmentTitle}</HighlightTitle>
-							<ExtrasTableComponent items={this.props.car.equipmentItems} />
+							<ExtrasTableComponent
+								items={this.props.car.equipmentItems.map(
+									(equipment) => equipment.equipment
+								)}
+							/>
 							<Divider orientation="left">
 								<h1>Flaws</h1>
 							</Divider>
-							<ExtrasTableComponent items={this.props.car.flaws} />
+							<ExtrasTableComponent
+								items={this.props.car.flaws.map((flaw) => flaw.flaw)}
+							/>
 							<Divider orientation="left">
 								<h1>Service history</h1>
 							</Divider>
-							<HighlightTitle>{this.state.props.serviceHistory}</HighlightTitle>
+							<HighlightTitle>{this.props.car.serviceHistory}</HighlightTitle>
 							<Divider orientation="left">Extra items</Divider>
-							<ExtrasTableComponent items={this.state.props.extraItems} />
-							*/}
+							<ExtrasTableComponent
+								items={this.props.car.extraItems.map(
+									(extraItem) => extraItem.extraItem
+								)}
+							/>
 						</section>
 					</div>
 				) : (

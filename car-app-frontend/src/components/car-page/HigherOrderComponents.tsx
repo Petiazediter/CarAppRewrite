@@ -35,12 +35,31 @@ const GET_CAR_QUERY = gql`
 			interiorImages {
 				url
 			}
+			highlightsItems {
+				id
+				highlight
+			}
+			equipmentItems {
+				id
+				equipment
+			}
+			extraItems {
+				id
+				extraItem
+			}
+			flaws {
+				id
+				flaw
+			}
 			model
 			brand
 			km
 			country
 			city
 			vin
+			highlightsTitle
+			equipmentTitle
+			serviceHistory
 		}
 	}
 `;
@@ -76,12 +95,31 @@ export type CarResult = {
 	interiorImages: {
 		url: string;
 	}[];
+	highlightsItems: {
+		id: number;
+		highlight: string;
+	}[];
+	equipmentItems: {
+		id: number;
+		equipment: string;
+	}[];
+	extraItems: {
+		id: number;
+		extraItem: string;
+	}[];
+	flaws: {
+		id: number;
+		flaw: string;
+	}[];
 	model: string;
 	brand: string;
 	km: number;
 	country: string;
 	city: string;
 	vin: string;
+	highlightsTitle: string;
+	equipmentTitle: string;
+	serviceHistory: string;
 };
 
 export const CarPageHOC = (Component: any) => {
