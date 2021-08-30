@@ -53,6 +53,9 @@ const link = split(
 const client = new ApolloClient({
 	link: link,
 	cache: new InMemoryCache(),
+	headers: {
+		authorization: localStorage.getItem('userToken') || '',
+	},
 });
 
 ReactDOM.render(

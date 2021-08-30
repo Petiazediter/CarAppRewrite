@@ -1,6 +1,7 @@
 import { createContext, ReactElement, useState, useEffect } from 'react';
 import { User } from './DatabaseContext';
 import useLocalStorage from '../customHooks/useLocalStorage';
+import { gql, useQuery } from '@apollo/client';
 
 export const UserContext = createContext<{
 	user: User | undefined;
@@ -10,15 +11,38 @@ export const UserContext = createContext<{
 	changeToken: () => {},
 });
 
+const ME_QUERY = gql`
+	query MeQuery {
+		me {
+			id
+			username
+			emailAddress
+		}
+	}
+`;
+
+type MeResult = {
+	me: User;
+};
+
 export default function UserContextProvider({
 	children,
 }: {
 	children: ReactElement;
 }) {
 	const [userToken, setUserToken] = useLocalStorage('userToken', '');
+	const { refetch } = useQuery<MeResult>(ME_QUERY, {
+		onCompleted({ me }) {
+			if (me) {
+				setUser(me);
+			}
+			console.log(me);
+		},
+	});
 	const [user, setUser] = useState<User>();
 	const changeToken = (token: string) => {
 		setUserToken(token);
+		refetch();
 	};
 	const value = { user, changeToken };
 
