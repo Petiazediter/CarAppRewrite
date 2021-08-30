@@ -1,27 +1,16 @@
-import { FunctionComponent, useContext, useState } from 'react';
+import { FunctionComponent, useContext } from 'react';
 import { FormButton, RegisterContainerSection } from './RegisterPage.styled';
 
 import { Form, Input, message, Select } from 'antd';
 import { InfoCircleOutlined } from '@ant-design/icons';
 import { RuleObject } from 'antd/lib/form';
-import { useDatabaseContext } from '../../context/DatabaseContext';
 import { UserContext } from '../../context/UserContext';
+import { gql, useMutation } from '@apollo/client';
+import { User } from '../../models/User';
 
 const { Option } = Select;
 
 const passwordRegex = new RegExp('^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,32}$');
-
-const prefixSelector = (
-	<Form.Item name="prefix" noStyle>
-		<Select
-			style={{
-				width: 70,
-			}}
-		>
-			<Option value="36">+36</Option>
-		</Select>
-	</Form.Item>
-);
 
 const emailSuffix = (
 	<Form.Item name="emailtype" noStyle>
@@ -36,32 +25,86 @@ type FormValues = {
 	password: string;
 	password2: string;
 	email: string;
-	phone: string;
 	emailtype: { value: string };
 };
 
+const REGISTER_MUTATION = gql`
+	mutation RegisterMutation(
+		$username: String!
+		$password: String!
+		$emailAddress: String!
+	) {
+		register(
+			username: $username
+			password: $password
+			emailAddress: $emailAddress
+		) {
+			isSuccess
+			errorMessage
+			token
+			payload {
+				id
+			}
+		}
+	}
+`;
+
+type RegisterResult = {
+	register: AuthResult;
+};
+
+export type AuthResult = {
+	isSuccess: boolean;
+	errorMessage: string | null;
+	token: string | null;
+	payload: User | null;
+};
+
+type RegisterVariables = {
+	username: string;
+	password: string;
+	emailAddress: string;
+};
+
 const RegisterPage: FunctionComponent = () => {
-	const [isLoading, setIsLoading] = useState<boolean>(false);
-	const databaseContext = useDatabaseContext();
-	const { setUser } = useContext(UserContext);
+	const { changeToken } = useContext(UserContext);
+	const [register, { loading }] = useMutation<
+		RegisterResult,
+		RegisterVariables
+	>(REGISTER_MUTATION, {
+		onCompleted({ register }) {
+			if (register) {
+				if (register.isSuccess) {
+					message.success('You registered successfully!');
+					if (register.payload != null && register.token != null) {
+						changeToken(register.token);
+					}
+				} else {
+					if (register.errorMessage) {
+						message.error(register.errorMessage);
+					} else {
+						message.error('Unknown error!');
+					}
+				}
+			}
+		},
+		onError(error: Error) {
+			message.error(error.message);
+		},
+	});
 
 	const onSubmit = async (values: FormValues) => {
-		setIsLoading(true);
-		const result = await databaseContext.addUser({
-			username: values.username,
-			password: values.password,
-			emailAddress: values.email + '@gmail.com',
-			phone: values.phone,
-		});
-		if (result.isSuccess) {
-			message.success('You registered successfully!');
-			if (result.user != null) {
-				setUser(result.user);
-			}
-		} else {
-			message.error(result.errorMessage);
+		if (values.password !== values.password2) {
+			return message.error('Passwords not match!');
 		}
-		setIsLoading(false);
+
+		register({
+			variables: {
+				username: values.username,
+				password: values.password,
+				emailAddress: values.email + '@gmail.com',
+			},
+		});
 	};
 
 	return (
@@ -185,40 +228,14 @@ const RegisterPage: FunctionComponent = () => {
 						placeholder="Input your email-address here."
 					></Input>
 				</Form.Item>
-				<Form.Item
-					name="phone"
-					label="Phone Number"
-					rules={[
-						{
-							required: false,
-							message: 'Please input your phone number!',
-						},
-						({ getFieldValue }) => ({
-							validator(rule: RuleObject, value: string) {
-								if (!value || Number(value)) {
-									return Promise.resolve();
-								}
-								return Promise.reject(new Error('Only numbers allowed.'));
-							},
-						}),
-					]}
-				>
-					<Input
-						addonBefore={prefixSelector}
-						style={{
-							width: '100%',
-						}}
-						maxLength={9}
-					/>
-				</Form.Item>
 				<Form.Item name="submitButton">
 					<FormButton
 						style={{ width: '100%' }}
 						type="primary"
 						htmlType="submit"
-						loading={isLoading}
+						loading={loading}
 					>
-						{isLoading ? 'Processing' : 'Register'}
+						{loading ? 'Processing' : 'Register'}
 					</FormButton>
 				</Form.Item>
 			</Form>

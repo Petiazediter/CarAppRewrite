@@ -1,4 +1,4 @@
-import { FunctionComponent, useContext, useState } from 'react';
+import { FunctionComponent, useContext } from 'react';
 import { Form, Input, message } from 'antd';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
@@ -6,41 +6,62 @@ import {
 	FormButton,
 	RegisterContainerSection,
 } from '../register-page/RegisterPage.styled';
-import { useDatabaseContext } from '../../context/DatabaseContext';
 import useLocalStorage from '../../customHooks/useLocalStorage';
 import { UserContext } from '../../context/UserContext';
+import { gql, useMutation } from '@apollo/client';
+import { AuthResult } from '../register-page/RegisterPage';
+
+const LOGIN_MUTATION = gql`
+	mutation LoginMutation($username: String!, $password: String!) {
+		login(username: $username, password: $password) {
+			isSuccess
+			errorMessage
+			token
+			payload {
+				id
+			}
+		}
+	}
+`;
+
+type LoginResult = {
+	login: AuthResult;
+};
 
 export const SignInPage: FunctionComponent = () => {
-	const database = useDatabaseContext();
-	const [isLoading, setIsLoading] = useState<boolean>(false);
-	const [username, setUsername] = useLocalStorage('username', '');
-	const [passwordValue, setPasswordValue] = useLocalStorage('password', '');
-	const { setUser } = useContext(UserContext);
+	const [username] = useLocalStorage('username', '');
+	const [passwordValue] = useLocalStorage('password', '');
+	const { changeToken } = useContext(UserContext);
+	const [login, { loading }] = useMutation<
+		LoginResult,
+		{ username: string; password: string }
+	>(LOGIN_MUTATION, {
+		onCompleted({ login }) {
+			if (login) {
+				if (login.isSuccess) {
+					if (login.token != null && login.payload != null) {
+						changeToken(login.token);
+						window.location.href = '/';
+					}
+				} else if (login.errorMessage != null) {
+					message.error(login.errorMessage);
+				} else {
+					message.error('Unknown error!');
+				}
+			}
+		},
+		onError(error) {
+			message.error(error.message);
+		},
+	});
 
 	const onFinish = (values: { username: string; password: string }) => {
-		setIsLoading(true);
-		const returnValue = database.login({
-			username: values.username,
-			password: values.password,
-			emailAddress: '',
-			phone: undefined,
+		login({
+			variables: {
+				username: values.username,
+				password: values.password,
+			},
 		});
-
-		returnValue
-			.then((value) => {
-				if (value.isSuccess) {
-					// Login here
-					setUsername(values.username);
-					setPasswordValue(values.password);
-					if (value.user != null) {
-						setUser(value.user);
-					}
-					window.location.href = '/';
-				} else {
-					message.error(value.errorMessage);
-				}
-			})
-			.finally(() => setIsLoading(false));
 	};
 
 	return (
@@ -81,7 +102,7 @@ export const SignInPage: FunctionComponent = () => {
 				</Form.Item>
 				<Form.Item>
 					<FormButton
-						loading={isLoading}
+						loading={loading}
 						style={{ width: '100%', marginTop: '10px' }}
 						type={'primary'}
 						htmlType={'submit'}
