@@ -32,11 +32,15 @@ export default function UserContextProvider({
 }) {
 	const [userToken, setUserToken] = useLocalStorage('userToken', '');
 	const { refetch } = useQuery<MeResult>(ME_QUERY, {
+		fetchPolicy: 'network-only',
 		onCompleted({ me }) {
 			if (me) {
 				setUser(me);
 			}
 			console.log(me);
+		},
+		onError(error) {
+			console.error(error.message);
 		},
 	});
 	const [user, setUser] = useState<User>();

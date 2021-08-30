@@ -29,11 +29,12 @@ const httpLink = new HttpLink({
 });
 
 const authLink = setContext((_, { headers }) => {
-	const token = localStorage.getItem(AUTH_TOKEN);
+	const token = localStorage.getItem('userToken')?.replaceAll('"', '');
+	console.log(token);
 	return {
 		headers: {
 			...headers,
-			authorization: token ? `Bearer {token}` : '',
+			authorization: token ? `Bearer ${token}` : '',
 		},
 	};
 });
@@ -53,9 +54,6 @@ const link = split(
 const client = new ApolloClient({
 	link: link,
 	cache: new InMemoryCache(),
-	headers: {
-		authorization: localStorage.getItem('userToken') || '',
-	},
 });
 
 ReactDOM.render(
