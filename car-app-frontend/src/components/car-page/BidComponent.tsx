@@ -6,10 +6,17 @@ import {
 	BidContainer,
 	BidDetails,
 } from './BidComponent.styled';
-import { CarResult } from './HigherOrderComponents';
+
+export type BidResult = {
+	buyer: {
+		username: string;
+	};
+	bid: number;
+};
 
 export type BidComponentProps = {
-	car: CarResult;
+	bids: BidResult[];
+	minBid: number;
 	isDark: boolean;
 };
 
@@ -34,7 +41,7 @@ export default class BidComponent extends React.Component<
 		this.setState({
 			isDark: this.props.isDark ? IS_DARK : '',
 		});
-		this.bidsLenght = this.props.car.bids.length - 1;
+		this.bidsLenght = this.props.bids.length - 1;
 	}
 
 	componentDidUpdate(prevProps: BidComponentProps) {
@@ -43,8 +50,8 @@ export default class BidComponent extends React.Component<
 				isDark: this.props.isDark ? IS_DARK : '',
 			});
 		}
-		if (this.props.car.bids.length - 1 !== this.bidsLenght) {
-			this.bidsLenght = this.props.car.bids.length - 1;
+		if (this.props.bids.length - 1 !== this.bidsLenght) {
+			this.bidsLenght = this.props.bids.length - 1;
 		}
 	}
 
@@ -55,13 +62,13 @@ export default class BidComponent extends React.Component<
 					<BidDetails isdark={this.state.isDark}>
 						<span>
 							Highest bid: $
-							{this.props.car.bids.length > 0
-								? this.props.car.bids[this.bidsLenght].bid
-								: this.props.car.minBid}
+							{this.props.bids.length > 0
+								? this.props.bids[this.bidsLenght].bid
+								: this.props.minBid}
 						</span>
 						<span>
-							{this.props.car.bids.length > 0
-								? this.props.car.bids[this.bidsLenght].buyer.username
+							{this.props.bids.length > 0
+								? this.props.bids[this.bidsLenght].buyer.username
 								: 'No bid yet.'}
 						</span>
 					</BidDetails>

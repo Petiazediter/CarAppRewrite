@@ -37,10 +37,6 @@ export default function UserContextProvider({
 			if (me) {
 				setUser(me);
 			}
-			console.log(me);
-		},
-		onError(error) {
-			console.error(error.message);
 		},
 	});
 	const [user, setUser] = useState<User>();

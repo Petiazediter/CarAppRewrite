@@ -1,9 +1,9 @@
-import { useQuery } from '@apollo/client';
+import { useApolloClient, useQuery, useSubscription } from '@apollo/client';
 import { FunctionComponent, useContext } from 'react';
 import { MyThemeContext } from '../../context/ThemeContext';
-import BidComponent from './BidComponent';
+import BidComponent, { BidResult } from './BidComponent';
 import { gql } from '@apollo/client';
-import { RouteComponentProps } from 'react-router';
+import { useParams } from 'react-router';
 import { CarPage } from './CarPage';
 
 const GET_CAR_QUERY = gql`
@@ -73,12 +73,7 @@ export type CarResult = {
 	name: string;
 	endDate: string;
 	minBid: number;
-	bids: {
-		buyer: {
-			username: string;
-		};
-		bid: number;
-	}[];
+	bids: BidResult[];
 	seller: {
 		id: number;
 		username: string;
@@ -122,23 +117,28 @@ export type CarResult = {
 	serviceHistory: string;
 };
 
-export const CarPageHOC = (Component: any) => {
-	return (props: RouteComponentProps<{ carId?: string | undefined }>) => {
-		const id = props.match.params.carId;
-		if (id) {
-			try {
-				const nId = Number(id);
-				return <CarWrapper {...props} carId={nId} />;
-			} catch {
-				return <ErrorComponent {...props} />;
-			}
-		}
-		return <ErrorComponent {...props} />;
-	};
+type CarPageRouteParams = {
+	carId: string;
 };
 
-const ErrorComponent: FunctionComponent<RouteComponentProps> = (props) => {
-	return <div>Error while fetching data...</div>;
+export const CarPageWrapper: FunctionComponent = () => {
+	const { carId } = useParams<CarPageRouteParams>();
+
+	if (carId) {
+		try {
+			const nId = Number(carId);
+			return <CarWrapper carId={nId} />;
+		} catch {
+			return <ErrorComponent message={'Car id is not a number'} />;
+		}
+	}
+	return <ErrorComponent message={'Car id is not found'} />;
+};
+
+const ErrorComponent: FunctionComponent<{ message: string }> = ({
+	message,
+}) => {
+	return <div>{message}</div>;
 };
 
 const CarWrapper: FunctionComponent<CarWrapperProps> = (props) => {
@@ -154,13 +154,62 @@ const CarWrapper: FunctionComponent<CarWrapperProps> = (props) => {
 	return <CarPage car={data.car} />;
 };
 
-interface CarWrapperProps extends RouteComponentProps<{ carId?: string }> {
+interface CarWrapperProps {
 	carId: number;
 }
+
+const BID_SUBSCRIPTION = gql`
+	subscription BidSubscription($carId: Int!) {
+		bidAdded(carId: $carId) {
+			buyer {
+				id
+				username
+			}
+			bid
+		}
+	}
+`;
+
+export type BidSubResult = {
+	bidAdded: {
+		buyer: {
+			id: number;
+			username: string;
+		};
+		bid: number;
+	};
+};
 
 export const BidComponentHOC: FunctionComponent<{ car: CarResult }> = (
 	props
 ) => {
+	const client = useApolloClient();
+	const { data, error } = useSubscription<BidSubResult>(BID_SUBSCRIPTION, {
+		client: client,
+		variables: {
+			carId: Number(props.car.id),
+		},
+		onSubscriptionData(data) {
+			console.log('new data');
+			console.log(data);
+		},
+		shouldResubscribe: true,
+	});
 	const { isDark } = useContext(MyThemeContext);
-	return <BidComponent isDark={isDark} car={props.car} />;
+	if (error) return <div>{JSON.stringify(error, null, 2)}</div>;
+	if (data)
+		return (
+			<BidComponent
+				isDark={isDark}
+				bids={[data.bidAdded]}
+				minBid={props.car.minBid}
+			/>
+		);
+	return (
+		<BidComponent
+			isDark={isDark}
+			bids={props.car.bids}
+			minBid={props.car.minBid}
+		/>
+	);
 };

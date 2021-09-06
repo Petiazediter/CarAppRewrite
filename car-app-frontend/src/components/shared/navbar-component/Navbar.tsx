@@ -173,7 +173,7 @@ export const Navbar: FunctionComponent = () => {
 					<NavbarLink
 						isdark={isDark ? IS_DARK : ''}
 						highlight={IS_HIGHLIGHTED}
-						to="/sign-in"
+						to={user ? `/user/me` : '/sign-in'}
 					>
 						{user === undefined ? 'Sign in' : 'Profile'}
 					</NavbarLink>

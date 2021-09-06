@@ -3,8 +3,7 @@ import { useContext } from 'react';
 import { Route } from 'react-router-dom';
 import { About } from './components/about-page/About';
 import { Auctions } from './components/auctions-page/Auctions';
-import { CarPage } from './components/car-page/CarPage';
-import { CarPageHOC } from './components/car-page/HigherOrderComponents';
+import { CarPageWrapper } from './components/car-page/HigherOrderComponents';
 import RegisterPage from './components/register-page/RegisterPage';
 import { Navbar } from './components/shared/navbar-component/Navbar';
 import {
@@ -46,7 +45,7 @@ export const RouterComponent = () => {
 				<About />
 			</Route>
 			<Navbar />
-			<Route path="/car/:carId" component={CarPageHOC(CarPage)} />
+			<Route path={'/car/:carId'} exact component={CarPageWrapper} />
 			<Route path={'/sign-in'} component={SignInPage} />
 			<Route path={'/register'} component={RegisterPage} />
 		</ContentLayout>
