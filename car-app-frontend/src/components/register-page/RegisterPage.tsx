@@ -1,12 +1,13 @@
-import { FunctionComponent, useContext } from 'react';
+import { FunctionComponent } from 'react';
 import { FormButton, RegisterContainerSection } from './RegisterPage.styled';
 
 import { Form, Input, message, Select } from 'antd';
 import { InfoCircleOutlined } from '@ant-design/icons';
 import { RuleObject } from 'antd/lib/form';
-import { UserContext } from '../../context/UserContext';
 import { gql, useMutation } from '@apollo/client';
 import { User } from '../../models/User';
+import useLocalStorage from '../../customHooks/useLocalStorage';
+import { AUTH_TOKEN } from '../..';
 
 const { Option } = Select;
 
@@ -67,7 +68,7 @@ type RegisterVariables = {
 };
 
 const RegisterPage: FunctionComponent = () => {
-	const { changeToken } = useContext(UserContext);
+	const [, setAuthTokenValue] = useLocalStorage(AUTH_TOKEN, '');
 	const [register, { loading }] = useMutation<
 		RegisterResult,
 		RegisterVariables
@@ -77,7 +78,7 @@ const RegisterPage: FunctionComponent = () => {
 				if (register.isSuccess) {
 					message.success('You registered successfully!');
 					if (register.payload != null && register.token != null) {
-						changeToken(register.token);
+						setAuthTokenValue(register.token);
 					}
 				} else {
 					if (register.errorMessage) {

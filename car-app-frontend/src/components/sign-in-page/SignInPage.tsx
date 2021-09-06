@@ -1,4 +1,4 @@
-import { FunctionComponent, useContext } from 'react';
+import { FunctionComponent } from 'react';
 import { Form, Input, message } from 'antd';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
@@ -7,9 +7,9 @@ import {
 	RegisterContainerSection,
 } from '../register-page/RegisterPage.styled';
 import useLocalStorage from '../../customHooks/useLocalStorage';
-import { UserContext } from '../../context/UserContext';
 import { gql, useMutation } from '@apollo/client';
 import { AuthResult } from '../register-page/RegisterPage';
+import { AUTH_TOKEN } from '../..';
 
 const LOGIN_MUTATION = gql`
 	mutation LoginMutation($username: String!, $password: String!) {
@@ -31,7 +31,7 @@ type LoginResult = {
 export const SignInPage: FunctionComponent = () => {
 	const [username] = useLocalStorage('username', '');
 	const [passwordValue] = useLocalStorage('password', '');
-	const { changeToken } = useContext(UserContext);
+	const [, setAuthToken] = useLocalStorage(AUTH_TOKEN, '');
 	const [login, { loading }] = useMutation<
 		LoginResult,
 		{ username: string; password: string }
@@ -40,7 +40,7 @@ export const SignInPage: FunctionComponent = () => {
 			if (login) {
 				if (login.isSuccess) {
 					if (login.token != null && login.payload != null) {
-						changeToken(login.token);
+						setAuthToken(login.token);
 						window.location.href = '/';
 					}
 				} else if (login.errorMessage != null) {
