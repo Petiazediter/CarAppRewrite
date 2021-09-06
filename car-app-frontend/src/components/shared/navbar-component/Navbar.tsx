@@ -16,6 +16,7 @@ import { useDatabaseContext } from '../../../context/DatabaseContext';
 import { Car } from '../../../models/Car';
 import { MyThemeContext } from '../../../context/ThemeContext';
 import { UserContext } from '../../../context/UserContext';
+import { gql, useQuery } from '@apollo/client';
 
 const { Search } = Input;
 
@@ -107,6 +108,15 @@ export type OptionType = {
 	options: ItemType[];
 };
 
+export const ME_QUERY = gql`
+	query MeQuery {
+		me {
+			id
+			username
+		}
+	}
+`;
+
 export const Navbar: FunctionComponent = () => {
 	const { width } = useWindowDimensions();
 	const [searchTerm, setSearchTerm] = useState('');
@@ -116,6 +126,7 @@ export const Navbar: FunctionComponent = () => {
 	const [filterCars, setFilterCars] = useState(initialTable);
 	const getCarFromDatabase = useDatabaseContext().getCarBySearchTerm;
 	const { toggleTheme, isDark } = useContext(MyThemeContext);
+	const { data } = useQuery<{ id: number; username: string }>(ME_QUERY);
 
 	const { user } = useContext(UserContext);
 
@@ -186,7 +197,7 @@ export const Navbar: FunctionComponent = () => {
 						highlight={IS_HIGHLIGHTED}
 						to={user ? `/user/me` : '/sign-in'}
 					>
-						{user === undefined ? 'Sign in' : 'Profile'}
+						{data === undefined ? 'Sign in' : 'Profile'}
 					</NavbarLink>
 				</NavbarMenuCol>
 				<NavbarMenuCol
