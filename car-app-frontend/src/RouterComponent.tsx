@@ -5,6 +5,7 @@ import { About } from './components/about-page/About';
 import { Auctions } from './components/auctions-page/Auctions';
 import { CarPageWrapper } from './components/car-page/HigherOrderComponents';
 import RegisterPage from './components/register-page/RegisterPage';
+import SellComponent from './components/sell-page/SellComponent';
 import { Navbar } from './components/shared/navbar-component/Navbar';
 import {
 	IS_DARK,
@@ -48,6 +49,7 @@ export const RouterComponent = () => {
 			<Route path={'/car/:carId'} exact component={CarPageWrapper} />
 			<Route path={'/sign-in'} component={SignInPage} />
 			<Route path={'/register'} component={RegisterPage} />
+			<Route path={'/sell'} exact component={SellComponent} />
 		</ContentLayout>
 	);
 };
