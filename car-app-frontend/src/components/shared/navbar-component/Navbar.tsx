@@ -19,21 +19,32 @@ import { UserContext } from '../../../context/UserContext';
 
 const { Search } = Input;
 
+const menuItems: { title: string; link: string }[] = [
+	{
+		title: 'Auctions',
+		link: '/',
+	},
+	{
+		title: 'Sell a car',
+		link: '/sell',
+	},
+	{
+		title: 'About',
+		link: '/about',
+	},
+	{
+		title: 'Sign in',
+		link: '/sign-in',
+	},
+];
+
 const menu = (
 	<Menu>
-		<Menu.Item key="0">
-			<Link to="/">Auctions</Link>
-		</Menu.Item>
-		<Menu.Item key="1">
-			<Link to="/sell">Sell a car</Link>
-		</Menu.Item>
-		<Menu.Item key="2">
-			<Link to="/about">About</Link>
-		</Menu.Item>
-		<Menu.Divider />
-		<Menu.Item key="3">
-			<Link to="/sign-in">Sign in</Link>
-		</Menu.Item>
+		{menuItems.map((item, index) => (
+			<Menu.Item key={index}>
+				<Link to={item.link}>{item.title}</Link>
+			</Menu.Item>
+		))}
 	</Menu>
 );
 
