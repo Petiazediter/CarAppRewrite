@@ -33,6 +33,10 @@ export enum Body {
 const SellComponent: FunctionComponent = () => {
 	const [page, setPage] = useState<number>(1);
 
+	const onFinishFirstPage = () => {
+		console.log('Hey!');
+	};
+
 	return (
 		<section>
 			<Steps size="small" current={page - 1}>
@@ -46,20 +50,24 @@ const SellComponent: FunctionComponent = () => {
 			{page === 1 && (
 				<div>
 					<h1>Basic informations about the car</h1>
-					<Form>
-						<Form.Item label="Auction's title" style={{ width: '50%' }}>
-							<Input />
+					<Form onFinish={onFinishFirstPage}>
+						<Form.Item
+							required
+							label="Auction's title"
+							style={{ width: '50%' }}
+						>
+							<Input minLength={3} required />
 						</Form.Item>
-						<Form.Item style={{ width: '50%' }} label="Brand">
-							<Input />
+						<Form.Item required style={{ width: '50%' }} label="Brand">
+							<Input minLength={3} required />
 						</Form.Item>
 
-						<Form.Item style={{ width: '50%' }} label="Model">
-							<Input />
+						<Form.Item required style={{ width: '50%' }} label="Model">
+							<Input minLength={3} required />
 						</Form.Item>
 
-						<Form.Item style={{ width: '50%' }} label="Transmission">
-							<Select>
+						<Form.Item required style={{ width: '50%' }} label="Transmission">
+							<Select defaultValue={Transmission.AUTOMATIC.valueOf()}>
 								<Select.Option value={Transmission.AUTOMATIC.valueOf()}>
 									{Transmission.AUTOMATIC.valueOf()}
 								</Select.Option>
@@ -68,8 +76,8 @@ const SellComponent: FunctionComponent = () => {
 								</Select.Option>
 							</Select>
 						</Form.Item>
-						<Form.Item style={{ width: '50%' }} label="Drivetrain">
-							<Select>
+						<Form.Item required style={{ width: '50%' }} label="Drivetrain">
+							<Select defaultValue={DriveTrain.REAR.valueOf()}>
 								<Select.Option value={DriveTrain.REAR.valueOf()}>
 									{DriveTrain.REAR.valueOf()}
 								</Select.Option>
@@ -78,8 +86,8 @@ const SellComponent: FunctionComponent = () => {
 								</Select.Option>
 							</Select>
 						</Form.Item>
-						<Form.Item style={{ width: '50%' }} label="Body type">
-							<Select>
+						<Form.Item required style={{ width: '50%' }} label="Body type">
+							<Select defaultValue={Body.COUPE.valueOf()}>
 								<Select.Option value={Body.COUPE.valueOf()}>
 									{Body.COUPE.valueOf()}
 								</Select.Option>
