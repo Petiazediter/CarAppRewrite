@@ -23,6 +23,7 @@ type ContextProviderType = {
 };
 
 const ME_QUERY = gql`
+	#graphql
 	query MeQuery {
 		me {
 			${userQuery}
@@ -54,9 +55,9 @@ export default function UserContextProvider({ children }: ContextProviderType) {
 		if (token === '') {
 			setUser(undefined);
 		} else {
-			refetch();
+			refetch().then();
 		}
-	}, [token]);
+	}, [refetch, token]);
 
 	return (
 		<UserContext.Provider value={{ user, changeUser, changeToken, token }}>

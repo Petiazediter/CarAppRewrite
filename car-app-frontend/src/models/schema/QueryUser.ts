@@ -1,5 +1,3 @@
-import { gql } from '@apollo/client';
-
 type QueryUser = {
 	id: number;
 	username: string;

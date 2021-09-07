@@ -15,7 +15,7 @@ import { FunctionComponent, useContext, useState } from 'react';
 import { useDatabaseContext } from '../../../context/DatabaseContext';
 import { Car } from '../../../models/Car';
 import { MyThemeContext } from '../../../context/ThemeContext';
-import { gql, useQuery } from '@apollo/client';
+import { gql } from '@apollo/client';
 import { UserContext } from '../../../context/UserContext';
 
 const { Search } = Input;
@@ -126,7 +126,6 @@ export const Navbar: FunctionComponent = () => {
 	const [filterCars, setFilterCars] = useState(initialTable);
 	const getCarFromDatabase = useDatabaseContext().getCarBySearchTerm;
 	const { toggleTheme, isDark } = useContext(MyThemeContext);
-	//const { data } = useQuery<{ id: number; username: string }>(ME_QUERY);
 	const { user } = useContext(UserContext);
 
 	const onSearchChange = (value: string) => {
