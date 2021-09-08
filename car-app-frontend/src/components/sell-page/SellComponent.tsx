@@ -1,6 +1,6 @@
 import { DeleteFilled } from '@ant-design/icons';
 import styled from '@emotion/styled';
-import { Form, Steps, Input, Select, Button } from 'antd';
+import { Form, Steps, Input, Select, Button, Divider } from 'antd';
 import React, { ChangeEvent, FunctionComponent, useState } from 'react';
 const { Step } = Steps;
 
@@ -258,6 +258,7 @@ const SellComponent: FunctionComponent = () => {
 								/>
 							</Form.Item>
 						))}
+						<Divider />
 						<Form.Item>
 							<Button
 								onClick={() =>
@@ -268,6 +269,78 @@ const SellComponent: FunctionComponent = () => {
 								}
 							>
 								Add new interior image
+							</Button>
+						</Form.Item>
+						{car.exteriorImages.map((url, index) => (
+							<Form.Item style={{ width: '50%', display: 'flex' }}>
+								<Input
+									style={{ width: '90%' }}
+									required
+									value={url}
+									onChange={(event: ChangeEvent<HTMLInputElement>) => {
+										const table = car.exteriorImages;
+										table[index] = event.currentTarget.value;
+										setCar({ ...car, exteriorImages: table });
+									}}
+								/>
+								<DeleteFilled
+									onClick={() =>
+										setCar({
+											...car,
+											exteriorImages: removeItemAt(car.exteriorImages, index),
+										})
+									}
+								/>
+							</Form.Item>
+						))}
+
+						<Divider />
+						<Form.Item>
+							<Button
+								onClick={() =>
+									setCar({
+										...car,
+										exteriorImages: [...car.exteriorImages, ''],
+									})
+								}
+							>
+								Add new exterior image
+							</Button>
+						</Form.Item>
+
+						<Divider />
+						{car.videos.map((url, index) => (
+							<Form.Item style={{ width: '50%', display: 'flex' }}>
+								<Input
+									style={{ width: '90%' }}
+									required
+									value={url}
+									onChange={(event: ChangeEvent<HTMLInputElement>) => {
+										const table = car.videos;
+										table[index] = event.currentTarget.value;
+										setCar({ ...car, videos: table });
+									}}
+								/>
+								<DeleteFilled
+									onClick={() =>
+										setCar({
+											...car,
+											videos: removeItemAt(car.videos, index),
+										})
+									}
+								/>
+							</Form.Item>
+						))}
+						<Form.Item>
+							<Button
+								onClick={() =>
+									setCar({
+										...car,
+										videos: [...car.videos, ''],
+									})
+								}
+							>
+								Add new video embed link.
 							</Button>
 						</Form.Item>
 					</Form>
