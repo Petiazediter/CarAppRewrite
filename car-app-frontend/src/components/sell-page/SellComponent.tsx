@@ -1,7 +1,15 @@
 import styled from '@emotion/styled';
 import { Form, Steps, Input, Select, Button } from 'antd';
-import React, { FunctionComponent, useState } from 'react';
+import React, { ChangeEvent, FunctionComponent, useState } from 'react';
 const { Step } = Steps;
+
+const steps = [
+	'Basic informations',
+	'Images',
+	'Equipments & highlights',
+	'Additional informations',
+	'Publish',
+];
 
 const Title = styled.h1({
 	marginTop: 10,
@@ -30,19 +38,80 @@ export enum Body {
 	WAGON = 'Wagon',
 }
 
+const removeItemAt = (array: string[], at: number) => {
+	return array.filter(function (_, index, arr) {
+		return index !== at;
+	});
+};
+
+type CarCreate = {
+	name: string;
+	brand: string;
+	model: string;
+	minBid: number;
+	country: string;
+	endDate: string;
+	city: string;
+	vin: string;
+	km: number;
+	body: string;
+	driveTrain: string;
+	transmission: string;
+	exterior: string;
+	interior: string;
+	highlightsTitle: string;
+	highlights: string[];
+	equipmentsTitle: string;
+	equipments: string[];
+	ownerShipHistroy: string;
+	flaws: string[];
+	extraItems: string[];
+	exteriorImages: string[];
+	interiorImages: string[];
+	paperImages: string[];
+	videos: string[];
+};
+
 const SellComponent: FunctionComponent = () => {
+	const [car, setCar] = useState<CarCreate>({
+		name: '',
+		model: '',
+		brand: '',
+		minBid: 0,
+		endDate: '2-2-2022-8-8-8',
+		country: 'Hungary',
+		city: 'Budapest',
+		vin: '',
+		km: 0,
+		body: 'Coupe',
+		driveTrain: 'Rear',
+		transmission: 'Manual',
+		exterior: '',
+		interior: '',
+		highlightsTitle: '',
+		highlights: [],
+		equipmentsTitle: '',
+		equipments: [],
+		flaws: [],
+		ownerShipHistroy: '',
+		extraItems: [],
+		exteriorImages: [],
+		paperImages: [],
+		interiorImages: [],
+		videos: [],
+	});
 	const [page, setPage] = useState<number>(1);
 
 	const onFinishFirstPage = () => {
-		console.log('Hey!');
+		setPage((currentPage) => currentPage + 1);
 	};
 
 	return (
 		<section>
 			<Steps size="small" current={page - 1}>
-				<Step title="Basic information" />
-				<Step title="Images" />
-				<Step title="Submit" />
+				{steps.map((step, index) => (
+					<Step key={index} title={step} />
+				))}
 			</Steps>
 
 			<Title>Let's sell your car!</Title>
@@ -56,18 +125,41 @@ const SellComponent: FunctionComponent = () => {
 							label="Auction's title"
 							style={{ width: '50%' }}
 						>
-							<Input minLength={3} required />
+							<Input
+								onChange={(event: ChangeEvent<HTMLInputElement>) =>
+									setCar({ ...car, name: event.currentTarget.value })
+								}
+								minLength={3}
+								required
+							/>
 						</Form.Item>
 						<Form.Item required style={{ width: '50%' }} label="Brand">
-							<Input minLength={3} required />
+							<Input
+								onChange={(event: ChangeEvent<HTMLInputElement>) =>
+									setCar({ ...car, brand: event.currentTarget.value })
+								}
+								minLength={3}
+								required
+							/>
 						</Form.Item>
 
 						<Form.Item required style={{ width: '50%' }} label="Model">
-							<Input minLength={3} required />
+							<Input
+								onChange={(event: ChangeEvent<HTMLInputElement>) =>
+									setCar({ ...car, model: event.currentTarget.value })
+								}
+								minLength={3}
+								required
+							/>
 						</Form.Item>
 
 						<Form.Item required style={{ width: '50%' }} label="Transmission">
-							<Select defaultValue={Transmission.AUTOMATIC.valueOf()}>
+							<Select
+								onSelect={(value: string) =>
+									setCar({ ...car, transmission: value })
+								}
+								defaultValue={Transmission.AUTOMATIC.valueOf()}
+							>
 								<Select.Option value={Transmission.AUTOMATIC.valueOf()}>
 									{Transmission.AUTOMATIC.valueOf()}
 								</Select.Option>
@@ -77,7 +169,12 @@ const SellComponent: FunctionComponent = () => {
 							</Select>
 						</Form.Item>
 						<Form.Item required style={{ width: '50%' }} label="Drivetrain">
-							<Select defaultValue={DriveTrain.REAR.valueOf()}>
+							<Select
+								onSelect={(value: string) =>
+									setCar({ ...car, driveTrain: value })
+								}
+								defaultValue={DriveTrain.REAR.valueOf()}
+							>
 								<Select.Option value={DriveTrain.REAR.valueOf()}>
 									{DriveTrain.REAR.valueOf()}
 								</Select.Option>
@@ -87,7 +184,10 @@ const SellComponent: FunctionComponent = () => {
 							</Select>
 						</Form.Item>
 						<Form.Item required style={{ width: '50%' }} label="Body type">
-							<Select defaultValue={Body.COUPE.valueOf()}>
+							<Select
+								onSelect={(value: string) => setCar({ ...car, body: value })}
+								defaultValue={Body.COUPE.valueOf()}
+							>
 								<Select.Option value={Body.COUPE.valueOf()}>
 									{Body.COUPE.valueOf()}
 								</Select.Option>
@@ -127,6 +227,48 @@ const SellComponent: FunctionComponent = () => {
 									Submit
 								</Button>
 							</section>
+						</Form.Item>
+					</Form>
+				</div>
+			)}
+			{page === 2 && (
+				<div>
+					<h1>Images of the car</h1>
+					<Form>
+						{car.interiorImages.map((url, index) => (
+							<Form.Item style={{ width: '50%' }}>
+								<Input
+									required
+									value={url}
+									onChange={(event: ChangeEvent<HTMLInputElement>) => {
+										const table = car.interiorImages;
+										table[index] = event.currentTarget.value;
+										setCar({ ...car, interiorImages: table });
+									}}
+								/>
+								<Button
+									onClick={() =>
+										setCar({
+											...car,
+											interiorImages: removeItemAt(car.interiorImages, index),
+										})
+									}
+								>
+									Delete
+								</Button>
+							</Form.Item>
+						))}
+						<Form.Item>
+							<Button
+								onClick={() =>
+									setCar({
+										...car,
+										interiorImages: [...car.interiorImages, ''],
+									})
+								}
+							>
+								Add new interior image
+							</Button>
 						</Form.Item>
 					</Form>
 				</div>
