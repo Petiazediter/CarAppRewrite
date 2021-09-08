@@ -258,7 +258,6 @@ const SellComponent: FunctionComponent = () => {
 								/>
 							</Form.Item>
 						))}
-						<Divider />
 						<Form.Item>
 							<Button
 								onClick={() =>
@@ -271,6 +270,7 @@ const SellComponent: FunctionComponent = () => {
 								Add new interior image
 							</Button>
 						</Form.Item>
+						<Divider />
 						{car.exteriorImages.map((url, index) => (
 							<Form.Item style={{ width: '50%', display: 'flex' }}>
 								<Input
@@ -293,8 +293,6 @@ const SellComponent: FunctionComponent = () => {
 								/>
 							</Form.Item>
 						))}
-
-						<Divider />
 						<Form.Item>
 							<Button
 								onClick={() =>
@@ -307,7 +305,6 @@ const SellComponent: FunctionComponent = () => {
 								Add new exterior image
 							</Button>
 						</Form.Item>
-
 						<Divider />
 						{car.videos.map((url, index) => (
 							<Form.Item style={{ width: '50%', display: 'flex' }}>
@@ -343,6 +340,7 @@ const SellComponent: FunctionComponent = () => {
 								Add new video embed link.
 							</Button>
 						</Form.Item>
+						<Divider />
 					</Form>
 				</div>
 			)}
