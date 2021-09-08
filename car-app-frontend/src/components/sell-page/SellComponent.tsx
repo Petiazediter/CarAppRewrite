@@ -130,6 +130,7 @@ const SellComponent: FunctionComponent = () => {
 								onChange={(event: ChangeEvent<HTMLInputElement>) =>
 									setCar({ ...car, name: event.currentTarget.value })
 								}
+								value={car.name}
 								minLength={3}
 								required
 							/>
@@ -139,6 +140,7 @@ const SellComponent: FunctionComponent = () => {
 								onChange={(event: ChangeEvent<HTMLInputElement>) =>
 									setCar({ ...car, brand: event.currentTarget.value })
 								}
+								value={car.brand}
 								minLength={3}
 								required
 							/>
@@ -149,6 +151,7 @@ const SellComponent: FunctionComponent = () => {
 								onChange={(event: ChangeEvent<HTMLInputElement>) =>
 									setCar({ ...car, model: event.currentTarget.value })
 								}
+								value={car.model}
 								minLength={3}
 								required
 							/>
@@ -341,6 +344,32 @@ const SellComponent: FunctionComponent = () => {
 							</Button>
 						</Form.Item>
 						<Divider />
+						<Form.Item>
+							<section
+								style={{
+									display: 'flex',
+									gap: '10px',
+									width: '50%',
+									justifyContent: 'flex-end',
+								}}
+							>
+								<Button
+									htmlType="button"
+									style={{ width: '50%' }}
+									type="ghost"
+									onClick={() => setPage((page) => page - 1)}
+								>
+									Back
+								</Button>
+								<Button
+									htmlType="submit"
+									style={{ width: '50%' }}
+									type="primary"
+								>
+									Submit
+								</Button>
+							</section>
+						</Form.Item>
 					</Form>
 				</div>
 			)}
