@@ -1,3 +1,4 @@
+import { DeleteFilled } from '@ant-design/icons';
 import styled from '@emotion/styled';
 import { Form, Steps, Input, Select, Button } from 'antd';
 import React, { ChangeEvent, FunctionComponent, useState } from 'react';
@@ -236,8 +237,9 @@ const SellComponent: FunctionComponent = () => {
 					<h1>Images of the car</h1>
 					<Form>
 						{car.interiorImages.map((url, index) => (
-							<Form.Item style={{ width: '50%' }}>
+							<Form.Item style={{ width: '50%', display: 'flex' }}>
 								<Input
+									style={{ width: '90%' }}
 									required
 									value={url}
 									onChange={(event: ChangeEvent<HTMLInputElement>) => {
@@ -246,16 +248,14 @@ const SellComponent: FunctionComponent = () => {
 										setCar({ ...car, interiorImages: table });
 									}}
 								/>
-								<Button
+								<DeleteFilled
 									onClick={() =>
 										setCar({
 											...car,
 											interiorImages: removeItemAt(car.interiorImages, index),
 										})
 									}
-								>
-									Delete
-								</Button>
+								/>
 							</Form.Item>
 						))}
 						<Form.Item>
