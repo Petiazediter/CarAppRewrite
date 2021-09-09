@@ -8,7 +8,6 @@ const steps = [
 	'Basic informations',
 	'Images',
 	'Equipments & highlights',
-	'Additional informations',
 	'Publish',
 ];
 
@@ -346,28 +345,16 @@ const SellComponent: FunctionComponent = () => {
 							setPage((page) => page + 1);
 						}}
 					>
-						{car.interiorImages.map((url, index) => (
-							<Form.Item style={{ width: '50%', display: 'flex' }}>
-								<Input
-									style={{ width: '90%' }}
-									required
-									value={url}
-									onChange={(event: ChangeEvent<HTMLInputElement>) => {
-										const table = car.interiorImages;
-										table[index] = event.currentTarget.value;
-										setCar({ ...car, interiorImages: table });
-									}}
-								/>
-								<DeleteFilled
-									onClick={() =>
-										setCar({
-											...car,
-											interiorImages: removeItemAt(car.interiorImages, index),
-										})
-									}
-								/>
-							</Form.Item>
-						))}
+						<h1>Interior images</h1>
+						<ItemWithDeleteMethod
+							table={car.interiorImages}
+							onChange={(value: string[]) => {
+								setCar({ ...car, interiorImages: value });
+							}}
+							onDelete={(value: string[]) => {
+								setCar({ ...car, interiorImages: value });
+							}}
+						/>
 						<Form.Item>
 							<Button
 								onClick={() =>
@@ -381,28 +368,16 @@ const SellComponent: FunctionComponent = () => {
 							</Button>
 						</Form.Item>
 						<Divider />
-						{car.exteriorImages.map((url, index) => (
-							<Form.Item style={{ width: '50%', display: 'flex' }}>
-								<Input
-									style={{ width: '90%' }}
-									required
-									value={url}
-									onChange={(event: ChangeEvent<HTMLInputElement>) => {
-										const table = car.exteriorImages;
-										table[index] = event.currentTarget.value;
-										setCar({ ...car, exteriorImages: table });
-									}}
-								/>
-								<DeleteFilled
-									onClick={() =>
-										setCar({
-											...car,
-											exteriorImages: removeItemAt(car.exteriorImages, index),
-										})
-									}
-								/>
-							</Form.Item>
-						))}
+						<h1>Exterior images</h1>
+						<ItemWithDeleteMethod
+							table={car.exteriorImages}
+							onChange={(value: string[]) => {
+								setCar({ ...car, exteriorImages: value });
+							}}
+							onDelete={(value: string[]) => {
+								setCar({ ...car, exteriorImages: value });
+							}}
+						/>
 						<Form.Item>
 							<Button
 								onClick={() =>
@@ -416,28 +391,16 @@ const SellComponent: FunctionComponent = () => {
 							</Button>
 						</Form.Item>
 						<Divider />
-						{car.videos.map((url, index) => (
-							<Form.Item style={{ width: '50%', display: 'flex' }}>
-								<Input
-									style={{ width: '90%' }}
-									required
-									value={url}
-									onChange={(event: ChangeEvent<HTMLInputElement>) => {
-										const table = car.videos;
-										table[index] = event.currentTarget.value;
-										setCar({ ...car, videos: table });
-									}}
-								/>
-								<DeleteFilled
-									onClick={() =>
-										setCar({
-											...car,
-											videos: removeItemAt(car.videos, index),
-										})
-									}
-								/>
-							</Form.Item>
-						))}
+						<h1>Embed video links</h1>
+						<ItemWithDeleteMethod
+							table={car.videos}
+							onChange={(value: string[]) => {
+								setCar({ ...car, videos: value });
+							}}
+							onDelete={(value: string[]) => {
+								setCar({ ...car, videos: value });
+							}}
+						/>
 						<Form.Item>
 							<Button
 								onClick={() =>
@@ -493,6 +456,18 @@ const SellComponent: FunctionComponent = () => {
 								setCar({ ...car, extraItems: value });
 							}}
 						/>
+						<Form.Item>
+							<Button
+								onClick={() =>
+									setCar({
+										...car,
+										extraItems: [...car.extraItems, ''],
+									})
+								}
+							>
+								Add new extra item.
+							</Button>
+						</Form.Item>
 						<Divider />
 						<h2>Highlights</h2>
 						<Form.Item
@@ -510,12 +485,25 @@ const SellComponent: FunctionComponent = () => {
 						<ItemWithDeleteMethod
 							table={car.highlights}
 							onChange={(value: string[]) => {
-								setCar({ ...car, extraItems: value });
+								setCar({ ...car, highlights: value });
 							}}
 							onDelete={(value: string[]) => {
-								setCar({ ...car, extraItems: value });
+								setCar({ ...car, highlights: value });
 							}}
 						/>
+
+						<Form.Item>
+							<Button
+								onClick={() =>
+									setCar({
+										...car,
+										highlights: [...car.highlights, ''],
+									})
+								}
+							>
+								Add new highlight
+							</Button>
+						</Form.Item>
 						<Divider />
 						<h2>Equipments</h2>
 						<Form.Item
@@ -539,6 +527,19 @@ const SellComponent: FunctionComponent = () => {
 								setCar({ ...car, equipments: value });
 							}}
 						/>
+
+						<Form.Item>
+							<Button
+								onClick={() =>
+									setCar({
+										...car,
+										equipments: [...car.equipments, ''],
+									})
+								}
+							>
+								Add new equipment.
+							</Button>
+						</Form.Item>
 						<Divider />
 						<h2>Known flaws (be honest)</h2>
 						<ItemWithDeleteMethod
@@ -550,6 +551,19 @@ const SellComponent: FunctionComponent = () => {
 								setCar({ ...car, flaws: value });
 							}}
 						/>
+
+						<Form.Item>
+							<Button
+								onClick={() =>
+									setCar({
+										...car,
+										flaws: [...car.flaws, ''],
+									})
+								}
+							>
+								Add new flaw.
+							</Button>
+						</Form.Item>
 						<Divider />
 						<h2>Ownership history</h2>
 						<Form.Item
