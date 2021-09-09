@@ -75,31 +75,52 @@ type CarCreate = {
 
 const SellComponent: FunctionComponent = () => {
 	const [car, setCar] = useState<CarCreate>({
-		name: '',
-		model: '',
-		brand: '',
-		minBid: 0,
+		name: 'TOYOTA SUPRA ON SALE',
+		model: 'SUPRA',
+		brand: 'TOYOTA',
+		minBid: 30000,
 		endDate: '2-2-2022-8-8-8',
 		country: 'Hungary',
 		city: 'Budapest',
-		vin: '',
-		km: 0,
+		vin: 'JZA800016545',
+		km: 128000,
 		body: 'Coupe',
 		driveTrain: 'Rear',
-		transmission: 'Manual',
-		exterior: '',
-		interior: '',
-		highlightsTitle: '',
-		highlights: [],
-		equipmentsTitle: '',
-		equipments: [],
-		flaws: [],
-		ownerShipHistroy: '',
-		extraItems: [],
-		exteriorImages: [],
-		paperImages: [],
-		interiorImages: [],
-		videos: [],
+		transmission: 'Automatic',
+		exterior: 'WHITE',
+		interior: 'BLACK',
+		highlightsTitle:
+			'THIS... is a 1994 Toyota Supra, finished in white with a black interior.',
+		highlights: [
+			"This Supra is a Japanese-spec coupe reportedly imported to the United States by the seller in August 2020 and titled in Georgia. It's equipped with a metric instrument cluster, and its odometer displays around 127,900 kilometers, which represents about 79,500 miles.",
+			'Factory equipment includes 16-inch wheels, cloth upholstery, and air conditioning.',
+		],
+		equipmentsTitle: 'TOYOTA SUPRA WITH AUTOMATIC GEAR',
+		equipments: ['16-inch wheels', 'Cloth upholstery'],
+		flaws: [
+			'Faded center caps',
+			"Tears in cloth upholstery on driver's seat",
+			'Some wear on the steering wheel',
+		],
+		ownerShipHistroy:
+			'The seller imported this Supra in August 2020 and has added approximately 1,600 miles during his ownership.',
+		extraItems: [
+			'2 keys, 1 key fob, and 1 spare key',
+			'Import-related documents',
+		],
+		exteriorImages: [
+			'https://media.carsandbids.com/cdn-cgi/image/width=2080,quality=80/171ab1e538119e13fa98382f268326fc825fdc20/photos/3qLoBVOE.U7ouxG45G-(edit).jpg?t=163008981387',
+		],
+		paperImages: [
+			'https://media.carsandbids.com/cdn-cgi/image/width=2080,quality=80/da4b9237bacccdf19c0760cab7aec4a8359010b0/photos/3qLoBVOE.l1S9YkQ3O-(edit).jpg?t=163053203402',
+		],
+		interiorImages: [
+			'https://media.carsandbids.com/cdn-cgi/image/width=2080,quality=80/171ab1e538119e13fa98382f268326fc825fdc20/photos/3qLoBVOE.9p76rkP9A-(edit).jpg?t=163021223013',
+		],
+		videos: [
+			'https://www.youtube.com/embed/HUVQejvrm6s',
+			'https://www.youtube.com/embed/BjCEzPFK9mA',
+		],
 	});
 	const [page, setPage] = useState<number>(1);
 
@@ -289,7 +310,11 @@ const SellComponent: FunctionComponent = () => {
 			{page === 2 && (
 				<div>
 					<h1>Images of the car</h1>
-					<Form>
+					<Form
+						onFinish={() => {
+							setPage((page) => page + 1);
+						}}
+					>
 						{car.interiorImages.map((url, index) => (
 							<Form.Item style={{ width: '50%', display: 'flex' }}>
 								<Input
