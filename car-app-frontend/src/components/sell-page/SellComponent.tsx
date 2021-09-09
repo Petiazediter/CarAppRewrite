@@ -45,6 +45,37 @@ const removeItemAt = (array: string[], at: number) => {
 	});
 };
 
+type ItemWithDeleteMethodProps = {
+	table: string[];
+	onChange: (value: string[]) => void;
+	onDelete: (value: string[]) => void;
+};
+
+const ItemWithDeleteMethod: FunctionComponent<ItemWithDeleteMethodProps> = (
+	props
+) => {
+	return (
+		<>
+			{props.table.map((value, index) => (
+				<Form.Item style={{ width: '50%', display: 'flex' }}>
+					<Input
+						style={{ width: '90%' }}
+						required
+						value={value}
+						onChange={(event: ChangeEvent<HTMLInputElement>) => {
+							props.table[index] = event.currentTarget.value;
+							props.onChange(props.table);
+						}}
+					/>
+					<DeleteFilled
+						onClick={() => props.onDelete(removeItemAt(props.table, index))}
+					/>
+				</Form.Item>
+			))}
+		</>
+	);
+};
+
 type CarCreate = {
 	name: string;
 	brand: string;
@@ -449,7 +480,97 @@ const SellComponent: FunctionComponent = () => {
 					</Form>
 				</div>
 			)}
-			{page === 3 && <div>HEllo</div>}
+			{page === 3 && (
+				<div>
+					<Form>
+						<h1>Extra items</h1>
+						<ItemWithDeleteMethod
+							table={car.extraItems}
+							onChange={(value: string[]) => {
+								setCar({ ...car, extraItems: value });
+							}}
+							onDelete={(value: string[]) => {
+								setCar({ ...car, extraItems: value });
+							}}
+						/>
+						<Divider />
+						<h2>Highlights</h2>
+						<Form.Item
+							required
+							style={{ width: '50%' }}
+							label={"Highlight's label"}
+						>
+							<Input
+								value={car.highlightsTitle}
+								onChange={(event) =>
+									setCar({ ...car, highlightsTitle: event.currentTarget.value })
+								}
+							/>
+						</Form.Item>
+						<ItemWithDeleteMethod
+							table={car.highlights}
+							onChange={(value: string[]) => {
+								setCar({ ...car, extraItems: value });
+							}}
+							onDelete={(value: string[]) => {
+								setCar({ ...car, extraItems: value });
+							}}
+						/>
+						<Divider />
+						<h2>Equipments</h2>
+						<Form.Item
+							required
+							style={{ width: '50%' }}
+							label={"Equipment's label"}
+						>
+							<Input
+								value={car.equipmentsTitle}
+								onChange={(event) =>
+									setCar({ ...car, equipmentsTitle: event.currentTarget.value })
+								}
+							/>
+						</Form.Item>
+						<ItemWithDeleteMethod
+							table={car.equipments}
+							onChange={(value: string[]) => {
+								setCar({ ...car, equipments: value });
+							}}
+							onDelete={(value: string[]) => {
+								setCar({ ...car, equipments: value });
+							}}
+						/>
+						<Divider />
+						<h2>Known flaws (be honest)</h2>
+						<ItemWithDeleteMethod
+							table={car.flaws}
+							onChange={(value: string[]) => {
+								setCar({ ...car, flaws: value });
+							}}
+							onDelete={(value: string[]) => {
+								setCar({ ...car, flaws: value });
+							}}
+						/>
+						<Divider />
+						<h2>Ownership history</h2>
+						<Form.Item
+							required
+							style={{ width: '50%' }}
+							label={'Ownership history'}
+						>
+							<Input.TextArea
+								rows={2}
+								value={car.ownerShipHistroy}
+								onChange={(event) =>
+									setCar({
+										...car,
+										ownerShipHistroy: event.currentTarget.value,
+									})
+								}
+							/>
+						</Form.Item>
+					</Form>
+				</div>
+			)}
 		</section>
 	);
 };
