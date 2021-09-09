@@ -215,6 +215,57 @@ const SellComponent: FunctionComponent = () => {
 								</Select.Option>
 							</Select>
 						</Form.Item>
+						<Form.Item required style={{ width: '50%' }} label="VIN">
+							<Input
+								value={car.vin}
+								onChange={(event) =>
+									setCar({ ...car, vin: event.currentTarget.value })
+								}
+							/>
+						</Form.Item>
+						<Form.Item required style={{ width: '50%' }} label="Minimum bid">
+							<Input
+								type="number"
+								value={car.minBid}
+								onChange={(event) =>
+									setCar({ ...car, minBid: Number(event.currentTarget.value) })
+								}
+							/>
+						</Form.Item>
+						<Form.Item required style={{ width: '50%' }} label="Kilometers">
+							<Input
+								type="number"
+								value={car.km}
+								onChange={(event) =>
+									setCar({ ...car, km: Number(event.currentTarget.value) })
+								}
+							/>
+						</Form.Item>
+						<Form.Item
+							required
+							style={{ width: '50%' }}
+							label="Exterior's color"
+						>
+							<Input
+								value={car.exterior}
+								onChange={(event) =>
+									setCar({ ...car, exterior: event.currentTarget.value })
+								}
+							/>
+						</Form.Item>
+						<Form.Item
+							required
+							style={{ width: '50%' }}
+							label="Interior's color"
+						>
+							<Input
+								value={car.interior}
+								onChange={(event) =>
+									setCar({ ...car, interior: event.currentTarget.value })
+								}
+							/>
+						</Form.Item>
+
 						<Form.Item>
 							<section
 								style={{
@@ -373,6 +424,7 @@ const SellComponent: FunctionComponent = () => {
 					</Form>
 				</div>
 			)}
+			{page === 3 && <div>HEllo</div>}
 		</section>
 	);
 };
