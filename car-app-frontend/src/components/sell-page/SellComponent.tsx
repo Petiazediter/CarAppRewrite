@@ -1,13 +1,16 @@
 import { DeleteFilled } from '@ant-design/icons';
+import { gql, useMutation } from '@apollo/client';
 import styled from '@emotion/styled';
-import { Form, Steps, Input, Select, Button, Divider } from 'antd';
+import { Form, Steps, Input, Select, Button, Divider, DatePicker } from 'antd';
+import moment from 'moment';
 import React, { ChangeEvent, FunctionComponent, useState } from 'react';
+import { useHistory } from 'react-router';
 const { Step } = Steps;
 
 const steps = [
 	'Basic informations',
 	'Images',
-	'Equipments & highlights',
+	'Equipments & highLights',
 	'Publish',
 ];
 
@@ -18,24 +21,24 @@ const Title = styled.h1({
 });
 
 enum Transmission {
-	MANUAL = 'Manual',
-	AUTOMATIC = 'Automatic',
+	MANUAL = 'MANUAL',
+	AUTOMATIC = 'AUTOMATIC',
 }
 
 export enum DriveTrain {
-	REAR = 'Rear',
-	FRONT = 'Front',
+	REAR = 'REAR',
+	FRONT = 'FRONT',
 }
 
 export enum Body {
-	COUPE = 'Coupe',
-	CONVERTIBLE = 'Convertible',
-	HATCHBACK = 'Hatchback',
-	SEDAN = 'Sedan',
-	SUV = 'Suv',
-	TRUCK = 'Truck',
-	VAN = 'Van',
-	WAGON = 'Wagon',
+	COUPE = 'COUPE',
+	CONVERTIBLE = 'CONVERTIBLE',
+	HATCHBACK = 'HATCHBACK',
+	SEDAN = 'SEDAN',
+	SUV = 'SUV',
+	TRUCK = 'TRUCK',
+	VAN = 'VAN',
+	WAGON = 'WAGON',
 }
 
 const removeItemAt = (array: string[], at: number) => {
@@ -91,16 +94,85 @@ type CarCreate = {
 	exterior: string;
 	interior: string;
 	highlightsTitle: string;
-	highlights: string[];
-	equipmentsTitle: string;
+	highLights: string[];
+	equipmentTitle: string;
 	equipments: string[];
-	ownerShipHistroy: string;
+	ownerShipHistory: string;
+	serviceHistory: string;
 	flaws: string[];
 	extraItems: string[];
 	exteriorImages: string[];
 	interiorImages: string[];
 	paperImages: string[];
 	videos: string[];
+};
+
+const CAR_PUBLISH_MUTATION = gql`
+	mutation PublishMutation(
+		$name: String!
+		$model: String!
+		$brand: String!
+		$minBid: Int!
+		$endDate: String!
+		$country: String!
+		$city: String!
+		$vin: String!
+		$km: Int!
+		$body: Body!
+		$driveTrain: DriveTrain!
+		$transmission: Transmission!
+		$exterior: String!
+		$interior: String!
+		$highlightsTitle: String!
+		$highLights: [String!]!
+		$equipmentTitle: String!
+		$equipments: [String!]!
+		$flaws: [String!]!
+		$ownerShipHistory: String!
+		$serviceHistory: String!
+		$extraItems: [String!]!
+		$exteriorImages: [String!]!
+		$paperImages: [String!]!
+		$interiorImages: [String!]!
+		$videos: [String!]!
+	) {
+		createCarV2(
+			name: $name
+			model: $model
+			brand: $brand
+			minBid: $minBid
+			endDate: $endDate
+			country: $country
+			city: $city
+			vin: $vin
+			km: $km
+			body: $body
+			driveTrain: $driveTrain
+			transmission: $transmission
+			exterior: $exterior
+			interior: $interior
+			highlightsTitle: $highlightsTitle
+			highLights: $highLights
+			equipmentTitle: $equipmentTitle
+			equipments: $equipments
+			flaws: $flaws
+			ownerShipHistory: $ownerShipHistory
+			serviceHistory: $serviceHistory
+			extraItems: $extraItems
+			exteriorImages: $exteriorImages
+			paperImages: $paperImages
+			interiorImages: $interiorImages
+			videos: $videos
+		) {
+			id
+		}
+	}
+`;
+
+type ReturnValue = {
+	createCarV2: {
+		id: number;
+	};
 };
 
 const SellComponent: FunctionComponent = () => {
@@ -114,26 +186,27 @@ const SellComponent: FunctionComponent = () => {
 		city: 'Budapest',
 		vin: 'JZA800016545',
 		km: 128000,
-		body: 'Coupe',
-		driveTrain: 'Rear',
-		transmission: 'Automatic',
+		body: Body.COUPE.valueOf(),
+		driveTrain: DriveTrain.REAR.valueOf(),
+		transmission: Transmission.AUTOMATIC.valueOf(),
 		exterior: 'WHITE',
 		interior: 'BLACK',
 		highlightsTitle:
 			'THIS... is a 1994 Toyota Supra, finished in white with a black interior.',
-		highlights: [
+		highLights: [
 			"This Supra is a Japanese-spec coupe reportedly imported to the United States by the seller in August 2020 and titled in Georgia. It's equipped with a metric instrument cluster, and its odometer displays around 127,900 kilometers, which represents about 79,500 miles.",
 			'Factory equipment includes 16-inch wheels, cloth upholstery, and air conditioning.',
 		],
-		equipmentsTitle: 'TOYOTA SUPRA WITH AUTOMATIC GEAR',
+		equipmentTitle: 'TOYOTA SUPRA WITH AUTOMATIC GEAR',
 		equipments: ['16-inch wheels', 'Cloth upholstery'],
 		flaws: [
 			'Faded center caps',
 			"Tears in cloth upholstery on driver's seat",
 			'Some wear on the steering wheel',
 		],
-		ownerShipHistroy:
+		ownerShipHistory:
 			'The seller imported this Supra in August 2020 and has added approximately 1,600 miles during his ownership.',
+		serviceHistory: 'Good :)',
 		extraItems: [
 			'2 keys, 1 key fob, and 1 spare key',
 			'Import-related documents',
@@ -152,7 +225,20 @@ const SellComponent: FunctionComponent = () => {
 			'https://www.youtube.com/embed/BjCEzPFK9mA',
 		],
 	});
+	const history = useHistory();
 	const [page, setPage] = useState<number>(1);
+	const [publishCar, { loading }] = useMutation<ReturnValue, CarCreate>(
+		CAR_PUBLISH_MUTATION,
+		{
+			variables: car,
+			onCompleted(data) {
+				history.push(`/car/${data.createCarV2.id}`);
+			},
+			onError(error) {
+				console.log(JSON.stringify(error, null, 2));
+			},
+		}
+	);
 
 	const onFinishFirstPage = () => {
 		setPage((currentPage) => currentPage + 1);
@@ -445,7 +531,7 @@ const SellComponent: FunctionComponent = () => {
 			)}
 			{page === 3 && (
 				<div>
-					<Form>
+					<Form onFinish={() => setPage((page) => page + 1)}>
 						<h1>Extra items</h1>
 						<ItemWithDeleteMethod
 							table={car.extraItems}
@@ -469,7 +555,7 @@ const SellComponent: FunctionComponent = () => {
 							</Button>
 						</Form.Item>
 						<Divider />
-						<h2>Highlights</h2>
+						<h2>highLights</h2>
 						<Form.Item
 							required
 							style={{ width: '50%' }}
@@ -483,12 +569,12 @@ const SellComponent: FunctionComponent = () => {
 							/>
 						</Form.Item>
 						<ItemWithDeleteMethod
-							table={car.highlights}
+							table={car.highLights}
 							onChange={(value: string[]) => {
-								setCar({ ...car, highlights: value });
+								setCar({ ...car, highLights: value });
 							}}
 							onDelete={(value: string[]) => {
-								setCar({ ...car, highlights: value });
+								setCar({ ...car, highLights: value });
 							}}
 						/>
 
@@ -497,7 +583,7 @@ const SellComponent: FunctionComponent = () => {
 								onClick={() =>
 									setCar({
 										...car,
-										highlights: [...car.highlights, ''],
+										highLights: [...car.highLights, ''],
 									})
 								}
 							>
@@ -512,9 +598,9 @@ const SellComponent: FunctionComponent = () => {
 							label={"Equipment's label"}
 						>
 							<Input
-								value={car.equipmentsTitle}
+								value={car.equipmentTitle}
 								onChange={(event) =>
-									setCar({ ...car, equipmentsTitle: event.currentTarget.value })
+									setCar({ ...car, equipmentTitle: event.currentTarget.value })
 								}
 							/>
 						</Form.Item>
@@ -573,17 +659,91 @@ const SellComponent: FunctionComponent = () => {
 						>
 							<Input.TextArea
 								rows={2}
-								value={car.ownerShipHistroy}
+								value={car.ownerShipHistory}
 								onChange={(event) =>
 									setCar({
 										...car,
-										ownerShipHistroy: event.currentTarget.value,
+										ownerShipHistory: event.currentTarget.value,
 									})
 								}
 							/>
 						</Form.Item>
+						<Form.Item>
+							<section
+								style={{
+									display: 'flex',
+									gap: '10px',
+									width: '50%',
+									justifyContent: 'flex-end',
+								}}
+							>
+								<Button
+									htmlType="button"
+									style={{ width: '50%' }}
+									type="ghost"
+									onClick={() => setPage((page) => page - 1)}
+								>
+									Back
+								</Button>
+								<Button
+									htmlType="submit"
+									style={{ width: '50%' }}
+									type="primary"
+								>
+									Submit
+								</Button>
+							</section>
+						</Form.Item>
 					</Form>
 				</div>
+			)}
+			{page === 4 && (
+				<Form
+					onFinish={() => {
+						publishCar();
+					}}
+				>
+					<Form.Item style={{ width: '50%' }} label="End date" required>
+						<DatePicker
+							style={{ marginBottom: '20px' }}
+							className="full-width"
+							defaultValue={moment(car.endDate, 'DD-MM-YYYY-HH-mm-ss')}
+							format={'DD-MM-YYYY-HH-mm-SS'}
+							onSelect={(value: moment.Moment) =>
+								setCar({ ...car, endDate: value.format('DD-MM-YYYY-HH-mm-ss') })
+							}
+						/>
+					</Form.Item>
+
+					<Form.Item>
+						<section
+							style={{
+								display: 'flex',
+								gap: '10px',
+								width: '50%',
+								justifyContent: 'flex-end',
+							}}
+						>
+							<Button
+								htmlType="button"
+								style={{ width: '50%' }}
+								type="ghost"
+								loading={loading}
+								onClick={() => setPage((page) => page - 1)}
+							>
+								Back
+							</Button>
+							<Button
+								loading={loading}
+								htmlType="submit"
+								style={{ width: '50%' }}
+								type="primary"
+							>
+								Publish car
+							</Button>
+						</section>
+					</Form.Item>
+				</Form>
 			)}
 		</section>
 	);
