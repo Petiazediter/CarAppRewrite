@@ -20,6 +20,7 @@ export type BidComponentProps = {
 	minBid: number;
 	isDark: boolean;
 	user: QueryUser | undefined;
+	placeBid: () => void;
 };
 
 export type BidComponentState = {
@@ -75,7 +76,13 @@ export default class BidComponent extends React.Component<
 						</span>
 					</BidDetails>
 					{this.props.user ? (
-						<BidButton>Place a bid</BidButton>
+						<BidButton
+							onClick={() => {
+								this.props.placeBid();
+							}}
+						>
+							Place a bid
+						</BidButton>
 					) : (
 						<BidButton disabled>Log in to place a bid</BidButton>
 					)}

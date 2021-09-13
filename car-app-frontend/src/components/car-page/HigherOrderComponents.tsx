@@ -217,23 +217,18 @@ export const BidComponentHOC: FunctionComponent<{ car: CarResult }> = (
 		},
 		shouldResubscribe: true,
 	});
+
 	const { isDark } = useContext(MyThemeContext);
 	if (error) return <div>{JSON.stringify(error, null, 2)}</div>;
-	if (bids)
-		return (
-			<BidComponent
-				isDark={isDark}
-				bids={bids.car.bids}
-				minBid={props.car.minBid}
-				user={userContext.user}
-			/>
-		);
 	return (
 		<BidComponent
 			isDark={isDark}
-			bids={props.car.bids}
+			bids={bids ? bids.car.bids : props.car.bids}
 			minBid={props.car.minBid}
 			user={userContext.user}
+			placeBid={() => {
+				console.log('place bid');
+			}}
 		/>
 	);
 };
