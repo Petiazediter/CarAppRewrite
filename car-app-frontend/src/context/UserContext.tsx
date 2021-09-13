@@ -49,6 +49,9 @@ export default function UserContextProvider({ children }: ContextProviderType) {
 	const [user, setUser] = useState<QueryUser>();
 	const changeUser = (user: QueryUser | undefined) => {
 		setUser(user);
+		if (!user) {
+			setToken('');
+		}
 	};
 
 	useEffect(() => {
