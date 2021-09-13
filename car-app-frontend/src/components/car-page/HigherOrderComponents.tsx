@@ -161,22 +161,33 @@ interface CarWrapperProps {
 const BID_SUBSCRIPTION = gql`
 	subscription BidSubscription($carId: Int!) {
 		bidAdded(carId: $carId) {
-			buyer {
-				id
-				username
-			}
-			bid
+			id
 		}
 	}
 `;
 
 export type BidSubResult = {
 	bidAdded: {
-		buyer: {
-			id: number;
-			username: string;
-		};
-		bid: number;
+		id: number;
+	};
+};
+
+const BID_QUERY_RESULT = gql`
+	query CarQuery($id: Int!) {
+		car(id: $id) {
+			bids {
+				buyer {
+					username
+				}
+				bid
+			}
+		}
+	}
+`;
+
+type BidQueryResultT = {
+	car: {
+		bids: BidResult[];
 	};
 };
 
@@ -184,24 +195,34 @@ export const BidComponentHOC: FunctionComponent<{ car: CarResult }> = (
 	props
 ) => {
 	const client = useApolloClient();
-	const { data, error } = useSubscription<BidSubResult>(BID_SUBSCRIPTION, {
+	const { data: bids, refetch } = useQuery<BidQueryResultT, { id: number }>(
+		BID_QUERY_RESULT,
+		{
+			variables: {
+				id: Number(props.car.id),
+			},
+			fetchPolicy: 'network-only',
+			nextFetchPolicy: 'network-only',
+		}
+	);
+	const { error } = useSubscription<BidSubResult>(BID_SUBSCRIPTION, {
 		client: client,
 		variables: {
 			carId: Number(props.car.id),
 		},
 		onSubscriptionData(data) {
-			console.log('new data');
 			console.log(data);
+			refetch();
 		},
 		shouldResubscribe: true,
 	});
 	const { isDark } = useContext(MyThemeContext);
 	if (error) return <div>{JSON.stringify(error, null, 2)}</div>;
-	if (data)
+	if (bids)
 		return (
 			<BidComponent
 				isDark={isDark}
-				bids={[data.bidAdded]}
+				bids={bids.car.bids}
 				minBid={props.car.minBid}
 			/>
 		);
