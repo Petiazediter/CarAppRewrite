@@ -62,7 +62,13 @@ export const CarDisplay: FunctionComponent<{ car: CarResult }> = (props) => {
 				</span>
 			</CarDetails>
 			<BidSection>
-				<BidDisplay>Highest Bid: ${props.car.minBid}</BidDisplay>
+				{props.car.bids.length > 0 ? (
+					<BidDisplay>
+						Highest Bid: ${props.car.bids[props.car.bids.length - 1].bid}
+					</BidDisplay>
+				) : (
+					<BidDisplay>Highest Bid: ${props.car.minBid}</BidDisplay>
+				)}
 				<TimerText
 					textStyle={{
 						color: 'black',

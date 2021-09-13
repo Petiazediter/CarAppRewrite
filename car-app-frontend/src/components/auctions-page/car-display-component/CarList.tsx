@@ -55,7 +55,7 @@ export type CarResult = {
 		username: string;
 	};
 	bids: {
-		bid?: number;
+		bid: number;
 	}[];
 	exteriorImages: ImageResult[];
 	videos: ImageResult[];
