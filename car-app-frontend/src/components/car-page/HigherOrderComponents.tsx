@@ -1,6 +1,5 @@
 import {
 	useApolloClient,
-	useLazyQuery,
 	useMutation,
 	useQuery,
 	useSubscription,
@@ -231,7 +230,11 @@ export const BidComponentHOC: FunctionComponent<{ car: CarResult }> = (
 			fetchPolicy: 'network-only',
 			nextFetchPolicy: 'network-only',
 			onCompleted(data: BidQueryResultT) {
-				setHighestBid(data.car.bids[data.car.bids.length - 1].bid);
+				if (data) {
+					if (data.car.bids.length > 0) {
+						setHighestBid(data.car.bids[data.car.bids.length - 1].bid);
+					}
+				}
 			},
 		}
 	);
@@ -242,9 +245,6 @@ export const BidComponentHOC: FunctionComponent<{ car: CarResult }> = (
 			variables: {
 				carId: Number(props.car.id),
 				bid: highestBid + 100,
-			},
-			onCompleted(data) {
-				setHighestBid(data.bid.bid);
 			},
 		}
 	);

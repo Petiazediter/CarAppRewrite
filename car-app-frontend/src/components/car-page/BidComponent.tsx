@@ -66,7 +66,7 @@ export default class BidComponent extends React.Component<
 						<span>
 							Highest bid: $
 							{this.props.bids.length > 0
-								? this.props.bids[this.bidsLenght].bid
+								? this.props.bids[this.props.bids.length - 1].bid
 								: this.props.minBid}
 						</span>
 						<span>
