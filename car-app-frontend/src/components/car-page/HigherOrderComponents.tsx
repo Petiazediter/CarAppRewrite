@@ -1,5 +1,11 @@
-import { useApolloClient, useQuery, useSubscription } from '@apollo/client';
-import { FunctionComponent, useContext } from 'react';
+import {
+	useApolloClient,
+	useLazyQuery,
+	useMutation,
+	useQuery,
+	useSubscription,
+} from '@apollo/client';
+import { FunctionComponent, useContext, useState } from 'react';
 import { MyThemeContext } from '../../context/ThemeContext';
 import BidComponent, { BidResult } from './BidComponent';
 import { gql } from '@apollo/client';
@@ -192,11 +198,30 @@ type BidQueryResultT = {
 	};
 };
 
+const PLACE_BID = gql`
+	mutation PlaceBid($carId: Int!, $bid: Int!) {
+		bid(carId: $carId, bid: $bid) {
+			buyer {
+				username
+			}
+			bid
+		}
+	}
+`;
+type PlaceBidT = {
+	bid: BidResult;
+};
+
 export const BidComponentHOC: FunctionComponent<{ car: CarResult }> = (
 	props
 ) => {
 	const userContext = useContext(UserContext);
 	const client = useApolloClient();
+	const [highestBid, setHighestBid] = useState<number>(
+		props.car.bids.length > 0
+			? props.car.bids[props.car.bids.length - 1].bid
+			: props.car.minBid
+	);
 	const { data: bids, refetch } = useQuery<BidQueryResultT, { id: number }>(
 		BID_QUERY_RESULT,
 		{
@@ -205,8 +230,25 @@ export const BidComponentHOC: FunctionComponent<{ car: CarResult }> = (
 			},
 			fetchPolicy: 'network-only',
 			nextFetchPolicy: 'network-only',
+			onCompleted(data: BidQueryResultT) {
+				setHighestBid(data.car.bids[data.car.bids.length - 1].bid);
+			},
 		}
 	);
+
+	const [placeBid, { error: placeBidError }] = useMutation<PlaceBidT>(
+		PLACE_BID,
+		{
+			variables: {
+				carId: Number(props.car.id),
+				bid: highestBid + 100,
+			},
+			onCompleted(data) {
+				setHighestBid(data.bid.bid);
+			},
+		}
+	);
+
 	const { error } = useSubscription<BidSubResult>(BID_SUBSCRIPTION, {
 		client: client,
 		variables: {
@@ -219,6 +261,11 @@ export const BidComponentHOC: FunctionComponent<{ car: CarResult }> = (
 	});
 
 	const { isDark } = useContext(MyThemeContext);
+
+	if (placeBidError) {
+		console.log(JSON.stringify(placeBidError, null, 2));
+		return <div>{JSON.stringify(placeBidError, null, 2)}</div>;
+	}
 	if (error) return <div>{JSON.stringify(error, null, 2)}</div>;
 	return (
 		<BidComponent
@@ -227,7 +274,7 @@ export const BidComponentHOC: FunctionComponent<{ car: CarResult }> = (
 			minBid={props.car.minBid}
 			user={userContext.user}
 			placeBid={() => {
-				console.log('place bid');
+				placeBid();
 			}}
 		/>
 	);
