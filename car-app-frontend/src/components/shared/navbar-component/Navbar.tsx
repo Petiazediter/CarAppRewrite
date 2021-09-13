@@ -12,11 +12,9 @@ import {
 	TitleLink,
 } from './Navbar.styled';
 import { FunctionComponent, useContext, useState } from 'react';
-import { useDatabaseContext } from '../../../context/DatabaseContext';
-import { Car } from '../../../models/Car';
 import { MyThemeContext } from '../../../context/ThemeContext';
-import { gql } from '@apollo/client';
 import { UserContext } from '../../../context/UserContext';
+import { gql, useLazyQuery } from '@apollo/client';
 
 const { Search } = Input;
 
@@ -71,31 +69,34 @@ const renderTitle = (title: string) => (
 	</span>
 );
 
-const renderItem = (title: string) => ({
+const renderItem = (title: string, id: number) => ({
 	value: title,
 	label: (
 		<div
+			key={id}
 			style={{
 				display: 'flex',
 				justifyContent: 'space-between',
 			}}
 		>
-			{title}
+			<Link to={`/car/${id}`}>{title}</Link>
 		</div>
 	),
 });
 
-const getOptionsBySearch = (searchTerm: string, cars: Car[]): OptionType[] => {
-	return [
-		{
-			label: renderTitle('Bids'),
-			options: cars.map((value) => renderItem(value.title)),
-		},
-		{
-			label: renderTitle('Users'),
-			options: [renderItem('User1'), renderItem('User2')],
-		},
-	];
+const getOptionsBySearch = (
+	searchTerm: string,
+	cars: { carByTitle: { id: number; name: string }[] } | undefined
+): OptionType[] => {
+	if (cars) {
+		return [
+			{
+				label: renderTitle('Auctions'),
+				options: cars.carByTitle.map((car) => renderItem(car.name, car.id)),
+			},
+		];
+	}
+	return [];
 };
 
 export type ItemType = {
@@ -108,11 +109,11 @@ export type OptionType = {
 	options: ItemType[];
 };
 
-export const ME_QUERY = gql`
-	query MeQuery {
-		me {
+const CAR_FILTER_QUERY = gql`
+	query CarFilter($titleFragment: String!) {
+		carByTitle(titleFragment: $titleFragment) {
 			id
-			username
+			name
 		}
 	}
 `;
@@ -122,16 +123,21 @@ export const Navbar: FunctionComponent = () => {
 	const [searchTerm, setSearchTerm] = useState('');
 	const initial: OptionType[] = [];
 	const [options, setOptions] = useState(initial);
-	const initialTable: Car[] = [];
-	const [filterCars, setFilterCars] = useState(initialTable);
-	const getCarFromDatabase = useDatabaseContext().getCarBySearchTerm;
 	const { toggleTheme, isDark } = useContext(MyThemeContext);
 	const { user } = useContext(UserContext);
 
+	const [findByTitle, { data: cars }] = useLazyQuery<{
+		carByTitle: { id: number; name: string }[];
+	}>(CAR_FILTER_QUERY, {
+		variables: {
+			titleFragment: searchTerm,
+		},
+	});
+
 	const onSearchChange = (value: string) => {
 		setSearchTerm(value);
-		setOptions(getOptionsBySearch(searchTerm, filterCars));
-		setFilterCars(getCarFromDatabase(searchTerm));
+		findByTitle();
+		setOptions(getOptionsBySearch(searchTerm, cars));
 	};
 
 	return width >= 800 ? (
