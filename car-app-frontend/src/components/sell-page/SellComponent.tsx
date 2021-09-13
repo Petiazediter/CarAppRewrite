@@ -3,8 +3,14 @@ import { gql, useMutation } from '@apollo/client';
 import styled from '@emotion/styled';
 import { Form, Steps, Input, Select, Button, Divider, DatePicker } from 'antd';
 import moment from 'moment';
-import React, { ChangeEvent, FunctionComponent, useState } from 'react';
+import React, {
+	ChangeEvent,
+	FunctionComponent,
+	useContext,
+	useState,
+} from 'react';
 import { useHistory } from 'react-router';
+import { UserContext } from '../../context/UserContext';
 const { Step } = Steps;
 
 const steps = [
@@ -239,10 +245,15 @@ const SellComponent: FunctionComponent = () => {
 			},
 		}
 	);
+	const userContext = useContext(UserContext);
 
 	const onFinishFirstPage = () => {
 		setPage((currentPage) => currentPage + 1);
 	};
+
+	if (!userContext.user) {
+		history.push('/sign-in');
+	}
 
 	return (
 		<section>
