@@ -5,6 +5,7 @@ import BidComponent, { BidResult } from './BidComponent';
 import { gql } from '@apollo/client';
 import { useParams } from 'react-router';
 import { CarPage } from './CarPage';
+import { UserContext } from '../../context/UserContext';
 
 const GET_CAR_QUERY = gql`
 	query Query($carId: Int!) {
@@ -194,6 +195,7 @@ type BidQueryResultT = {
 export const BidComponentHOC: FunctionComponent<{ car: CarResult }> = (
 	props
 ) => {
+	const userContext = useContext(UserContext);
 	const client = useApolloClient();
 	const { data: bids, refetch } = useQuery<BidQueryResultT, { id: number }>(
 		BID_QUERY_RESULT,
@@ -210,8 +212,7 @@ export const BidComponentHOC: FunctionComponent<{ car: CarResult }> = (
 		variables: {
 			carId: Number(props.car.id),
 		},
-		onSubscriptionData(data) {
-			console.log(data);
+		onSubscriptionData() {
 			refetch();
 		},
 		shouldResubscribe: true,
@@ -224,6 +225,7 @@ export const BidComponentHOC: FunctionComponent<{ car: CarResult }> = (
 				isDark={isDark}
 				bids={bids.car.bids}
 				minBid={props.car.minBid}
+				user={userContext.user}
 			/>
 		);
 	return (
@@ -231,6 +233,7 @@ export const BidComponentHOC: FunctionComponent<{ car: CarResult }> = (
 			isDark={isDark}
 			bids={props.car.bids}
 			minBid={props.car.minBid}
+			user={userContext.user}
 		/>
 	);
 };

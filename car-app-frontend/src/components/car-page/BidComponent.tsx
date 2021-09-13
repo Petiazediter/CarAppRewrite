@@ -1,4 +1,5 @@
 import React from 'react';
+import QueryUser from '../../models/schema/QueryUser';
 import { IS_DARK } from '../shared/navbar-component/Navbar.styled';
 import {
 	Bid,
@@ -18,6 +19,7 @@ export type BidComponentProps = {
 	bids: BidResult[];
 	minBid: number;
 	isDark: boolean;
+	user: QueryUser | undefined;
 };
 
 export type BidComponentState = {
@@ -72,7 +74,11 @@ export default class BidComponent extends React.Component<
 								: 'No bid yet.'}
 						</span>
 					</BidDetails>
-					<BidButton>Place a bid</BidButton>
+					{this.props.user ? (
+						<BidButton>Place a bid</BidButton>
+					) : (
+						<BidButton disabled>Log in to place a bid</BidButton>
+					)}
 				</Bid>
 			</BidContainer>
 		);
