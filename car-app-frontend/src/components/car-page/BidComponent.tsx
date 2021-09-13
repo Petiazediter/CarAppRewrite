@@ -16,6 +16,7 @@ export type BidResult = {
 };
 
 export type BidComponentProps = {
+	sellerId: number;
 	bids: BidResult[];
 	minBid: number;
 	isDark: boolean;
@@ -76,13 +77,17 @@ export default class BidComponent extends React.Component<
 						</span>
 					</BidDetails>
 					{this.props.user ? (
-						<BidButton
-							onClick={() => {
-								this.props.placeBid();
-							}}
-						>
-							Place a bid
-						</BidButton>
+						this.props.user.id !== this.props.sellerId ? (
+							<BidButton
+								onClick={() => {
+									this.props.placeBid();
+								}}
+							>
+								Place a bid
+							</BidButton>
+						) : (
+							<BidButton disabled>You can't bid for your own car</BidButton>
+						)
 					) : (
 						<BidButton disabled>Log in to place a bid</BidButton>
 					)}

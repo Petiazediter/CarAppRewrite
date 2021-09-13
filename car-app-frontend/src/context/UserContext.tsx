@@ -36,7 +36,7 @@ export type MeQueryType = {
 };
 
 export default function UserContextProvider({ children }: ContextProviderType) {
-	const { refetch } = useQuery<MeQueryType>(ME_QUERY, {
+	const { refetch, error } = useQuery<MeQueryType>(ME_QUERY, {
 		onCompleted(data) {
 			setUser(data.me);
 		},
@@ -58,6 +58,12 @@ export default function UserContextProvider({ children }: ContextProviderType) {
 			refetch().then();
 		}
 	}, [refetch, token]);
+
+	if (error) {
+		console.log(user);
+		console.log(token);
+		console.log(JSON.stringify(error, null, 2));
+	}
 
 	return (
 		<UserContext.Provider value={{ user, changeUser, changeToken, token }}>

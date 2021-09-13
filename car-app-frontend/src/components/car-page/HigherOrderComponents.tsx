@@ -269,6 +269,7 @@ export const BidComponentHOC: FunctionComponent<{ car: CarResult }> = (
 	if (error) return <div>{JSON.stringify(error, null, 2)}</div>;
 	return (
 		<BidComponent
+			sellerId={props.car.seller.id}
 			isDark={isDark}
 			bids={bids ? bids.car.bids : props.car.bids}
 			minBid={props.car.minBid}
