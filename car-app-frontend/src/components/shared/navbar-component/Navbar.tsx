@@ -225,7 +225,6 @@ export const Navbar: FunctionComponent = () => {
 				<NavbarMenuCol isdark={isDark ? IS_DARK : ''} flex={3}>
 					<Search
 						placeholder="Search for cars"
-						onSearch={onSearch}
 						style={searchStyle}
 					/>
 				</NavbarMenuCol>
