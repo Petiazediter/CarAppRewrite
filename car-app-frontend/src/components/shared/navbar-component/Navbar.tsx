@@ -47,8 +47,6 @@ const menu = (
 	</Menu>
 );
 
-const onSearch = (term: string) => {};
-
 const searchStyle = {
 	width: '100%',
 	height: '100%',
@@ -59,7 +57,7 @@ const renderTitle = (title: string) => (
 	<span>
 		{title}
 		<Link
-			to={'/brands'}
+			to={'/'}
 			style={{
 				float: 'right',
 			}}
@@ -186,7 +184,6 @@ export const Navbar: FunctionComponent = () => {
 							onChange={(event) => {
 								onSearchChange(event.target.value);
 							}}
-							onSearch={onSearch}
 							style={searchStyle}
 						/>
 					</AutoComplete>

@@ -21,6 +21,7 @@ import { CarDataTable } from './CarDataTable';
 import { BidComponentHOC, CarResult } from './HigherOrderComponents';
 import { TimerDisplayFormat, TimerText } from '../auctions-page/TimerText';
 import ExtrasTableComponent from './ExtrasTableComponent';
+import CommentList from "./comments/CommentList";
 
 interface IState {
 	imageType: ImageType;
@@ -145,7 +146,7 @@ export class CarPage extends React.Component<{ car: CarResult }, IState> {
 												height="315"
 												src={url}
 												width="420"
-											></iframe>
+											/>
 									  ))}
 							</ImageDisplay>
 							<CarDataTable car={this.props.car} />
@@ -187,6 +188,7 @@ export class CarPage extends React.Component<{ car: CarResult }, IState> {
 								)}
 							/>
 						</section>
+						<CommentList carId={this.props.car.id}/>
 					</div>
 				) : (
 					<span>NO Data </span>
