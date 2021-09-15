@@ -33,6 +33,10 @@ export const PUBLISH_COMMENT = gql`
     mutation PublishComment($text: String!, $carId:Int, $commentId: Int){
         addComment(text: $text, carId: $carId, commentId: $commentId){
             id
+            message
+            user {
+                username
+            }
         }
     }
 `
@@ -44,9 +48,7 @@ export type PublishCommentArgs = {
 }
 
 export type PublishCommentT = {
-    addComment: {
-        id: number
-    }
+    addComment: CommentT
 }
 
 const CommentList: FunctionComponent<CommentComponentProps> = (props) => {
@@ -62,7 +64,30 @@ const CommentList: FunctionComponent<CommentComponentProps> = (props) => {
 	    variables: {
 	        text: comment,
             carId: Number(props.carId)
-	    }
+	    },
+        update(cache, {data}){
+	        const query: GetCarCommentsT | null = cache.readQuery({
+                query: GET_CAR_COMMENTS,
+                variables: {
+                    carId: Number(props.carId)
+                }
+            });
+
+	        if ( query && data ){
+	            console.log('Query and data')
+	            const updatedComments: CommentT[] = [...query.car.comments, data.addComment]
+                console.log(updatedComments)
+                cache.writeQuery({
+                    query: GET_CAR_COMMENTS,
+                    data: {
+                        car: {
+                            comments: updatedComments
+                        }
+                    },
+                    variables: {carId: Number(props.carId)}
+                })
+            }
+        }
     });
 
 	if ( submittingError ){
