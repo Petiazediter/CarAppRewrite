@@ -74,9 +74,7 @@ const CommentList: FunctionComponent<CommentComponentProps> = (props) => {
             });
 
 	        if ( query && data ){
-	            console.log('Query and data')
 	            const updatedComments: CommentT[] = [...query.car.comments, data.addComment]
-                console.log(updatedComments)
                 cache.writeQuery({
                     query: GET_CAR_COMMENTS,
                     data: {
