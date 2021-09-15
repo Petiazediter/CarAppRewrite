@@ -1,59 +1,132 @@
-import React, {FunctionComponent} from 'react'
-import {gql, useLazyQuery} from "@apollo/client";
-import CommentComponent, {CommentT} from "./CommentComponent";
+import React, { FunctionComponent, useState } from 'react';
+import { gql, useMutation, useQuery } from '@apollo/client';
+import CommentComponent, { CommentT } from './CommentComponent';
+import { Avatar, Divider, Comment, Form, Input, Button } from 'antd';
+
+const { TextArea } = Input;
 
 const GET_CAR_COMMENTS = gql`
-    query GetCarComments($carId: Int!){
-        car(id: $carId){
-            comments{
-                id 
-                message
-                user {
-                    username
-                }
-            }
+	query GetCarComments($carId: Int!) {
+		car(id: $carId) {
+			comments {
+				id
+				message
+				user {
+					username
+				}
+			}
+		}
+	}
+`;
+
+type GetCarCommentsT = {
+	car: {
+		comments: CommentT[];
+	};
+};
+
+type CommentComponentProps = {
+	carId: number;
+};
+
+export const PUBLISH_COMMENT = gql`
+    mutation PublishComment($text: String!, $carId:Int, $commentId: Int){
+        addComment(text: $text, carId: $carId, commentId: $commentId){
+            id
         }
     }
 `
 
-type GetCarCommentsT = {
-    car: {
-        comments: CommentT[]
+export type PublishCommentArgs = {
+    text: string
+    carId?: number
+    commentId?: number
+}
+
+export type PublishCommentT = {
+    addComment: {
+        id: number
     }
 }
 
-type CommentComponentProps = {
-    carId: number;
-}
+const CommentList: FunctionComponent<CommentComponentProps> = (props) => {
+	const { data, loading, error } = useQuery<GetCarCommentsT>(GET_CAR_COMMENTS, {
+		variables: {
+			carId: Number(props.carId),
+		},
+	});
 
-const CommentList: FunctionComponent<CommentComponentProps> = props => {
+	const [comment,setComment] = useState<string>('')
 
-    const [getComments, {data,loading,error}] = useLazyQuery<GetCarCommentsT>(GET_CAR_COMMENTS,{
-        variables: {
+	const [publishComment, { loading: submitting, error: submittingError }] = useMutation<PublishCommentT,PublishCommentArgs>(PUBLISH_COMMENT, {
+	    variables: {
+	        text: comment,
             carId: Number(props.carId)
-        }
-    })
+	    }
+    });
 
-    if ( loading ) {
-        return <div>Loading...</div>
-    }
-    if (error){
-        return <div>{JSON.stringify(error, null, 2)}</div>
+	if ( submittingError ){
+	    console.log(JSON.stringify(submittingError, null, 2))
     }
 
-    if (!data) {
-        return <button onClick={() => getComments()}> Click here to reveal comments.</button>
-    }
+	if (loading) {
+		return <div>Loading...</div>;
+	}
+	if (error) {
+		return <div>{JSON.stringify(error, null, 2)}</div>;
+	}
 
-    if ( data.car.comments.length === 0) {
-        return <div>No comments yet.</div>
-    }
+	if (!data) {
+		return <div>No comments yet.</div>;
+	}
 
-    return (
-        <div>
-            {data.car.comments.map(comment => <CommentComponent key={comment.id} comment={comment} />)}
-        </div>
-    )
-}
+	if (data.car.comments.length === 0) {
+		return <div>No comments yet.</div>;
+	}
 
-export default CommentList
+	return (
+		<div>
+			<Divider />
+			<h1>Comments</h1>
+			{data.car.comments.map((comment: CommentT) => (
+				<CommentComponent key={comment.id} comment={comment} />
+			))}
+
+			<Comment
+				avatar={
+					<Avatar
+						src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
+						alt="Han Solo"
+					/>
+				}
+				content={
+					<>
+						<Form.Item>
+							<TextArea
+								rows={4}
+								onChange={(value) => {
+									setComment(value.currentTarget.value);
+								}}
+								value={comment}
+							/>
+						</Form.Item>
+						<Form.Item>
+							<Button
+								htmlType="submit"
+								loading={submitting}
+								onClick={() => {
+									publishComment().then();
+								}}
+								type="primary"
+							>
+								Add Comment
+							</Button>
+						</Form.Item>
+					</>
+				}
+			/>
+		</div>
+	);
+};
+
+export default CommentList;

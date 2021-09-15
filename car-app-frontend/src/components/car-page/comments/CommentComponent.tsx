@@ -1,66 +1,69 @@
-import React, {FunctionComponent } from 'react'
-import {gql, useLazyQuery} from "@apollo/client";
+import React, { FunctionComponent } from 'react';
+import { gql, useQuery } from '@apollo/client';
+import { Comment, Avatar } from 'antd';
 
 type CommentComponentProps = {
-    comment: CommentT
-}
+	comment: CommentT;
+};
 
 export type CommentT = {
-    id: number
-    message: string
-    user: {
-        username: string
-    }
-}
+	id: number;
+	message: string;
+	user: {
+		username: string;
+	};
+};
 
 const COMMENT_QUERY = gql`
-    query GetCommentById($id: Int!){
-        comment(id: $id){
-            comments {
-                id
-                message
-                user {
-                    username
-                }    
-            }
-        }
-    }
-`
+	query GetCommentById($id: Int!) {
+		comment(id: $id) {
+			comments {
+				id
+				message
+				user {
+					username
+				}
+			}
+		}
+	}
+`;
 
 type CommentQueryT = {
-    comment: {
-        comments: CommentT[]
-    }
-}
+	comment: {
+		comments: CommentT[];
+	};
+};
 
-const CommentComponent: FunctionComponent<CommentComponentProps> = props => {
-    const [getComments, {data,loading}] = useLazyQuery<CommentQueryT>(COMMENT_QUERY, {
-        variables: {
-            id: props.comment.id
-        }
-    });
+const CommentComponent: FunctionComponent<CommentComponentProps> = (props) => {
+	const { data, loading } = useQuery<CommentQueryT>(COMMENT_QUERY, {
+		variables: {
+			id: props.comment.id,
+		},
+	});
 
-    if (loading){
-        return <div>
-            {props.comment.message}<br/>
-            <i>{props.comment.user.username}</i><br/>
-            Loading...
-        </div>
-    }
+	return (
+		<Comment
+			actions={[<span key="comment-nested-reply-to">Reply to</span>]}
+			author={
+				<a href={`/user/${props.comment.user.username}`}>
+					{props.comment.user.username}
+				</a>
+			}
+			avatar={
+				<Avatar
+					src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
+					alt="Han Solo"
+				/>
+			}
+			content={<p>{props.comment.message}</p>}
+		>
+			{data &&
+				data.comment.comments.map((comment) => (
+					<CommentComponent key={comment.id} comment={comment} />
+				))}
+			{loading && <p>Loading...</p>}
+		</Comment>
+	);
+};
 
-    if (!data){
-        return <div>
-            {props.comment.message}<br/>
-            <i>{props.comment.user.username}</i>
-            <section onClick={() => getComments()}>Show replies</section>
-        </div>
-    }
-
-    return <div>
-        {props.comment.message}<br/>
-        <i>{props.comment.user.username}</i>
-        {data.comment.comments.map(comment => <CommentComponent key={comment.id} comment={comment} />)}
-    </div>
-}
-
-export default CommentComponent
+export default CommentComponent;
